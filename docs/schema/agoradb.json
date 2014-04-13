@@ -1,8 +1,48 @@
-
 provider = {
 		"_id" : "grnet", 
 		"name" : "GRNET", 
-		"description" : "The Greek Research and Technology Network."
+		"description" : "The Greek Research and Technology Network.",
+		"propertyRightsOwnership" : {
+			"intellectualPropertyRights" : "",	// points: 0, 5, 10
+			"csp" : "",
+			"owneship" : ""
+		},
+		"legalAspects" : {
+			"" : "",
+			"" : "",
+			"" : "",
+			"" : "",
+			"" : ""
+		},
+		"security" : {
+			"" : "",
+			"" : ""
+		},
+		"continuity" : {
+			"" : "",
+			"" : "",
+			"" : ""
+		},
+		"confidentiality" : {
+			"" : ""
+		},
+		"personnel" : "",
+		"penalty" : "",
+		"communication" : {
+			"" : "",
+			"" : "",
+			"" : "",
+			"" : "",
+			"" : ""
+		},
+		"notification" : "",
+		"billing" : "",
+		"technicalRequirements" : {
+			"" : "",
+			"" : "",
+			"" : "",
+			"" : ""
+		}
 	}
 
 service = {
