@@ -8,40 +8,40 @@ provider = {
 			"owneship" : ""
 		},
 		"legalAspects" : {
-			"" : "",
-			"" : "",
-			"" : "",
-			"" : "",
-			"" : ""
+			"nationalLawGovernance" : "",
+			"concordanceNationalPrivacyActs" : "",
+			"externalSecurityAuditCertificate" : "",
+			"subcontractors" : "",
+			"protectionMinorsUsers" : "",
+			"serviceLevelAgreement" : ""
 		},
 		"security" : {
-			"" : "",
-			"" : ""
+			"csSecurity" : "",
+			"securityIncidentsHandling" : ""
 		},
 		"continuity" : {
-			"" : "",
-			"" : "",
-			"" : ""
+			"dataBackupRestore" : "",
+			"compatibility" : "",
+			"portability" : ""
 		},
 		"confidentiality" : {
-			"" : ""
+			"dataProtection" : ""
 		},
 		"personnel" : "",
 		"penalty" : "",
 		"communication" : {
-			"" : "",
-			"" : "",
-			"" : "",
-			"" : "",
-			"" : ""
+			"supervision" : "",
+			"dataAvailability" : "",
+			"edpAudit" : "",
+			"qualityReview" : ""
 		},
 		"notification" : "",
 		"billing" : "",
 		"technicalRequirements" : {
-			"" : "",
-			"" : "",
-			"" : "",
-			"" : ""
+			"aai" : "",
+			"userProvisioning" : "",
+			"reportingMeteringSalesEstimates" : "",
+			"networkConnectivityAssociatedNetworkingCosts" : ""
 		}
 	}
 
