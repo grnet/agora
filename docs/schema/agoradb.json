@@ -3,7 +3,7 @@ provider = {
 		"name" : "GRNET", 
 		"description" : "The Greek Research and Technology Network.",
 		"propertyRightsOwnership" : {
-			"intellectualPropertyRights" : "",	// points: 0, 5, 10
+			"intellectualPropertyRights" : "",	// a score of: 0, 5, 10
 			"csp" : "",
 			"owneship" : ""
 		},
