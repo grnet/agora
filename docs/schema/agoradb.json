@@ -4,6 +4,14 @@ provider = {
   "description" : "The Greek Research and Technology Network.",
 }
 
+service = {
+  "_id" : { "$oid" : "5345516c3f2184a090a82277" },
+  "title" : "",
+  "description" : "",
+  "url" : "",
+  "provider_id" : ""
+}
+
 providerComplianceProfile = {
 }
 
@@ -63,7 +71,7 @@ serviceCompliaceProfile = {
   "supervision" : ["","communication"],
   "dataAvailability" : ["","communication"],
   "edpAudit" : ["","communication"],
-  "qualityReview" : ["","communication"]
+  "qualityReview" : ["","communication"],
   "notification" : "",
   "billing" : "",
   "aai" : ["","technicalRequirements"],
@@ -72,12 +80,3 @@ serviceCompliaceProfile = {
   "networkConnectivityAssociatedNetworkingCosts" : ["","technicalRequirements"],
   "service_id" : "",
 }
-
-service = {
-  "_id" : { "$oid" : "5345516c3f2184a090a82277" },
-  "title" : "",
-  "description" : "",
-  "url" : "",
-  "provider_id" : ""
-} 
-
