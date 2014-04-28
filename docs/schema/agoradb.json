@@ -1,55 +1,83 @@
 provider = {
-	"_id" : "grnet", 
-	"name" : "GRNET", 
-	"description" : "The Greek Research and Technology Network.",
-	"propertyRightsOwnership" : {
-		"intellectualPropertyRights" : "",	// a score of: 0, 5, 10
-		"csp" : "",
-		"owneship" : ""
-	},
-	"legalAspects" : {
-		"nationalLawGovernance" : "",
-		"concordanceNationalPrivacyActs" : "",
-		"externalSecurityAuditCertificate" : "",
-		"subcontractors" : "",
-		"protectionMinorsUsers" : "",
-		"serviceLevelAgreement" : ""
-	},
-	"security" : {
-		"csSecurity" : "",
-		"securityIncidentsHandling" : ""
-	},
-	"continuity" : {
-		"dataBackupRestore" : "",
-		"compatibility" : "",
-		"portability" : ""
-	},
-	"confidentiality" : {
-		"dataProtection" : ""
-	},
-	"personnel" : "",
-	"penalty" : "",
-	"communication" : {
-		"supervision" : "",
-		"dataAvailability" : "",
-		"edpAudit" : "",
-		"qualityReview" : ""
-	},
-	"notification" : "",
-	"billing" : "",
-	"technicalRequirements" : {
-		"aai" : "",
-		"userProvisioning" : "",
-		"reportingMeteringSalesEstimates" : "",
-		"networkConnectivityAssociatedNetworkingCosts" : ""
-	}
+  "_id" : "grnet", 
+  "name" : "GRNET", 
+  "description" : "The Greek Research and Technology Network.",
+}
+
+providerComplianceProfile = {
+}
+
+serviceCompliaceProfile = { 
+  "createdDate" : "",
+  "modifiedDate" : "",
+  "version" : "",
+  "intellectualPropertyRights" : {
+    "rate" : "",
+    "tags" : ["propertyRightsOwnership"],
+  },
+  "csp" : {
+    "rate" : "",
+    "tags" : ["propertyRightsOwnership"]
+  },
+  "ownership" : {
+    "rate" : "",
+    "tags" : ["propertyRightOwnership"],
+  },
+  "nationalLawGovernance" : {
+    "rate" : "",
+    "tags" : ["legalAspects"]
+  },
+  "concordanceNationalPrivacyActs" : {
+    "rate" : "",
+    "tags" : ["legalAspects"],
+  },
+  "externalSecurityAuditCertificate" : {
+    "rate" : "",
+    "tags" : ["legalAspects"],
+  },
+  "subcontractors" : {
+    "rate" : "",
+    "tags" : ["legalAspects"],
+  },
+  "protectionMinorsUsers" : {
+    "rate" : "",
+    "tags" : ["legalAspects"],
+  },
+  "serviceLevelAgreement" : {
+    "rate" : "",
+    "tags" : ["legalAspects"],
+  },
+  "csSecurity" : {
+    "rate" : "",
+    "tags" : ["security"],
+  },
+  "securityIncidentsHandling" : {
+    "rate" : "",
+    "tags" : ["security"],
+  },
+  "dataBackupRestore" : ["","continuity"],
+  "compatibility" : ["","continuity"],
+  "dataProtection" : ["","confidentiality"],
+  "personnel" : "",
+  "penalty" : "",
+  "supervision" : ["","communication"],
+  "dataAvailability" : ["","communication"],
+  "edpAudit" : ["","communication"],
+  "qualityReview" : ["","communication"]
+  "notification" : "",
+  "billing" : "",
+  "aai" : ["","technicalRequirements"],
+  "userProvisioning" : ["","technicalRequirements"],
+  "reportingMeteringSalesEstimates" : ["","technicalRequirements"],
+  "networkConnectivityAssociatedNetworkingCosts" : ["","technicalRequirements"],
+  "service_id" : "",
 }
 
 service = {
-	"_id" : { "$oid" : "5345516c3f2184a090a82277" },
-	"title" : "",
-	"description" : "",
-	"url" : "",
-	"provider_id" : "grnet"
+  "_id" : { "$oid" : "5345516c3f2184a090a82277" },
+  "title" : "",
+  "description" : "",
+  "url" : "",
+  "provider_id" : ""
 } 
 
