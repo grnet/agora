@@ -1,82 +1,82 @@
 provider = {
-  "_id" : "grnet", 
-  "name" : "GRNET", 
-  "description" : "The Greek Research and Technology Network.",
+  _id : "grnet", 
+  name : "GRNET", 
+  description : "The Greek Research and Technology Network.",
 }
 
 service = {
-  "_id" : { "$oid" : "5345516c3f2184a090a82277" },
-  "title" : "",
-  "description" : "",
-  "url" : "",
-  "provider_id" : ""
+  _id : { "$oid" : "5345516c3f2184a090a82277" },
+  title : "",
+  description : "",
+  url : "",
+  provider_id : ""
 }
 
 providerComplianceProfile = {
 }
 
 serviceCompliaceProfile = { 
-  "createdDate" : "",
-  "modifiedDate" : "",
-  "version" : "",
-  "intellectualPropertyRights" : {
-    "rate" : "",
-    "tags" : ["propertyRightsOwnership"],
+  createdDate : "",
+  modifiedDate : "",
+  version : "",
+  intellectualPropertyRights : {
+    rate : "",
+    tags : ["propertyRightsOwnership"],
   },
-  "csp" : {
-    "rate" : "",
-    "tags" : ["propertyRightsOwnership"]
+  csp : {
+    rate : "",
+    tags : ["propertyRightsOwnership"]
   },
-  "ownership" : {
-    "rate" : "",
-    "tags" : ["propertyRightOwnership"],
+  ownership : {
+    rate : "",
+    tags : ["propertyRightOwnership"],
   },
-  "nationalLawGovernance" : {
-    "rate" : "",
-    "tags" : ["legalAspects"]
+  nationalLawGovernance : {
+    rate : "",
+    tags : ["legalAspects"]
   },
-  "concordanceNationalPrivacyActs" : {
-    "rate" : "",
-    "tags" : ["legalAspects"],
+  concordanceNationalPrivacyActs : {
+    rate : "",
+    tags : ["legalAspects"],
   },
-  "externalSecurityAuditCertificate" : {
-    "rate" : "",
-    "tags" : ["legalAspects"],
+  externalSecurityAuditCertificate : {
+    rate : "",
+    tags : ["legalAspects"],
   },
-  "subcontractors" : {
-    "rate" : "",
-    "tags" : ["legalAspects"],
+  subcontractors : {
+    rate : "",
+    tags : ["legalAspects"],
   },
-  "protectionMinorsUsers" : {
-    "rate" : "",
-    "tags" : ["legalAspects"],
+  protectionMinorsUsers : {
+    rate : "",
+    tags : ["legalAspects"],
   },
-  "serviceLevelAgreement" : {
-    "rate" : "",
-    "tags" : ["legalAspects"],
+  serviceLevelAgreement : {
+    rate : "",
+    tags : ["legalAspects"],
   },
-  "csSecurity" : {
-    "rate" : "",
-    "tags" : ["security"],
+  csSecurity : {
+    rate : "",
+    tags : ["security"],
   },
-  "securityIncidentsHandling" : {
-    "rate" : "",
-    "tags" : ["security"],
+  securityIncidentsHandling : {
+    rate : "",
+    tags : ["security"],
   },
-  "dataBackupRestore" : ["","continuity"],
-  "compatibility" : ["","continuity"],
-  "dataProtection" : ["","confidentiality"],
-  "personnel" : "",
-  "penalty" : "",
-  "supervision" : ["","communication"],
-  "dataAvailability" : ["","communication"],
-  "edpAudit" : ["","communication"],
-  "qualityReview" : ["","communication"],
-  "notification" : "",
-  "billing" : "",
-  "aai" : ["","technicalRequirements"],
-  "userProvisioning" : ["","technicalRequirements"],
-  "reportingMeteringSalesEstimates" : ["","technicalRequirements"],
-  "networkConnectivityAssociatedNetworkingCosts" : ["","technicalRequirements"],
-  "service_id" : "",
+  dataBackupRestore : ["","continuity"],
+  compatibility : ["","continuity"],
+  dataProtection : ["","confidentiality"],
+  personnel : "",
+  penalty : "",
+  supervision : ["","communication"],
+  dataAvailability : ["","communication"],
+  edpAudit : ["","communication"],
+  qualityReview : ["","communication"],
+  notification : "",
+  billing : "",
+  aai : ["","technicalRequirements"],
+  userProvisioning : ["","technicalRequirements"],
+  reportingMeteringSalesEstimates : ["","technicalRequirements"],
+  networkConnectivityAssociatedNetworkingCosts : ["","technicalRequirements"],
+  service_id : "",
 }
