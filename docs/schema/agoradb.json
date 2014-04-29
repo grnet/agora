@@ -54,4 +54,7 @@ service = {
   "url" : "",
   "provider_id" : "grnet"
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a4b3ddf79e84b93a311c0b09003e3b2504edaefc
