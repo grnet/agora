@@ -1,60 +1,129 @@
 provider = {
-  "_id" : "grnet",
-  "name" : "GRNET",
-  "description" : "The Greek Research and Technology Network.",
-  "complianceProfile" : {
-    "propertyRightsOwnership" : {
-      "intellectualPropertyRights" : "",  // a score of: 0, 5, 10
-      "csp" : "",
-      "owneship" : ""
-    },
-    "legalAspects" : {
-      "nationalLawGovernance" : "",
-      "concordanceNationalPrivacyActs" : "",
-      "externalSecurityAuditCertificate" : "",
-      "subcontractors" : "",
-      "protectionMinorsUsers" : "",
-      "serviceLevelAgreement" : ""
-    },
-    "security" : {
-      "csSecurity" : "",
-      "securityIncidentsHandling" : ""
-    },
-    "continuity" : {
-      "dataBackupRestore" : "",
-      "compatibility" : "",
-      "portability" : ""
-    },
-    "confidentiality" : {
-      "dataProtection" : ""
-    },
-    "personnel" : "",
-    "penalty" : "",
-    "communication" : {
-      "supervision" : "",
-      "dataAvailability" : "",
-      "edpAudit" : "",
-      "qualityReview" : ""
-    },
-    "notification" : "",
-    "billing" : "",
-    "technicalRequirements" : {
-      "aai" : "",
-      "userProvisioning" : "",
-      "reportingMeteringSalesEstimates" : "",
-      "networkConnectivityAssociatedNetworkingCosts" : ""
-    }
-  }
+  _id : "grnet", 
+  name : "GRNET", 
+  description : "The Greek Research and Technology Network.",
+  country_id : ""
 }
 
 service = {
-  "_id" : { "$oid" : "5345516c3f2184a090a82277" },
-  "title" : "",
-  "description" : "",
-  "url" : "",
-  "provider_id" : "grnet"
+  _id : { "$oid" : "5345516c3f2184a090a82277" },
+  title : "",
+  description : "",
+  url : "",
+  provider_id : ""
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> a4b3ddf79e84b93a311c0b09003e3b2504edaefc
+country = {
+  name : "",
+  isoCode : ""
+}
+
+providerComplianceProfile = {
+}
+
+serviceCompliaceProfile = { 
+  createdDate : "",
+  modifiedDate : "",
+  version : "",
+  intellectualPropertyRights : {
+    rating : "",
+    tags : ["propertyRightsOwnership"],
+  },
+  csp : {
+    rating : "",
+    tags : ["propertyRightsOwnership"]
+  },
+  ownership : {
+    rating : "",
+    tags : ["propertyRightOwnership"],
+  },
+  nationalLawGovernance : {
+    rating : "",
+    tags : ["legalAspects"]
+  },
+  concordanceNationalPrivacyActs : {
+    rating : "",
+    tags : ["legalAspects"],
+  },
+  externalSecurityAuditCertificate : {
+    rating : "",
+    tags : ["legalAspects"],
+  },
+  subcontractors : {
+    rating : "",
+    tags : ["legalAspects"],
+  },
+  protectionMinorsUsers : {
+    rating : "",
+    tags : ["legalAspects"],
+  },
+  serviceLevelAgreement : {
+    rating : "",
+    tags : ["legalAspects"],
+  },
+  csSecurity : {
+    rating : "",
+    tags : ["security"],
+  },
+  securityIncidentsHandling : {
+    rating : "",
+    tags : ["security"],
+  },
+  dataBackupRestore : {
+    rating: "",
+    tags : ["continuity"],
+  },
+  compatibility : {
+    rating : "",
+    tags : ["confidentiality"],
+  },
+  dataProtection : {
+    rating : "",
+    tags : ["confideniality"],
+  },
+  personnel : {
+    rating : "",
+  },
+  penalty : {
+    rating : "",
+  },
+  supervision : {
+    rating : "",
+    tags : ["communication"]
+  },
+  dataAvailability : {
+    rating : "",
+    tags : ["communication"],
+  },
+  edpAudit : {
+    rating : "",
+    tags : ["communication"], 
+  },
+  qualityReview : {
+    rating : "",
+    tags : ["communication"],
+  },
+  notification : {
+    rating : "",
+  },
+  billing : {
+    rating : "",
+  },
+  aai : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  userProvisioning : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  reportingMeteringSalesEstimates : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  networkConnectivityAssociatedNetworkingCosts : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  service_id : "",
+}
