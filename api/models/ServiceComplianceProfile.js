@@ -27,6 +27,12 @@ module.exports = {
       tags: 'array',
       required: false
     },
+    csp: {
+      type: 'string',
+      rating: 'integer',
+      tags: 'array',
+      required: false
+    }
   }
 
 };
