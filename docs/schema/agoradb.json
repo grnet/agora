@@ -2,6 +2,7 @@ provider = {
   _id : "grnet", 
   name : "GRNET", 
   description : "The Greek Research and Technology Network.",
+  country_id : ""
 }
 
 service = {
@@ -12,6 +13,11 @@ service = {
   provider_id : ""
 }
 
+country = {
+  name : "",
+  isoCode : ""
+}
+
 providerComplianceProfile = {
 }
 
@@ -20,63 +26,104 @@ serviceCompliaceProfile = {
   modifiedDate : "",
   version : "",
   intellectualPropertyRights : {
-    rate : "",
+    rating : "",
     tags : ["propertyRightsOwnership"],
   },
   csp : {
-    rate : "",
+    rating : "",
     tags : ["propertyRightsOwnership"]
   },
   ownership : {
-    rate : "",
+    rating : "",
     tags : ["propertyRightOwnership"],
   },
   nationalLawGovernance : {
-    rate : "",
+    rating : "",
     tags : ["legalAspects"]
   },
   concordanceNationalPrivacyActs : {
-    rate : "",
+    rating : "",
     tags : ["legalAspects"],
   },
   externalSecurityAuditCertificate : {
-    rate : "",
+    rating : "",
     tags : ["legalAspects"],
   },
   subcontractors : {
-    rate : "",
+    rating : "",
     tags : ["legalAspects"],
   },
   protectionMinorsUsers : {
-    rate : "",
+    rating : "",
     tags : ["legalAspects"],
   },
   serviceLevelAgreement : {
-    rate : "",
+    rating : "",
     tags : ["legalAspects"],
   },
   csSecurity : {
-    rate : "",
+    rating : "",
     tags : ["security"],
   },
   securityIncidentsHandling : {
-    rate : "",
+    rating : "",
     tags : ["security"],
   },
-  dataBackupRestore : ["","continuity"],
-  compatibility : ["","continuity"],
-  dataProtection : ["","confidentiality"],
-  personnel : "",
-  penalty : "",
-  supervision : ["","communication"],
-  dataAvailability : ["","communication"],
-  edpAudit : ["","communication"],
-  qualityReview : ["","communication"],
-  notification : "",
-  billing : "",
-  aai : ["","technicalRequirements"],
-  userProvisioning : ["","technicalRequirements"],
-  reportingMeteringSalesEstimates : ["","technicalRequirements"],
-  networkConnectivityAssociatedNetworkingCosts : ["","technicalRequirements"],
+  dataBackupRestore : {
+    rating: "",
+    tags : ["continuity"],
+  },
+  compatibility : {
+    rating : "",
+    tags : ["confidentiality"],
+  },
+  dataProtection : {
+    rating : "",
+    tags : ["confideniality"],
+  },
+  personnel : {
+    rating : "",
+  },
+  penalty : {
+    rating : "",
+  },
+  supervision : {
+    rating : "",
+    tags : ["communication"]
+  },
+  dataAvailability : {
+    rating : "",
+    tags : ["communication"],
+  },
+  edpAudit : {
+    rating : "",
+    tags : ["communication"], 
+  },
+  qualityReview : {
+    rating : "",
+    tags : ["communication"],
+  },
+  notification : {
+    rating : "",
+  },
+  billing : {
+    rating : "",
+  },
+  aai : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  userProvisioning : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  reportingMeteringSalesEstimates : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
+  networkConnectivityAssociatedNetworkingCosts : {
+    rating : "",
+    tags : ["technicalRequirements"],
+  },
   service_id : "",
 }
