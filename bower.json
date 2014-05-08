@@ -1,0 +1,27 @@
+{
+  "name": "agora",
+  "version": "0.1.0",
+  "homepage": "https://github.com/grnet/agora",
+  "authors": [
+    "Panos Louridas <louridas@gmail.com>"
+  ],
+  "description": "cloud service provider catalogue",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "GÉANT Standard Open Source Software Outward Licence",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.11",
+    "bootstrap": "~3.1"
+  }
+    
+}
