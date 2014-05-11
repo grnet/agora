@@ -5,7 +5,7 @@ exports.seed = function(options) {
 
   fs.readFile(file, 'utf8', function(err, data) {
     if (err) {
-      sails.log.error('Error: ' + err);
+      sails.log.error(err);
       return;
     }
 
