@@ -5,7 +5,7 @@ exports.seed = function(options) {
 
   fs.readFile(file, 'utf8', function(err, data) {
     if (err) {
-      console.log('Error: ' + err);
+      sails.log.error('Error: ' + err);
       return;
     }
 
@@ -13,11 +13,11 @@ exports.seed = function(options) {
 
     for (var i = 0; i < data.length; i++) {
       var country = data[i];
-      Country.create(country).done(function(err, data) {
+      Country.create(country).done(function(err, country) {
         if (err) {
-          console.log(err);
+          sails.log.error(err);
         } else {
-          console.log("Country created: ", country);
+          sails.log.info("Country created: ", country.name);
         }
       });
     }
