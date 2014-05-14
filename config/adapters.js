@@ -29,8 +29,8 @@ module.exports.adapters = {
     module   : 'sails-mongo',
     host     : 'localhost',
     port     : 27017,
-    user     : '',
-    password : '',
+    user     : 'agora',
+    password : '9baeb5ihsm',
     database : 'agora-dev',
   },
 

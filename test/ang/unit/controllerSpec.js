@@ -25,6 +25,8 @@ describe('Agora controllers', function() {
 
     it('should create "providers" model with 2 providers fetched from xhr',
       function() {
+        expect(scope.providers).toEqualData([]);
+        $httpBackend.flush();
         expect(scope.providers).toEqualData(
           [{name: 'GRNET'}, {name: 'GEANT'}]);
       });

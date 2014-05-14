@@ -13,11 +13,11 @@ exports.seed = function(options) {
 
     for (var i = 0; i < data.length; i++) {
       var country = data[i];
-      Country.create(country).done(function(err, country) {
+      Country.create(country).done(function(err, createdCountry) {
         if (err) {
           sails.log.error(err);
         } else {
-          sails.log.info("Country created: ", country.name);
+          sails.log.info("Country created: ", createdCountry.name);
         }
       });
     }
