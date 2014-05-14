@@ -17,7 +17,7 @@ module.exports.bootstrap = function (cb) {
   // finished with the bootstrap! (otherwise your server will never
   // lift, since it's waiting on the bootstrap)
   Country.count().exec(function(err, count) {
-    if(err) {
+    if (err) {
       sails.log.error(err);
       return cb(err);
     }
