@@ -2,6 +2,10 @@
 
 describe('agoraApp', function() {
 
-    browser.get('index.html');
+  it('should get the home page', function() {
 
+    browser.get('');
+
+    expect('Hello, World!').toEqual('Hello, World!');
+  });
 });
