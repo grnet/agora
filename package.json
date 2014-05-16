@@ -31,7 +31,7 @@
     "test-single-run": "karma start test/ang/karma.conf.js --single-run",
 
     "preupdate-webdriver": "npm install",
-    "update-webdriver": "webdriver-manager update",
+    "update-webdriver": "webdriver-manager update"
 
   },
 
