@@ -52,6 +52,9 @@ module.exports = function (grunt) {
     // then beef it up with some convenience logic for talking to Sails.js
     'linker/js/sails.io.js',
 
+    // Bring in angular
+    'linker/js/angular.js',
+    
     // A simpler boilerplate library for getting you up and running w/ an
     // automatic listener for incoming messages from Socket.io.
     'linker/js/app.js',
@@ -146,7 +149,25 @@ module.exports = function (grunt) {
           cwd: './assets',
           src: ['**/*.!(coffee)'],
           dest: '.tmp/public'
-        }
+        },
+        {
+          expand: true,
+          cwd: './bower_components/angular',
+          src: ['*.js'],
+          dest: '.tmp/public'
+        },
+        {
+          expand: true,
+          cwd: './bower_components/angular-route',
+          src: ['*.js'],
+          dest: '.tmp/public'
+        },
+        {
+          expand: true,
+          cwd: './bower_components/angular-resource',
+          src: ['*.js'],
+          dest: '.tmp/public'
+        }                      
         ]
       },
       build: {

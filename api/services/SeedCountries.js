@@ -9,15 +9,15 @@ exports.seed = function(options) {
       return;
     }
 
-    data = JSON.parse(data);
+    var parsedCountries = JSON.parse(data);
 
-    for (var i = 0; i < data.length; i++) {
-      var country = data[i];
-      Country.create(country).done(function(err, country) {
+    for (var i = 0; i < parsedCountries.length; i++) {
+      var country = parsedCountries[i];
+      Country.create(country).done(function(err, createdCountry) {
         if (err) {
           sails.log.error(err);
         } else {
-          sails.log.info("Country created: ", country.name);
+          sails.log.info("Country created: ", createdCountry.name);
         }
       });
     }
