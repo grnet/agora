@@ -4,8 +4,8 @@ describe('agoraApp', function() {
 
   it('should get the home page', function() {
 
-    browser.get('');
+    browser.driver.get('http://localhost:1337/');
 
-    expect('Hello, World!').toEqual('Hello, World!');
+    expect(true).toEqual(true);
   });
 });
