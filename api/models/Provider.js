@@ -17,7 +17,7 @@ module.exports = {
       type: 'text',
       required: true
     },
-    country_id: {
+    country: {
       type: 'string',
       required: true
     }

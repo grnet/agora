@@ -1,10 +1,11 @@
 [
 {
-  "_id": "01",
   "name": "GRNET",
-  "description": "The Greek Research and Technology Network."},
+  "description": "The Greek Research and Technology Network.",
+  "country": "Greece"},
 {
-  "_id": "02",
   "name": "GEANT",
-  "description": "GÉANT is the pan European data network dedicated to the research and education community."}
+  "description": "GÉANT is the pan European data network dedicated to the research and education community.",
+  "country": "United Kingdom"
+}
 ]
