@@ -1,21 +1,20 @@
 var express = require('express'),
-mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    conf = require('./config');
 
 var app = express();
 
 app.configure(function(){
-	app.set('view engine', 'ejs');
-	app.use(express.static(__dirname + '/public'));
+  app.set('view engine', 'ejs');
+  app.use(express.static(__dirname + '/public'));
   app.use('/components', express.static(__dirname + '/bower_components'));
-	app.use(express.bodyParser());
+  app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-mongoose.connect('mongodb://localhost/agora_dev');
-
-var Schema = mongoose.Schema;  
+mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db, conf.mongo_options);
 
 var Country = require('./models/Country')(mongoose);
 var Provider = require('./models/Provider')(mongoose);
@@ -72,4 +71,4 @@ app.post('/api/providers', function (req, res){
   return res.send(provider);
 });
 
-app.listen(8080);
+app.listen(conf.nodejs_port);

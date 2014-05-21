@@ -1,10 +1,12 @@
+var config = require('./config')
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mongoimport');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     mongoimport: {
       options: {
-        db: 'agora_dev',
+        db: config.mongo_db,
         collections: [
         {
           name: 'countries',
@@ -24,10 +26,6 @@ module.exports = function(grunt) {
         }
         ]
       }
-    },
-    server: {
-       port: 3000,
-       base: './public'
     }
   });
   grunt.registerTask('default', []);
