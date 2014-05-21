@@ -10,7 +10,8 @@ before_script:
   - cp config/example.json config/development.json
   - npm start > /dev/null &
   - npm run update-webdriver
-  - node_modules/protractor/bin/webdriver-manager start
+  - curl -O https://pithos.grnet.gr/pithos/rest/skanct@grnet-hq.admin.grnet.gr/files/selenium-server-standalone-2.41.0.jar
+  - mv selenium-server-standalone-2.41.0.jar /tmp/
   - sleep 1 # give server time to start
 
 script:
