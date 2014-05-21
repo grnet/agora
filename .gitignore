@@ -39,5 +39,8 @@ nbproject
 # local config
 ########################
 config/local.js
+config/development.json
+config/production.json
 npm-debug.log
 node_modules
+bower_components
