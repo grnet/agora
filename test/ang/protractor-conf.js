@@ -1,6 +1,6 @@
 exports.config = {
   allScriptsTimeout: 11000,
-
+  seleniumServerJar: "/tmp/selenium-server-standalone-2.41.0.jar",
   specs: [
     'e2e/*.js'
   ],
@@ -9,7 +9,7 @@ exports.config = {
     'browserName': 'chrome'
   },
 
-  baseUrl: 'http://localhost:1337',
+  baseUrl: 'http://localhost:8080',
 
   framework: 'jasmine',
 
