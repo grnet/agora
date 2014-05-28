@@ -1,4 +1,4 @@
-var config = require('./config')
+var config = require('./backend/config');
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mongoimport');
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         {
           name: 'countries',
           type: 'json',
-          file: 'db/seeds/countries.json',
+          file: 'backend/db/seeds/countries.json',
           jsonArray: true,
           upsert: true,
           drop: true
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         {
           name: 'providers',
           type: 'json',
-          file: 'db/seeds/providers.json',
+          file: 'backend/db/seeds/providers.json',
           jsonArray: true,
           upsert: true,
           drop: true

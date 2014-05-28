@@ -1,8 +1,0 @@
-{
-  "mongo_server": "127.0.0.1",
-  "mongo_options": {
-    "db": { "native_parser": true}
-  },
-  "mongo_db": "agora_dev",
-  "nodejs_port": 8080
-}
