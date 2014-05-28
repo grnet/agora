@@ -1,7 +1,8 @@
 var fs = require('fs');
 
 var config
-  , config_file = __dirname + '/' + (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') + '.json';
+  , config_file = __dirname + '/'
+    + (process.env.NODE_ENV ? process.env.NODE_ENV : 'local') + '.json';
  
 try {
   // config = require(config_file);

@@ -5,7 +5,6 @@
   "dependencies": {
     "express": "3.x",
     "mongoose": "3.x",
-    "ejs": "1.x",
     "grunt-mongoimport": "*",
     "grunt":  "*",
     "grunt-cli": "*",
@@ -13,7 +12,7 @@
   },
   "devDependencies": {
     "karma": "~0.10",
-    "protractor": "~0.20.1",
+    "protractor": "~0.23.1",
     "karma-junit-reporter": "^0.2.2"
   },
   "scripts": {
@@ -25,14 +24,14 @@
     "debug": "node debug app.js",
 
     "pretest": "npm install && node_modules/grunt-cli/bin/grunt db:import",
-    "test": "karma start test/ang/karma.conf.js",
-    "test-single-run": "karma start test/ang/karma.conf.js --single-run",
+    "test": "karma start frontend/karma.conf.js",
+    "test-single-run": "karma start frontend/karma.conf.js --single-run",
 
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
 
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor test/ang/protractor-conf.js"
+    "protractor": "protractor e2e-tests/protractor-conf.js"
   },
   "main": "app.js",
   "repository": "",
