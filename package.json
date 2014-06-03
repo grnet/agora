@@ -19,9 +19,9 @@
     "postinstall": "bower install",
 
     "prestart": "npm install",
-    "start": "node app.js",
+    "start": "node backend/app.js",
 
-    "debug": "node debug app.js",
+    "debug": "node debug backend/app.js",
 
     "pretest": "npm install && node_modules/grunt-cli/bin/grunt db:import",
     "test": "karma start frontend/karma.conf.js",

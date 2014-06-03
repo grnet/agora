@@ -16,9 +16,9 @@ app.configure(function(){
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db, conf.mongo_options);
 
-var Country = require('./models/Country')(mongoose);
-var Provider = require('./models/Provider')(mongoose);
-var SPProfileModel = require('./models/ServiceProviderProfile')(mongoose);
+var Country = require('./db/models/Country')(mongoose);
+var Provider = require('./db/models/Provider')(mongoose);
+var SPProfileModel = require('./db/models/ServiceProviderProfile')(mongoose);
 
 app.get('/', function(req, res){
 	res.send("Marketplace application for Cloud Services, developed for the GÉANT network. ETA: Summer 2014");
