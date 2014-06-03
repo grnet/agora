@@ -14,7 +14,8 @@ app.configure(function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db, conf.mongo_options);
+mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
+  conf.mongo_options);
 
 var Country = require('./db/models/Country')(mongoose);
 var Provider = require('./db/models/Provider')(mongoose);

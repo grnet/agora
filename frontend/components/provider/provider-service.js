@@ -5,7 +5,7 @@ var agoraAppServices = angular.module('agoraAppServices', ['ngResource']).
 
 agoraAppServices.factory('Provider', ['$resource',
   function($resource) {
-    return $resource('providers/:providers.json', {}, {
+    return $resource('api/:providers', {}, {
       query: {method:'GET', params:{providers:'providers'}, isArray:true}
     });
   }]);
