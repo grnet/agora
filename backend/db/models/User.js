@@ -1,7 +1,6 @@
 module.exports = function(mongoose) {
   var bcrypt = require('bcrypt-nodejs'),
-      passport = require('passport'),
-      LocalStrategy = require('passport-local').Strategy;
+      passport = require('passport');
 
   var SALT_WORK_FACTOR = 10;
 
@@ -17,7 +16,7 @@ module.exports = function(mongoose) {
 
 
   // Bcrypt middleware on UserSchema
-    UserSchema.pre('save', function(next) {
+  UserSchema.pre('save', function(next) {
       var user = this;
 
       if (!user.isModified('password')) return next();
@@ -33,13 +32,12 @@ module.exports = function(mongoose) {
       });
   });
 
-
   //Password verification
-    UserSchema.methods.comparePassword = function(pass, cb) {
-      bcrypt.compare(pass, this.password, function(err, isMatch) {
-          if (err) return cb(err);
-          cb(null, isMatch);
-      });
+  UserSchema.methods.comparePassword = function(pass, cb) {
+    bcrypt.compare(pass, this.password, function(err, isMatch) {
+        if (err) return cb(err);
+        cb(null, isMatch);
+    });
   };
 
 
