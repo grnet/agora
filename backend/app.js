@@ -1,6 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
+    flash = require('connect-flash'),
     conf = require('./config');
 
 var app = express();
@@ -15,18 +16,18 @@ app.configure(function(){
     app.use(express.session({ secret: 'agora marketplace' }));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(flash()); // use connect-flash for flash messages stored in session
+    app.use(flash());
     app.use(app.router);
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db, conf.mongo_options);
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport);
 
-var Country = require('./models/Country')(mongoose);
-var Provider = require('./models/Provider')(mongoose);
-var SPProfileModel = require('./models/ServiceProviderProfile')(mongoose);
+var Country = require('./db/models/Country')(mongoose);
+var Provider = require('./db/models/Provider')(mongoose);
+var SPProfileModel = require('./db/models/ServiceProviderProfile')(mongoose);
 
 app.get('/', function(req, res){
     res.send("Marketplace application for Cloud Services, developed for the GÉANT network. ETA: Summer 2014");
