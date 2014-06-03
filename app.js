@@ -1,5 +1,6 @@
 var express = require('express'),
     mongoose = require('mongoose'),
+    passport = require('passport'),
     conf = require('./config');
 
 var app = express();
@@ -10,11 +11,18 @@ app.configure(function(){
   app.use('/components', express.static(__dirname + '/bower_components'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  //required for passport
+  app.use(express.session({ secret: 'agora marketplace' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(flash()); // use connect-flash for flash messages stored in session
   app.use(app.router);
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db, conf.mongo_options);
+
+require('./config/passport')(passport); // pass passport for configuration
 
 var Country = require('./models/Country')(mongoose);
 var Provider = require('./models/Provider')(mongoose);
@@ -59,7 +67,7 @@ app.post('/api/providers', function (req, res){
   provider = new Provider({
     name: req.body.name,
     description: req.body.description,
-    country: req.body.country,
+    country: req.body.country
   });
   product.save(function (err) {
     if (!err) {
@@ -71,4 +79,50 @@ app.post('/api/providers', function (req, res){
   return res.send(provider);
 });
 
+
+app.get('/', function(req, res){
+    res.render('index', { user: req.user });
+});
+
+app.get('/profile', isLoggedIn, function(req, res){
+    res.render('profile', { user: req.user });
+});
+
+app.get('/login', function(req, res){
+    res.render('login', { user: req.user, message: req.session.messages });
+});
+app.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err) }
+        if (!user) {
+            req.session.messages = [info.message];
+            return res.redirect('/login')
+        }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
+
+app.get('/register', function(req, res) {
+    res.render('register', { message: req.flash('registration') });
+});
+app.post('/register', passport.authenticate('local-register', {
+    successRedirect : '/profile', // redirect to the secure profile section
+    failureRedirect : '/register', // redirect back to the register page if there is an error
+    failureFlash : true // allow flash messages
+}));
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
 app.listen(conf.nodejs_port);
+
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login')
+}

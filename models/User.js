@@ -1,20 +1,23 @@
 module.exports = function(mongoose) {
-  var bcrypt = require('bcrypt');
+  var bcrypt = require('bcrypt-nodejs'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local').Strategy;
+
   var SALT_WORK_FACTOR = 10;
 
   var UserSchema = new mongoose.Schema({
-    firstname: { type: String, required: true},
-    lastname: { type: String, required: true},
+    firstName: { type: String, required: true},
+    lastName: { type: String, required: true},
     email: { type: String, required: true },
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
     group: { type: String, required: true },
-    provider_id: { type: String, required: true }
+    provider_id: { type: String }
   });
 
 
   // Bcrypt middleware on UserSchema
-  User.pre('save', function(next) {
+    UserSchema.pre('save', function(next) {
       var user = this;
 
       if (!user.isModified('password')) return next();
@@ -30,15 +33,18 @@ module.exports = function(mongoose) {
       });
   });
 
+
   //Password verification
-  User.methods.comparePassword = function(pass, cb) {
+    UserSchema.methods.comparePassword = function(pass, cb) {
       bcrypt.compare(pass, this.password, function(err, isMatch) {
           if (err) return cb(err);
           cb(null, isMatch);
       });
   };
 
+
   var User = mongoose.model('User', UserSchema);
+
 
   return User;
 }
