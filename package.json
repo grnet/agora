@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "karma": "~0.12",
+    "karma-cli": "*",
     "protractor": "~0.24",
     "karma-junit-reporter": "^0.2.2"
   },
