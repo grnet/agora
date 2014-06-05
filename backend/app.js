@@ -1,24 +1,30 @@
 var express = require('express'),
-    mongoose = require('mongoose'),
-    conf = require('./config');
+  path = require('path'),
+  logger = require('winston'),  
+  mongoose = require('mongoose'),
+  favicon = require('serve-favicon'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),    
+  conf = require('./config'),
+  providers = require('./routes/providers'),
+  countries = require('./routes/countries');
 
 var app = express();
 
-app.configure(function(){
-  app.set('view engine', 'ejs');
-  app.use(express.static(__dirname + '/public'));
-  app.use('/components', express.static(__dirname + '/bower_components'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
+app.set('views', path.join(__dirname, 'views'));  
+app.set('view engine', 'jade');
+// app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
+app.use('/components', express.static(__dirname + '/bower_components'));
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
 
 var Country = require('./db/models/Country')(mongoose);
-var Provider = require('./db/models/Provider')(mongoose);
 var SPProfileModel = require('./db/models/ServiceProviderProfile')(mongoose);
 
 app.get('/', function(req, res){
@@ -33,43 +39,31 @@ app.get('/api', function (req, res) {
   res.send('AGORA API is running');
 });
 
-app.get('/api/countries', function (req, res){
-  return Country.find(function (err, countries) {
-    if (!err) {
-      return res.send(countries);
-    } else {
-      return console.log(err);
-    }
-  });
-});
+app.use('/api/countries', countries);
+app.use('/api/providers', providers);
 
-app.get('/api/providers', function (req, res){
-  return Provider.find(function (err, providers) {
-    if (!err) {
-      return res.send(providers);
-    } else {
-      return console.log(err);
-    }
-  });
-});
+/// error handlers
 
-app.post('/api/providers', function (req, res){
-  var product;
-  console.log("POST: ");
-  console.log(req.body);
-  provider = new Provider({
-    name: req.body.name,
-    description: req.body.description,
-    country: req.body.country,
-  });
-  product.save(function (err) {
-    if (!err) {
-      return console.log("created");
-    } else {
-      return console.log(err);
-    }
-  });
-  return res.send(provider);
-});
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
 
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
+  
 app.listen(conf.nodejs_port);
