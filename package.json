@@ -19,6 +19,8 @@
     "karma": "~0.12",
     "karma-cli": "*",
     "karma-firefox-launcher": "~0.1",
+    "karma-chrome-launcher": "~0.1",    
+    "karma-jasmine": "~0.1",
     "protractor": "~0.24",
     "karma-junit-reporter": "^0.2.2"
   },
