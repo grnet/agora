@@ -1,6 +1,6 @@
 exports.config = {
   allScriptsTimeout: 11000,
-  seleniumServerJar: "../node_modules/protractor/selenium/selenium-server-standalone-2.41.0.jar",
+  seleniumServerJar: "../node_modules/protractor/selenium/selenium-server-standalone-2.42.0.jar",
   specs: [
     '*.js'
   ],

@@ -1,5 +1,8 @@
 var config = require('./backend/config');
 
+console.log(config.mongo_db);
+console.log(config.mongo_options.user);
+console.log(config.mongo_options.pass);
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mongoimport');
   grunt.initConfig({
@@ -7,6 +10,8 @@ module.exports = function(grunt) {
     mongoimport: {
       options: {
         db: config.mongo_db,
+        username: config.mongo_options.user,
+         password: config.mongo_options.pass,
         collections: [
         {
           name: 'countries',
