@@ -17,9 +17,8 @@ app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname + '/public'));
-app.use('/components', express.static(__dirname + '/bower_components'));
+var publicDir = path.join(__dirname, '..', 'public');
+app.use(express.static(publicDir));
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
@@ -59,11 +58,14 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
   
-app.listen(conf.nodejs_port);
+app.listen(conf.nodejs_port, function() {
+  console.log('Express server listening on port %d in %s mode',
+    conf.nodejs_port, app.get('env'));
+});
