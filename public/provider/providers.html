@@ -1,0 +1,27 @@
+<div class="container-fluid" ng-controller="ProviderListCtrl">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="providers">
+        <li ng-repeat="provider in providers | filter:query | orderBy:orderProp">
+          <p>{{provider.name}}</p>
+          <p>{{provider.description}}</p>
+          <p>{{provider.country}}</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

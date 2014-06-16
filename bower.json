@@ -15,7 +15,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "public/bower_components",
     "test",
     "tests"
   ],
@@ -24,8 +24,11 @@
     "bootstrap": "~3.1",
     "angular": "~1.2",
     "angular-resource": "~1.2",
+    "angular-animate": "~1.2",
     "angular-route": "~1.2",
     "angular-mocks": "~1.2"
+  },
+  "resolutions": {
+    "angular": "1.2.18"
   }
-    
 }

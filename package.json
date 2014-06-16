@@ -33,8 +33,8 @@
     "debug": "node debug backend/app.js",
 
     "pretest": "npm install && node_modules/grunt-cli/bin/grunt db:import",
-    "test": "karma start frontend/karma.conf.js",
-    "test-single-run": "karma start frontend/karma.conf.js --single-run",
+    "test": "karma start public/karma.conf.js",
+    "test-single-run": "karma start public/karma.conf.js --single-run",
 
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",

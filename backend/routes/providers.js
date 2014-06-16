@@ -14,15 +14,15 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res){
-  var product;
+  var provider;
   console.log("POST: ");
   console.log(req.body);
   provider = new Provider({
     name: req.body.name,
     description: req.body.description,
-    country: req.body.country,
+    country: req.body.country
   });
-  product.save(function (err) {
+  provider.save(function (err) {
     if (!err) {
       return console.log("created");
     } else {
