@@ -9,7 +9,7 @@ describe('Agora controllers', function() {
   });
 
   beforeEach(module('agoraApp'));
-  beforeEach(module('agoraAppServices'));
+  beforeEach(module('agoraAppProvidersService'));
 
   describe('ProviderListCtrl', function() {
     var scope, ctrl, $httpBackend;

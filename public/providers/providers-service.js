@@ -1,9 +1,10 @@
 'use strict';
 
-var agoraAppServices = angular.module('agoraAppServices', ['ngResource']).
+var agoraAppProvidersService =
+  angular.module('agoraAppProvidersService', ['ngResource']).
   value('version', '0.1.0');
 
-agoraAppServices.factory('Provider', ['$resource',
+agoraAppProvidersService.factory('ProviderList', ['$resource',
   function($resource) {
     return $resource('api/:providers', {}, {
       query: {method:'GET', params:{providers:'providers'}, isArray:true}

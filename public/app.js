@@ -2,17 +2,23 @@
 
 var agoraApp = angular.module('agoraApp', [
   'ngRoute',
-  'agoraAppControllers',
-  'agoraAppServices'
+  'agoraAppProvidersController',
+  'agoraAppProvidersService',  
+  'agoraAppCloudServicesController',
+  'agoraAppCloudServicesService'  
 ]);
 
 agoraApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/providers', {
-        templateUrl: 'provider/providers.html',
+        templateUrl: 'providers/providers.html',
         controller: 'ProviderListCtrl'
       }).
+      when('/cloudservices', {
+        templateUrl: 'cloudservices/cloudservices.html',
+        controller: 'CloudServiceListCtrl'
+      }).      
       otherwise({
           redirectTo: '/providers'
       });

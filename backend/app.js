@@ -6,8 +6,9 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),    
   conf = require('./config'),
+  countries = require('./routes/countries'),  
   providers = require('./routes/providers'),
-  countries = require('./routes/countries');
+  cloudServices = require('./routes/cloudservices');
 
 var app = express();
 
@@ -23,9 +24,6 @@ app.use(express.static(publicDir));
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
 
-var Country = require('./db/models/Country')(mongoose);
-var SPProfileModel = require('./db/models/ServiceProviderProfile')(mongoose);
-
 app.get('/', function(req, res){
 	res.send("Marketplace application for Cloud Services, developed for the GÉANT network. ETA: Summer 2014");
 });
@@ -39,7 +37,8 @@ app.get('/api', function (req, res) {
 });
 
 app.use('/api/countries', countries);
-app.use('/api/providers', providers);
+app.use('/api/providers', providers); 
+app.use('/api/cloudservices', cloudServices); 
 
 /// error handlers
 
