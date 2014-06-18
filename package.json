@@ -1,0 +1,49 @@
+{
+  "name": "agora",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.x",
+    "winston": "~0.7",
+    "jade": "~1.3",
+    "serve-favicon": "2.x",
+    "cookie-parser": "~1.1",
+    "body-parser": "~1.3",    
+    "mongoose": "3.8",
+    "grunt-mongoimport": "*",
+    "grunt":  "*",
+    "grunt-cli": "*",
+    "bower": "*"
+  },
+  "devDependencies": {
+    "karma": "~0.12",
+    "karma-cli": "*",
+    "karma-firefox-launcher": "~0.1",
+    "karma-chrome-launcher": "~0.1",    
+    "karma-jasmine": "~0.1",
+    "protractor": "~0.24",
+    "karma-junit-reporter": "^0.2.2"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+
+    "prestart": "npm install",
+    "start": "node backend/app.js",
+
+    "debug": "node debug backend/app.js",
+
+    "pretest": "npm install && node_modules/grunt-cli/bin/grunt db:import",
+    "test": "karma start public/karma.conf.js",
+    "test-single-run": "karma start public/karma.conf.js --single-run",
+
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor e2e-tests/protractor-conf.js"
+  },
+  "main": "app.js",
+  "repository": "",
+  "author": "",
+  "license": ""
+}
