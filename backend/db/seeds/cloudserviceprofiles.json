@@ -1,0 +1,224 @@
+[
+  {
+    "_id": 0, 
+    "createdDate": "2014-06-17",
+    "modifiedDate": "2014-06-17",
+    "version": "1",
+    "_cloudService": 0,
+    "intellectualPropertyRights": {
+      "rating": 10,
+      "tags": []
+    },
+    "csp": {
+      "rating": 9,
+      "tags": []
+    },
+  "ownership": {
+      "rating": 8,
+      "tags": []
+    },
+  "nationalLawGovernance": {
+      "rating": 10,
+      "tags": []
+    },
+  "concordanceNationalPrivacyActs": {
+      "rating": 10,
+      "tags": []
+    },
+  "externalSecurityAuditCertificate": {
+      "rating": 8,
+      "tags": []
+    },
+  "subcontractors": {
+      "rating": 8,
+      "tags": []
+    },
+  "protectionMinorsUsers": {
+      "rating": 10,
+      "tags": []
+    },
+  "serviceLevelAgreement": {
+      "rating": 8,
+      "tags": []
+    },
+  "csSecurity": {
+      "rating": 8,
+      "tags": []
+    },
+  "securityIncidentsHandling": {
+      "rating": 9,
+      "tags": []
+    },
+  "dataBackupRestore": {
+      "rating": 8,
+      "tags": []
+    },
+  "compatibility": {
+      "rating": 7,
+      "tags": []
+    },
+  "dataProtection": {
+      "rating": 9,
+      "tags": []
+    },
+  "personnel": {
+      "rating": 6,
+      "tags": []
+    },
+  "penalty": {
+      "rating": 5,
+      "tags": []
+    },
+  "supervision": {
+      "rating": 5,
+      "tags": []
+    },
+  "dataAvailability": {
+      "rating": 8,
+      "tags": []
+    },
+  "edpAudit": {
+      "rating": 5,
+      "tags": []
+    },
+  "qualityReview": {
+      "rating": 6,
+      "tags": []
+    },
+  "notification": {
+      "rating": 7,
+      "tags": []
+    },
+  "billing": {
+      "rating": 3,
+      "tags": []
+    },
+  "aai": {
+      "rating": 10,
+      "tags": []
+    },
+  "userProvisioning": {
+      "rating": 10,
+      "tags": []
+    },
+  "reportingMeteringSalesEstimates": {
+      "rating": 8,
+      "tags": []
+    },
+  "networkConnectivityAssociatedNetworkingCosts": {
+      "rating": 8,
+      "tags": []
+    }
+  },
+  {
+    "_id": 1,
+    "createdDate": "2014-06-17",
+    "modifiedDate": "2014-06-17",
+    "version": "1",
+    "_cloudService": 1,
+    "intellectualPropertyRights": {
+      "rating": 8,
+      "tags": []
+    },
+    "csp": {
+      "rating": 10,
+      "tags": []
+    },
+  "ownership": {
+      "rating": 6,
+      "tags": []
+    },
+  "nationalLawGovernance": {
+      "rating": 8,
+      "tags": []
+    },
+  "concordanceNationalPrivacyActs": {
+      "rating": 9,
+      "tags": []
+    },
+  "externalSecurityAuditCertificate": {
+      "rating": 7,
+      "tags": []
+    },
+  "subcontractors": {
+      "rating": 6,
+      "tags": []
+    },
+  "protectionMinorsUsers": {
+      "rating": 8,
+      "tags": []
+    },
+  "serviceLevelAgreement": {
+      "rating": 6,
+      "tags": []
+    },
+  "csSecurity": {
+      "rating": 9,
+      "tags": []
+    },
+  "securityIncidentsHandling": {
+      "rating": 10,
+      "tags": []
+    },
+  "dataBackupRestore": {
+      "rating": 9,
+      "tags": []
+    },
+  "compatibility": {
+      "rating": 8,
+      "tags": []
+    },
+  "dataProtection": {
+      "rating": 8,
+      "tags": []
+    },
+  "personnel": {
+      "rating": 7,
+      "tags": []
+    },
+  "penalty": {
+      "rating": 7,
+      "tags": []
+    },
+  "supervision": {
+      "rating": 6,
+      "tags": []
+    },
+  "dataAvailability": {
+      "rating": 6,
+      "tags": []
+    },
+  "edpAudit": {
+      "rating": 6,
+      "tags": []
+    },
+  "qualityReview": {
+      "rating": 4,
+      "tags": []
+    },
+  "notification": {
+      "rating": 7,
+      "tags": []
+    },
+  "billing": {
+      "rating": 8,
+      "tags": []
+    },
+  "aai": {
+      "rating": 10,
+      "tags": []
+    },
+  "userProvisioning": {
+      "rating": 8,
+      "tags": []
+    },
+  "reportingMeteringSalesEstimates": {
+      "rating": 7,
+      "tags": []
+    },
+  "networkConnectivityAssociatedNetworkingCosts": {
+      "rating": 7,
+      "tags": []
+    }
+  }
+]

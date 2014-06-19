@@ -1,0 +1,12 @@
+[
+  {
+    "name": "GRNET",
+    "description": "The Greek Research and Technology Network.",
+    "country": "Greece"
+  },
+  {
+    "name": "GEANT",
+    "description": "GÉANT is the pan European data network dedicated to the research and education community.",
+    "country": "United Kingdom"
+  }
+]
