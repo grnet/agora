@@ -1,0 +1,56 @@
+<div class="container-fluid" ng-controller="CloudServiceListCtrl">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="service">
+        <li>{{cloudServiceDetails.name}}</li>
+        <li>{{cloudServiceDetails.description}}</li>
+        <div ng-init="criteria = [
+          'intellectualPropertyRights',
+          'csp',
+          'ownership',
+          'nationalLawGovernance',
+          'concordanceNationalPrivacyActs',
+          'externalSecurityAuditCertificate',
+          'subcontractors',
+          'protectionMinorsUsers',
+          'serviceLevelAgreement',
+          'csSecurity',
+          'securityIncidentsHandling',
+          'dataBackupRestore',
+          'compatibility',
+          'dataProtection',
+          'personnel',
+          'penalty',
+          'supervision',
+          'dataAvailability',
+          'edpAudit',
+          'qualityReview',
+          'notification',
+          'billing',
+          'aai',
+          'userProvisioning',
+          'reportingMeteringSalesEstimates',
+          'networkConnectivityAssociatedNetworkingCosts'
+          ]">          
+          <li ng-repeat="criterion in criteria">
+            {{criterion}}: {{cloudServiceProfile[criterion]}}
+          </li>
+
+      </ul>
+
+    </div>
+  </div>
+</div>

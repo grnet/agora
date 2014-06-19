@@ -11,24 +11,40 @@ module.exports = function(grunt) {
       options: {
         db: config.mongo_db,
         username: config.mongo_options.user,
-         password: config.mongo_options.pass,
+        password: config.mongo_options.pass,
         collections: [
-        {
-          name: 'countries',
-          type: 'json',
-          file: 'backend/db/seeds/countries.json',
-          jsonArray: true,
-          upsert: true,
-          drop: true
-        },
-        {
-          name: 'providers',
-          type: 'json',
-          file: 'backend/db/seeds/providers.json',
-          jsonArray: true,
-          upsert: true,
-          drop: true
-        }
+          {
+            name: 'countries',
+            type: 'json',
+            file: 'backend/db/seeds/countries.json',
+            jsonArray: true,
+            upsert: true,
+            drop: true
+          },
+          {
+            name: 'cloudserviceproviders',
+            type: 'json',
+            file: 'backend/db/seeds/cloudserviceproviders.json',
+            jsonArray: true,
+            upsert: true,
+            drop: true
+          },
+          {
+            name: 'cloudservices',
+            type: 'json',
+            file: 'backend/db/seeds/cloudservices.json',
+            jsonArray: true,
+            upsert: true,
+            drop: true
+          },
+          {
+            name: 'cloudserviceprofiles',
+            type: 'json',
+            file: 'backend/db/seeds/cloudserviceprofiles.json',
+            jsonArray: true,
+            upsert: true,
+            drop: true
+          }          
         ]
       }
     }
