@@ -17,7 +17,7 @@ agoraAppCloudServicesService.factory('CloudServiceDetails',
     });
   }]);
   
-agoraAppCloudServicesService.factory('CSProfile',
+agoraAppCloudServicesService.factory('CloudServiceProfile',
   ['$resource', '$routeParams',
   function($resource, $routeParams) {
     return $resource('api/cloudserviceprofiles/:cloudServiceProfileId', {
