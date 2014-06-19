@@ -1,19 +1,25 @@
 var schemaSkeleton = {
+  _id: {
+    type: Number,
+    required: true
+  },
   createdDate: {
-      type: Date,
-      required: true
+    type: Date,
+    required: true
     },
   modifiedDate: {
-      type: Date,
-      required: true
+    type: Date,
+    required: true
   },
   version: {
     type: String,
     required: true
   },
-  service_id: {
-    type: String,
-    required: true }    
+  _cloudService: {
+    type: Number,
+    ref: 'CloudService',
+    required: true
+  }
 };  
 
 var criteria = [
@@ -47,7 +53,6 @@ var criteria = [
   
 for (var i = 0; i < criteria.length; i++) {
   schemaSkeleton[criteria[i]] = {
-    name: String,
     rating: Number,
     tags: Array,
     required: Boolean

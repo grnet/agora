@@ -22,9 +22,9 @@ module.exports = function(grunt) {
             drop: true
           },
           {
-            name: 'providers',
+            name: 'cloudserviceproviders',
             type: 'json',
-            file: 'backend/db/seeds/providers.json',
+            file: 'backend/db/seeds/cloudserviceproviders.json',
             jsonArray: true,
             upsert: true,
             drop: true
@@ -36,7 +36,15 @@ module.exports = function(grunt) {
             jsonArray: true,
             upsert: true,
             drop: true
-          }
+          },
+          {
+            name: 'cloudserviceprofiles',
+            type: 'json',
+            file: 'backend/db/seeds/cloudserviceprofiles.json',
+            jsonArray: true,
+            upsert: true,
+            drop: true
+          }          
         ]
       }
     }

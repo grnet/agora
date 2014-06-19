@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="CloudServiceListCtrl">
+<div class="container-fluid" ng-controller="CloudServicesListCtrl">
   <div class="row">
     <div class="col-md-2">
       <!--Sidebar content-->
@@ -17,7 +17,8 @@
       <ul class="services">
         <li ng-repeat="cloudService in cloudServices | filter:query
                        | orderBy:orderProp">
-          <p>{{cloudService.name}}</p>
+          <p><a href="#/cloudservices/{{cloudService._id}}">
+              {{cloudService.name}}</a></p>
           <p>{{cloudService.description}}</p>
         </li>
       </ul>

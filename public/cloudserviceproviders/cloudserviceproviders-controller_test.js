@@ -9,9 +9,9 @@ describe('Agora controllers', function() {
   });
 
   beforeEach(module('agoraApp'));
-  beforeEach(module('agoraAppProvidersService'));
+  beforeEach(module('agoraAppCloudServiceProvidersService'));
 
-  describe('ProviderListCtrl', function() {
+  describe('CloudServiceProvidersListCtrl', function() {
     var scope, ctrl, $httpBackend;
 
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
@@ -20,7 +20,7 @@ describe('Agora controllers', function() {
         respond([{name: 'GRNET'}, {name: 'GEANT'}]);
 
       scope = $rootScope.$new();
-      ctrl = $controller('ProviderListCtrl', {$scope: scope});
+      ctrl = $controller('CloudServiceProvidersListCtrl', {$scope: scope});
     }));
 
     it('should create "providers" model with 2 providers fetched from xhr',

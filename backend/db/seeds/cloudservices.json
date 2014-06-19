@@ -1,9 +1,11 @@
 [
   {
+  _id: 0,
   "name": "Okeanos",
   "description": "The GRNET Cloud Service"
   },
   {
+  _id: 1,
   "name": "BOX",
   "description": "box.com Online Storage Service"
   }

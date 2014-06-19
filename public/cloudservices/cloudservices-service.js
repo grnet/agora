@@ -4,15 +4,24 @@ var agoraAppCloudServicesService =
   angular.module('agoraAppCloudServicesService', ['ngResource'])
   .value('version', '0.1.0');
 
-agoraAppCloudServicesService.factory('CloudServiceList', ['$resource',
+agoraAppCloudServicesService.factory('CloudServicesList', ['$resource',
   function($resource) {
-    return $resource('api/:cloudservices', {}, {
-      query: {
-        method:'GET',
-        params: {
-          cloudservices: 'cloudservices'
-        },
-        isArray:true
-      }
+    return $resource('api/cloudservices');
+  }]);
+
+agoraAppCloudServicesService.factory('CloudServiceDetails',
+  ['$resource', '$routeParams',
+  function($resource, $routeParams) {
+    return $resource('api/cloudservices/:cloudServiceId', {
+      cloudServiceId: $routeParams.id
     });
   }]);
+  
+agoraAppCloudServicesService.factory('CSProfile',
+  ['$resource', '$routeParams',
+  function($resource, $routeParams) {
+    return $resource('api/cloudserviceprofiles/:cloudServiceProfileId', {
+      cloudServiceProfileId: $routeParams.id
+    });
+  }]);
+  

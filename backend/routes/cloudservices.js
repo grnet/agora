@@ -3,6 +3,30 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var CloudService = require('../db/models/CloudService')(mongoose);
 
+router.get('/:id', function (req, res) {
+  return CloudService.findOne({_id: req.params.id},
+    function (err, cloudService) {
+      if (!err) {
+        return res.send(cloudService);
+      } else {
+        return console.log(err);
+      }
+    }
+  );
+});
+  
+router.get('/:id/profile', function (req, res) {
+  return CloudService.findOne({_id: req.params.id},
+    function (err, cloudService) {
+      if (!err) {
+        return res.send(cloudService);
+      } else {
+        return console.log(err);
+      }
+    }
+  );
+});
+
 router.get('/', function (req, res) {
   return CloudService.find(function (err, cloudServices) {
     if (!err) {
@@ -11,8 +35,8 @@ router.get('/', function (req, res) {
       return console.log(err);
     }
   });
-});
-
+});  
+    
 router.post('/', function (req, res){
   console.log("POST: ");
   console.log(req.body);

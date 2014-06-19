@@ -7,8 +7,9 @@ var express = require('express'),
   bodyParser = require('body-parser'),    
   conf = require('./config'),
   countries = require('./routes/countries'),  
-  providers = require('./routes/providers'),
-  cloudServices = require('./routes/cloudservices');
+  cloudServiceProviders = require('./routes/cloudserviceproviders'),
+  cloudServices = require('./routes/cloudservices'),
+  cloudServiceProfiles = require('./routes/cloudserviceprofiles');
 
 var app = express();
 
@@ -37,8 +38,9 @@ app.get('/api', function (req, res) {
 });
 
 app.use('/api/countries', countries);
-app.use('/api/providers', providers); 
-app.use('/api/cloudservices', cloudServices); 
+app.use('/api/providers', cloudServiceProviders); 
+app.use('/api/cloudservices', cloudServices);
+app.use('/api/cloudserviceprofiles', cloudServiceProfiles);  
 
 /// error handlers
 
