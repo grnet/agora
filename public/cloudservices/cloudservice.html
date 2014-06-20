@@ -1,17 +1,19 @@
 <div class="container-fluid" ng-controller="CloudServicesListCtrl">
-  <div class="row">
-    <div class="col-md-2">
+
+    <div class="col-md-3">
       <!--Sidebar content-->
 
-      Search: <input ng-model="query">
+      Search: <input id="inputSmall" class="form-control input-sm" ng-model="query">
+      <br/>
       Sort by:
-      <select ng-model="orderProp">
+      <select id="select" class="form-control" ng-model="orderProp">
         <option value="name">Alphabetical</option>
         <option value="age">Newest</option>
       </select>
 
     </div>
-    <div class="col-md-10">
+
+    <div class="col-md-9">
       <!--Body content-->
 
       <ul class="service">
@@ -48,9 +50,9 @@
           <li ng-repeat="criterion in criteria">
             {{criterion}}: {{cloudServiceProfile[criterion]}}
           </li>
-
+          </div>
       </ul>
 
     </div>
-  </div>
+
 </div>
