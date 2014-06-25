@@ -1,7 +1,10 @@
 var express = require('express'),
+  session = require('express-session'),
   path = require('path'),
   logger = require('winston'),  
   mongoose = require('mongoose'),
+  passport = require('passport'),
+  flash    = require('connect-flash'),
   favicon = require('serve-favicon'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),    
@@ -13,8 +16,11 @@ var express = require('express'),
 
 var app = express();
 
-app.set('views', path.join(__dirname, 'views'));  
-app.set('view engine', 'jade');
+app.engine('html', require('ejs').renderFile);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
+
+
 // app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -22,16 +28,15 @@ app.use(cookieParser());
 var publicDir = path.join(__dirname, '..', 'public');
 app.use(express.static(publicDir));
 
+// required for passport
+app.use(session({secret: 'geantcloudmarketplacegeantcloudmarketplace' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
 
-app.get('/', function(req, res){
-	res.send("Marketplace application for Cloud Services, developed for the GÉANT network. ETA: Summer 2014");
-});
-
-app.get('/agora', function(req, res){
-  res.render('layout', { title: 'AGORA Market Place' });
-});
 
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
@@ -40,7 +45,14 @@ app.get('/api', function (req, res) {
 app.use('/api/countries', countries);
 app.use('/api/providers', cloudServiceProviders); 
 app.use('/api/cloudservices', cloudServices);
-app.use('/api/cloudserviceprofiles', cloudServiceProfiles);  
+app.use('/api/cloudserviceprofiles', cloudServiceProfiles);
+
+// Configure passport
+require('./config/passport')(passport);
+
+//setup the routes
+require('./config/routes.js')(app, passport);
+
 
 /// error handlers
 
