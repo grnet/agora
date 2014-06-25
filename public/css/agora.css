@@ -1,10 +1,39 @@
-#header {
-    margin: 0 0 30px 0;
-    padding: 20px;
-    min-height: 80px;
-}
 
 #footer {
     margin: 0;
     padding: 20px;
+}
+
+#geant-header-wrapper {
+    background-color: #006d94;
+    background-image: url("../images/header_bg_side.png");
+    float: left;
+    min-height: 135px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#geant-header {
+    display: block !important;
+    background-image: url("../images/header_bg_middle.png");
+    display: table;
+    min-height: 135px;
+}
+
+#geant-logo {
+    float: left;
+    margin-left: 10px;
+    margin-top: 25px;
+    width: 32%;
+}
+
+.title {
+    font-size: 44px;
+    font-weight: 300;
+    font-family: 'Open Sans', Tahoma, sans-serif;
+    line-height: 50px;
+    float: right;
+    width: 50%;
+    color: #ffffff;
+    margin: 40px 20px 10px 0;
 }

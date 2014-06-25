@@ -11,6 +11,10 @@ var agoraApp = angular.module('agoraApp', [
 agoraApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
+      when('/', {
+        templateUrl: 'partials/main.html',
+        controller: 'MainCtrl'
+      }).
       when('/providers', {
         templateUrl: 'cloudserviceproviders/providers.html',
         controller: 'CloudServiceProvidersListCtrl'
@@ -24,6 +28,6 @@ agoraApp.config(['$routeProvider',
         controller: 'CloudServicesListCtrl'
       }).
       otherwise({
-          redirectTo: '/providers'
+          redirectTo: '/'
       });
 }]);
