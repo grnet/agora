@@ -29,5 +29,8 @@
     "angular-mocks": "~1.2",
     "angular-cookies": "~1.2.0",
     "angular-http-auth": "*"
+  },
+  "resolutions": {
+    "angular": "1.2.18"
   }
 }
