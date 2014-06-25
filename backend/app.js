@@ -1,18 +1,19 @@
-var express = require('express'),
-  session = require('express-session'),
-  path = require('path'),
-  logger = require('winston'),  
-  mongoose = require('mongoose'),
-  passport = require('passport'),
-  flash    = require('connect-flash'),
-  favicon = require('serve-favicon'),
-  cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),    
-  conf = require('./config'),
-  countries = require('./routes/countries'),  
-  cloudServiceProviders = require('./routes/cloudserviceproviders'),
-  cloudServices = require('./routes/cloudservices'),
-  cloudServiceProfiles = require('./routes/cloudserviceprofiles');
+var express = require('express');
+var session = require('express-session');
+var path = require('path');
+var logger = require('winston');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
+var favicon = require('serve-favicon');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var conf = require('./config');
+var countries = require('./routes/countries');
+var cloudServiceProviders = require('./routes/cloudserviceproviders');
+var cloudServices = require('./routes/cloudservices');
+var cloudServiceProfiles = require('./routes/cloudserviceprofiles');
+var jwt = require('jwt-simple');
 
 var app = express();
 
@@ -34,6 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// setting the jwt secret
+app.set('jwtTokenSecret', 'geantcloudmarketplacegeantcloudmarketplace');
+
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
 
@@ -48,10 +52,8 @@ app.use('/api/cloudservices', cloudServices);
 app.use('/api/cloudserviceprofiles', cloudServiceProfiles);
 
 // Configure passport
-require('./config/passport')(passport);
-
-//setup the routes
-require('./config/routes.js')(app, passport);
+require('./auth/passport')(passport);
+require('./auth/routes.js')(app, passport);
 
 
 /// error handlers
