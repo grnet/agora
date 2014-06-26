@@ -5,7 +5,9 @@ var agoraApp = angular.module('agoraApp', [
   'agoraAppCloudServicesController',
   'agoraAppCloudServicesService',  
   'agoraAppCloudServiceProvidersController',
-  'agoraAppCloudServiceProvidersService'  
+  'agoraAppCloudServiceProvidersService',
+  'agoraAppLoginController',
+  'agoraAppLoginService',  
 ]);
 
 agoraApp.config(['$routeProvider',
@@ -16,7 +18,7 @@ agoraApp.config(['$routeProvider',
         controller: 'MainCtrl'
       }).
       when('/login', {
-          templateUrl: 'partials/login.html',
+          templateUrl: 'login/login.html',
           controller: 'LoginCtrl'
       }).
       when('/providers', {
