@@ -3,17 +3,9 @@ var jwt = require('jwt-simple');
 
 module.exports = function(app, passport) {
 
-  app.get('/', function(req, res) {
-    res.render('index.html');
-  });
-
-  app.get('/login', function(req, res) {
-    // render the page and pass in any flash data if it exists
-    res.render('login.html', { message: req.flash('loginMessage') });
-  });
 
   // process the login form
-  app.post('/login', function(req, res, next) {
+  app.post('/api/login', function(req, res, next) {
     passport.authenticate('local-login', function(err, user, info) {
       if (err) { next(err); }
       if (!user) {
@@ -33,12 +25,6 @@ module.exports = function(app, passport) {
     })(req, res, next);
   });
 
-
-  app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile.html', {
-      user : req.user // get the user out of session and pass to template
-    });
-  });
 
   app.get('/logout', function(req, res) {
     req.logout();
