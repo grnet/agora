@@ -15,6 +15,10 @@ agoraApp.config(['$routeProvider',
         templateUrl: 'partials/main.html',
         controller: 'MainCtrl'
       }).
+      when('/login', {
+          templateUrl: 'partials/login.html',
+          controller: 'LoginCtrl'
+      }).
       when('/providers', {
         templateUrl: 'cloudserviceproviders/providers.html',
         controller: 'CloudServiceProvidersListCtrl'
