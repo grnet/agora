@@ -105,3 +105,28 @@
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+
+.service-item {
+    margin: 0 10px 30px 15px;
+    padding: 10px 20px;
+    float:left;
+    width: 45%;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.service-item-red {
+    border: 2px solid #e01e11;
+}
+.service-item-amber {
+    border: 1px solid #ffb52d;
+}
+.service-item-green {
+    border: 1px solid #60ca72;
+}
+.service-item-title {
+    font-size: 19px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}

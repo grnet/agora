@@ -6,106 +6,132 @@
     "version": "1",
     "_cloudService": 0,
     "intellectualPropertyRights": {
+      "label": "Intellectual Property Rights",
       "rating": 10,
       "tags": []
     },
     "csp": {
+      "label": "CSP",
       "rating": 9,
       "tags": []
     },
   "ownership": {
+      "label": "Ownership",
       "rating": 8,
       "tags": []
     },
   "nationalLawGovernance": {
+      "label": "National Law Governance",
       "rating": 10,
       "tags": []
     },
   "concordanceNationalPrivacyActs": {
+      "label": "Concordance National Privacy Acts",
       "rating": 10,
       "tags": []
     },
   "externalSecurityAuditCertificate": {
+      "label": "External Security Audit Certificate",
       "rating": 8,
       "tags": []
     },
   "subcontractors": {
+      "label": "Subcontractors",
       "rating": 8,
       "tags": []
     },
   "protectionMinorsUsers": {
+      "label": "Protection Minors Users",
       "rating": 10,
       "tags": []
     },
   "serviceLevelAgreement": {
+      "label": "Service Level Agreement",
       "rating": 8,
       "tags": []
     },
   "csSecurity": {
+      "label": "CS Security",
       "rating": 8,
       "tags": []
     },
   "securityIncidentsHandling": {
+      "label": "Security Incidents Handling",
       "rating": 9,
       "tags": []
     },
   "dataBackupRestore": {
+      "label": "Data Backup Restore",
       "rating": 8,
       "tags": []
     },
   "compatibility": {
+      "label": "Compatibility",
       "rating": 7,
       "tags": []
     },
   "dataProtection": {
+      "label": "Data Protection",
       "rating": 9,
       "tags": []
     },
   "personnel": {
+      "label": "Personnel",
       "rating": 6,
       "tags": []
     },
   "penalty": {
+      "label": "Penalty",
       "rating": 5,
       "tags": []
     },
   "supervision": {
+      "label": "Supervision",
       "rating": 5,
       "tags": []
     },
   "dataAvailability": {
+      "label": "Data Availability",
       "rating": 8,
       "tags": []
     },
   "edpAudit": {
+      "label": "EDP Audit",
       "rating": 5,
       "tags": []
     },
   "qualityReview": {
+      "label": "Quality Review",
       "rating": 6,
       "tags": []
     },
   "notification": {
+      "label": "Notification",
       "rating": 7,
       "tags": []
     },
   "billing": {
+      "label": "Billing",
       "rating": 3,
       "tags": []
     },
   "aai": {
+      "label": "AAI",
       "rating": 10,
       "tags": []
     },
   "userProvisioning": {
+      "label": "User Provisioning",
       "rating": 10,
       "tags": []
     },
   "reportingMeteringSalesEstimates": {
+      "label": "Reporting Metering Sales Estimates",
       "rating": 8,
       "tags": []
     },
   "networkConnectivityAssociatedNetworkingCosts": {
+      "label": "Network Connectivity Associated Networking Costs",
       "rating": 8,
       "tags": []
     }
@@ -117,106 +143,132 @@
     "version": "1",
     "_cloudService": 1,
     "intellectualPropertyRights": {
+      "label": "Intellectual Property Rights",
       "rating": 8,
       "tags": []
     },
     "csp": {
+      "label": "CSP",
       "rating": 10,
       "tags": []
     },
   "ownership": {
+      "label": "Ownership",
       "rating": 6,
       "tags": []
     },
   "nationalLawGovernance": {
+      "label": "National Law Governance",
       "rating": 8,
       "tags": []
     },
   "concordanceNationalPrivacyActs": {
+      "label": "Concordance National Privacy Acts",
       "rating": 9,
       "tags": []
     },
   "externalSecurityAuditCertificate": {
+      "label": "External Security Audit Certificate",
       "rating": 7,
       "tags": []
     },
   "subcontractors": {
+      "label": "Subcontractors",
       "rating": 6,
       "tags": []
     },
   "protectionMinorsUsers": {
+      "label": "Protection Minors Users",
       "rating": 8,
       "tags": []
     },
   "serviceLevelAgreement": {
+      "label": "Service Level Agreement",
       "rating": 6,
       "tags": []
     },
   "csSecurity": {
+      "label": "CS Security",
       "rating": 9,
       "tags": []
     },
   "securityIncidentsHandling": {
+      "label": "Security Incidents Handling",
       "rating": 10,
       "tags": []
     },
   "dataBackupRestore": {
+      "label": "Data Backup Restore",
       "rating": 9,
       "tags": []
     },
   "compatibility": {
+      "label": "Compatibility",
       "rating": 8,
       "tags": []
     },
   "dataProtection": {
+      "label": "Data Protection",
       "rating": 8,
       "tags": []
     },
   "personnel": {
+      "label": "Personnel",
       "rating": 7,
       "tags": []
     },
   "penalty": {
+      "label": "Penalty",
       "rating": 7,
       "tags": []
     },
   "supervision": {
+      "label": "Supervision",
       "rating": 6,
       "tags": []
     },
   "dataAvailability": {
+      "label": "Concordance National Privacy Acts",
       "rating": 6,
       "tags": []
     },
   "edpAudit": {
+      "label": "EDP Audit",
       "rating": 6,
       "tags": []
     },
   "qualityReview": {
+      "label": "Quality Review",
       "rating": 4,
       "tags": []
     },
   "notification": {
+      "label": "Notification",
       "rating": 7,
       "tags": []
     },
   "billing": {
+      "label": "Billing",
       "rating": 8,
       "tags": []
     },
   "aai": {
+      "label": "AAI",
       "rating": 10,
       "tags": []
     },
   "userProvisioning": {
+      "label": "User Provisioning",
       "rating": 8,
       "tags": []
     },
   "reportingMeteringSalesEstimates": {
+      "label": "Reporting Metering Sales Estimates",
       "rating": 7,
       "tags": []
     },
   "networkConnectivityAssociatedNetworkingCosts": {
+      "label": "Network Connectivity Associated Networking Costs",
       "rating": 7,
       "tags": []
     }
