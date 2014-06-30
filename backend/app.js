@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('winston');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var localPassport = require('./lib/localpassport');
 var flash = require('connect-flash');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
@@ -14,13 +15,13 @@ var cloudServiceProviders = require('./routes/cloudserviceproviders');
 var cloudServices = require('./routes/cloudservices');
 var cloudServiceProfiles = require('./routes/cloudserviceprofiles');
 var jwt = require('jwt-simple');
+var login = require('./routes/login');
 
 var app = express();
 
 app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
-
 
 // app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.json());
@@ -49,25 +50,19 @@ app.get('/api', function (req, res) {
 app.use('/api/countries', countries);
 app.use('/api/providers', cloudServiceProviders); 
 app.use('/api/cloudservices', cloudServices);
-app.use('/api/cloudserviceprofiles', cloudServiceProfiles);
-
-// Configure passport
-require('./auth/passport')(passport);
-require('./auth/routes.js')(app, passport);
-
-
-/// error handlers
-
+app.use('/api/cloudserviceprofiles', cloudServiceProfiles); 
+app.use('/api/login', login); 
+  
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
+  });
 }
 
 // production error handler
@@ -78,6 +73,11 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  next(err);
 });
   
 app.listen(conf.nodejs_port, function() {

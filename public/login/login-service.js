@@ -5,11 +5,11 @@ var agoraAppLoginService =
   .value('version', '0.1.0');
 
 agoraAppLoginService.factory('Login', ['$resource',
-  function($resource, email, password) {
+  function($resource, username, password) {
     return $resource('api/login', {}, {
       login: {method: 'POST',
       params: {
-        email: email, password: password
+        username: username, password: password
       }
     }});
   }]);
