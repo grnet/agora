@@ -53,6 +53,7 @@ var criteria = [
   
 for (var i = 0; i < criteria.length; i++) {
   schemaSkeleton[criteria[i]] = {
+    label: String,
     rating: Number,
     tags: Array,
     required: Boolean
