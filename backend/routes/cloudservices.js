@@ -38,8 +38,6 @@ router.get('/', function (req, res) {
 });  
     
 router.post('/', function (req, res){
-  console.log("POST: ");
-  console.log(req.body);
   var cloudService = new CloudService({
     name: req.body.name,
     description: req.body.description

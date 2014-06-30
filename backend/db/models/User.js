@@ -1,5 +1,6 @@
+var bcrypt = require('bcrypt-nodejs');
+
 module.exports = function(mongoose) {
-  var bcrypt = require('bcrypt');
   var SALT_WORK_FACTOR = 10;
 
   var UserSchema = new mongoose.Schema({
@@ -14,28 +15,31 @@ module.exports = function(mongoose) {
 
 
   // Bcrypt middleware on UserSchema
-  User.pre('save', function(next) {
-      var user = this;
+  UserSchema.pre('save', function(next) {
+    var user = this;
 
-      if (!user.isModified('password')) return next();
+    if (!user.isModified('password')) next();
 
-      bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-          if (err) return next(err);
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+      if (err) next(err);
 
-          bcrypt.hash(user.password, salt, function(err, hash) {
-              if (err) return next(err);
-              user.password = hash;
-              next();
-          });
+      bcrypt.hash(user.password, salt, function(err, hash) {
+        if (err) {
+          next(err);
+        } else {
+        user.password = hash;
+        next();
+        }
       });
+    });
   });
 
   //Password verification
-  User.methods.comparePassword = function(pass, cb) {
-      bcrypt.compare(pass, this.password, function(err, isMatch) {
-          if (err) return cb(err);
-          cb(null, isMatch);
-      });
+  UserSchema.methods.comparePassword = function(pass, cb) {
+    bcrypt.compare(pass, this.password, function(err, isMatch) {
+      if (err) return cb(err);
+        return(cb(null, isMatch));
+    });
   };
 
   var User = mongoose.model('User', UserSchema);
