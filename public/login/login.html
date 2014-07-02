@@ -6,13 +6,30 @@
        </h1>
        <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
 
-       <form class="form-signin" role="form" ng-submit="login()">
-         <input type="text" class="form-control"
-                ng-model="username"
-                placeholder="Username" required autofocus>
-         <input type="password" class="form-control"
-                ng-model="password"
-                placeholder="Password" required>
+       <form class="form-signin" name="loginForm"
+             role="form" ng-submit="login(loginForm)">
+         <div ng-class="{'has-error': loginForm.username.$error.mongoose}">
+           <input type="text" class="form-control"
+                  ng-model="username"
+                  name="username"
+                  placeholder="Username"
+                  required
+                  autofocus>
+           <p class="help-block"
+              ng-show="loginForm.username.$error.mongoose">
+             {{ errors.username }}
+           </p>
+         </div>
+         <div ng-class="{'has-error': loginForm.password.$error.mongoose}">
+           <input type="password" class="form-control"
+                  ng-model="password"
+                  name="password"
+                  placeholder="Password" required>
+           <p class="help-block"
+              ng-show="loginForm.password.$error.mongoose">
+             {{ errors.password }
+           </p>
+         </div>
          <label class="checkbox">
            <input type="checkbox" value="remember-me"> Remember me
          </label>

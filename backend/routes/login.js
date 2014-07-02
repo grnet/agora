@@ -5,9 +5,7 @@ var passport = require('passport');
 var jwt = require('jwt-simple'); 
 
 router.post('/', function(req, res, next) {
-  console.log("*** HERE");
   passport.authenticate('local', function(err, user, info) {
-    console.log("*** AND HERE");
     if (err) {
       return(next(err));
     }
