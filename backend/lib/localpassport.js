@@ -12,11 +12,19 @@ passport.use(new LocalStrategy(
 
     // if no user is found, return the message
     if (!user)
-      return done(null, false, { message: 'No user found.' });
+      return done(null, false, {
+        'errors': {
+          'username': { message: 'No user found.' }
+          }
+        });
 
     // if the user is found but the password is wrong
     if (!user.validPassword(password))
-      return done(null, false, { message: 'Wrong password.'});
+      return done(null, false, {
+        'errors': {
+          'password': { message: 'Wrong password.'}
+          }
+        });
         
     // all is well, return successful user
     return done(null, user);
