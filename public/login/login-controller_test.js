@@ -27,12 +27,13 @@ describe('Agora controllers', function() {
       ctrl = $controller('LoginCtrl', {$scope: scope});
     }));
 
-    it('should fail to login with username "foo" and password "bar"',
+    it('should display "No user found" to login with username "foo" ' +
+      'and password "bar"',
       function() {
         scope.username = 'foo';
         scope.password = 'bar';
         scope.loginForm = { 
-          username: {},
+          username: {}
         };
         scope.loginForm['username'].$setValidity = function() {};        
         scope.login(scope.loginForm);

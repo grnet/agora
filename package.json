@@ -20,7 +20,9 @@
     "grunt-mongoimport": "*",
     "grunt":  "*",
     "grunt-cli": "*",
-    "bower": "*"
+    "bower": "*",
+    "prompt": "*",
+    "nopt": "*"
   },
   "devDependencies": {
     "karma": "~0.12",
