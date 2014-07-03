@@ -4,13 +4,13 @@ module.exports = function(mongoose) {
   var SALT_WORK_FACTOR = 10;
 
   var UserSchema = new mongoose.Schema({
-    firstname: { type: String, required: true},
-    lastname: { type: String, required: true},
+    firstName: { type: String, required: true},
+    surname: { type: String, required: true},
     email: { type: String, required: true },
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
-    group: { type: String, required: true },
-    provider_id: { type: String, required: true }
+    group: { type: String, required: false },
+    cloudProviderId: { type: String, required: false }
   });
 
 
@@ -23,7 +23,7 @@ module.exports = function(mongoose) {
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
       if (err) next(err);
 
-      bcrypt.hash(user.password, salt, function(err, hash) {
+      bcrypt.hash(user.password, salt, null, function(err, hash) {
         if (err) {
           next(err);
         } else {
