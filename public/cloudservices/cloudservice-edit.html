@@ -1,0 +1,68 @@
+<div class="container-fluid" ng-controller="CloudServicesListCtrl">
+
+    <div class="col-md-3">
+      <!--Sidebar content-->
+
+      Search: <input id="inputSmall" class="form-control input-sm" ng-model="query">
+      <br/>
+      Sort by:
+      <select id="select" class="form-control" ng-model="orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+
+    </div>
+
+    <div class="col-md-9">
+      <!--Body content-->
+
+        <h2>{{cloudServiceDetails.name}}</h2>
+
+        <div class="well">
+            {{cloudServiceDetails.description}}
+        </div>
+
+<br/>
+
+
+      <div class="service">
+        <div ng-init="criteria = [
+          'intellectualPropertyRights',
+          'csp',
+          'ownership',
+          'nationalLawGovernance',
+          'concordanceNationalPrivacyActs',
+          'externalSecurityAuditCertificate',
+          'subcontractors',
+          'protectionMinorsUsers',
+          'serviceLevelAgreement',
+          'csSecurity',
+          'securityIncidentsHandling',
+          'dataBackupRestore',
+          'compatibility',
+          'dataProtection',
+          'personnel',
+          'penalty',
+          'supervision',
+          'dataAvailability',
+          'edpAudit',
+          'qualityReview',
+          'notification',
+          'billing',
+          'aai',
+          'userProvisioning',
+          'reportingMeteringSalesEstimates',
+          'networkConnectivityAssociatedNetworkingCosts'
+          ]">
+            <div class="service-item" ng-class="{'service-item-red': (cloudServiceProfile[criterion].rating <= 3), 'service-item-amber': (cloudServiceProfile[criterion].rating > 3 && cloudServiceProfile[criterion].rating <= 6) , 'service-item-green': (cloudServiceProfile[criterion].rating > 6)}" ng-repeat="criterion in criteria">
+                    <div class="service-item-title">{{ cloudServiceProfile[criterion].label }}</div>
+                    <p>Rating: <span class="label" ng-class="{'label-danger': (cloudServiceProfile[criterion].rating <= 3), 'label-warning': (cloudServiceProfile[criterion].rating > 3 && cloudServiceProfile[criterion].rating <= 6) , 'label-success': (cloudServiceProfile[criterion].rating > 6)}">{{ cloudServiceProfile[criterion].rating }}</span></p>
+                    <p ng-show="cloudServiceProfile[criterion].tags">Tags: {{ cloudServiceProfile[criterion].tags }}</p>
+            </div>
+
+          </div>
+      </div>
+
+    </div>
+
+</div>
