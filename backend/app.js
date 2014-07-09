@@ -16,6 +16,7 @@ var cloudServices = require('./routes/cloudservices');
 var cloudServiceProfiles = require('./routes/cloudserviceprofiles');
 var jwt = require('jwt-simple');
 var login = require('./routes/login');
+var jwtauth = require('./lib/jwtauth');
 
 var app = express();
 
@@ -43,6 +44,10 @@ mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
 
 
+app.use('/api/login', login);
+    
+//app.all('/api/*', jwtauth);
+    
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
 });
@@ -51,7 +56,6 @@ app.use('/api/countries', countries);
 app.use('/api/providers', cloudServiceProviders); 
 app.use('/api/cloudservices', cloudServices);
 app.use('/api/cloudserviceprofiles', cloudServiceProfiles); 
-app.use('/api/login', login); 
   
 // development error handler
 // will print stacktrace

@@ -17,9 +17,9 @@ passport.use(new LocalStrategy(
           'username': { message: 'No user found.' }
           }
         });
-
+    
     // if the user is found but the password is wrong
-    if (!user.validPassword(password))
+    if (!user.comparePassword(password) != true)
       return done(null, false, {
         'errors': {
           'password': { message: 'Wrong password.'}

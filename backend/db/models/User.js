@@ -38,7 +38,11 @@ module.exports = function(mongoose) {
   UserSchema.methods.comparePassword = function(pass, cb) {
     bcrypt.compare(pass, this.password, function(err, isMatch) {
       if (err) return cb(err);
+      if (cb) {
         return(cb(null, isMatch));
+      } else {
+        return isMatch;
+      }
     });
   };
 
