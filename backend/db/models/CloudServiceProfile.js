@@ -50,7 +50,7 @@ var criteria = [
   "reportingMeteringSalesEstimates",
   "networkConnectivityAssociatedNetworkingCosts"
 ];
-  
+
 for (var i = 0; i < criteria.length; i++) {
   schemaSkeleton[criteria[i]] = {
     label: String,
@@ -59,11 +59,15 @@ for (var i = 0; i < criteria.length; i++) {
     required: Boolean
   };
 }
-  
+
 module.exports = function(mongoose) {
   var cloudServiceProfileSchema = new mongoose.Schema(schemaSkeleton);
-var CloudServiceProfile = mongoose.model('CloudServiceProfile',
-  cloudServiceProfileSchema);
-
-return CloudServiceProfile;
+  cloudServiceProfileSchema.methods.getCriteria = function() {
+    return criteria;
+  };
+    
+  var CloudServiceProfile = mongoose.model('CloudServiceProfile',
+    cloudServiceProfileSchema);
+  
+  return CloudServiceProfile;
 };
