@@ -63,14 +63,19 @@
             <select ng-model="criterion.contents.rating"
                     ng-options="colour.value as colour.name for colour
                                 in colours">
-            </select></p>
+            </select>
+            </p>
             <p ng-show="cloudServiceProfile[criterion].tags">Tags:
               {{ criterion.contents.tags }}</p>
           </div>
         
       </div>
-      <button class="btn btn-lg btn-primary btn-block"
-                     ng-click="update()">Update</button>
+      <div class="row">
+        <div class="col-md-4">
+          <button class="btn btn-lg btn-primary btn-block "
+                  ng-click="update()">Update</button>
+        </div>
+      </div>
     </form>    
   </div>
 

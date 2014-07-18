@@ -12,6 +12,7 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', 'Login', '$location',
           $scope.errors = {};
           
           if (!err) {
+            $window.sessionStorage.token = as;
             $location.path('/');
           } else {
             angular.forEach(err.errors, function(error, field) {
