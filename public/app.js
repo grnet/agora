@@ -14,7 +14,7 @@ agoraApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'partials/main.html',
+        templateUrl: 'main/main.html',
         controller: 'MainCtrl'
       }).
       when('/login', {
