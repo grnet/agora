@@ -12,7 +12,7 @@ router.post('/', function(req, res, next) {
     }
     
     if (!user) {
-      return(res.json(info));
+      return(res.status(401).json(info));
     }
     
     var expires = moment().add('days', 7).valueOf();

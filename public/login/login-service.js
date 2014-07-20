@@ -12,5 +12,11 @@ agoraAppLoginService.factory('Login', ['$resource',
         username: username, password: password
       }
     }});
-  }]);
+  }
+]);
 
+agoraAppLoginService.factory('Logout', ['$window',
+  function($window) {
+    delete $window.sessionStorage.token;
+  }
+]);

@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="jumbotron" ng-controller="MainCtrl">
     <h2>Welcome to GÉANT Cloud Marketplace</h2>
     <p>Lorem ipsum dolor sit amet, nam id mollis commune, liber urbanitas intellegat at eum, ea possit iisque rationibus sit. Ut euismod blandit facilisi sed, mei an utroque volumus interpretaris. Dicit adolescens pro eu, et nam viris splendide expetendis, nemore facilis ad vis. In elit ridens placerat qui, cu sed postea oblique intellegebat. Et paulo accumsan lobortis eam. Et bonorum dignissim efficiendi usu.</p>
 
@@ -16,7 +16,7 @@
   </div>
     <div class="col-md-4">
     <a class="btn btn-lg btn-info" href="#/login"
-       role="button">Sign in »</a>
+       role="button" ng-show="!username">Sign in »</a>
   </div>
     <div class="col-md-4"/>
 </div>
