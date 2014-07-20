@@ -3,23 +3,29 @@
 var agoraAppLoginController =
   angular.module('agoraAppLoginController', []);
   
-agoraAppLoginController.controller('LoginCtrl', ['$scope', 'Login', '$location',
-  function ($scope, Login, $location) {
+agoraAppLoginController.controller('LoginCtrl', ['$scope', '$location',
+  '$window', 'Login',
+  function ($scope, $location, $window, Login) {
     $scope.login = function(form) {
       Login.login({username: $scope.username, password: $scope.password},
-        function(err) {
+        function(value, responseHeaders) {
+          $window.sessionStorage.token = value.token;
+          $window.sessionStorage.firstName = value.firstName;
+          $window.sessionStorage.surname = value.surname;
+          $window.sessionStorage.username = value.username;
+          $location.path('/');
+        }, 
+        function(httpResponse) {
           $scope.error = {};
           $scope.errors = {};
           
-          if (!err) {
-            $window.sessionStorage.token = as;
-            $location.path('/');
-          } else {
-            angular.forEach(err.errors, function(error, field) {
+          if (httpResponse.data.errors) {
+            var errors = httpResponse.data.errors;
+            angular.forEach(errors, function(error, field) {
               form[field].$setValidity('mongoose', false);
               $scope.errors[field] = error.message;
             });
-            $scope.error.other = err.message;
+            $scope.error.other = httpResponse.data.message;
           }
         });
     };
