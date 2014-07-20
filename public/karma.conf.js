@@ -11,7 +11,9 @@ module.exports = function(config){
       'app.js',
       'cloudserviceproviders/*.js',
       'cloudservices/*.js',
-      'login/*.js'              
+      'login/*.js',
+      'main/*.js',
+      'user/*.js'
     ],
 
     autowatch : true,

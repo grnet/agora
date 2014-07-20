@@ -17,10 +17,15 @@ describe('Agora controllers', function() {
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectPOST('api/login', {username: 'foo', password: 'bar'}).
-        respond({'errors': {
-          'username': {
-            'message': 'No user found.'}
-          }
+        respond(function() {
+          return (
+            ['401',
+            {'errors': {
+              'username': {
+              'message': 'No user found.'
+              }
+            }
+          }]);
         });
 
       scope = $rootScope.$new();

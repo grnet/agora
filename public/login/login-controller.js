@@ -9,6 +9,7 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$location',
     $scope.login = function(form) {
       Login.login({username: $scope.username, password: $scope.password},
         function(value, responseHeaders) {
+          console.log("JERE");
           $window.sessionStorage.token = value.token;
           $window.sessionStorage.firstName = value.firstName;
           $window.sessionStorage.surname = value.surname;
