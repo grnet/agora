@@ -46,10 +46,7 @@
                       (criterion.contents.rating == 1) ,
                       'label-success':
                       (criterion.contents.rating == 2)}">&nbsp;</span>
-            <select ng-model="criterion.contents.rating"
-                    ng-options="colour.value as colour.name for colour
-                                in colours">
-            </select></p>
+          </p>
             <p ng-show="cloudServiceProfile[criterion].tags">Tags:
               {{ criterion.contents.tags }}</p>
           </div>
