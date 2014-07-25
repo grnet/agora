@@ -1,11 +1,20 @@
-module.exports = function(mongoose) {
-  var CountrySchema = new mongoose.Schema({  
-    name: { type: String, required: true},
-    isoCode: { type: String, required: true },
-    modified: { type: Date, default: Date.now }
-  });
+var mongoose = require('mongoose');
 
-  var Country = mongoose.model('Country', CountrySchema);
+var countrySchema = new mongoose.Schema({  
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  isoCode: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  modified: {
+    type: Date,
+    default: Date.now
+  }
+});
 
-  return Country;
-}
+module.exports =  mongoose.model('Country', countrySchema);

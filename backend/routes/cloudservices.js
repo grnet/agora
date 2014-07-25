@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-var CloudService = require('../db/models/CloudService')(mongoose);
+var CloudService = require('../db/models/CloudService');
 
 router.get('/:id', function (req, res) {
   return CloudService.findOne({_id: req.params.id},

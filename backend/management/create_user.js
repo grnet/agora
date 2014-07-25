@@ -6,7 +6,7 @@ var fs = require('fs');
 var util = require('util');
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);  
-var User = require('../db/models/User')(mongoose);
+var User = require('../db/models/User');
 
 var user;
 var usersFile, userData;
@@ -14,7 +14,8 @@ var usersFile, userData;
 var username, password, firstName, surname, email, group,
   cloudProviderId, inputFile;
 
-var prompts = [{
+var prompts = [
+  {
     name: 'username',
     message: 'Enter username:'
   },
@@ -152,6 +153,7 @@ if (parsed.inputfile) {
 
   prompt.get(actualPrompts, function(err, results) {
 
+  id = parsed.id || results.id;
   username = parsed.username || results.username;
   password = parsed.password || results.password;
   firstName = parsed.firstname || results.firstname;
@@ -168,6 +170,7 @@ if (parsed.inputfile) {
   }
   
   user = new User({
+    id: id,
     username: username,
     password: password,
     firstName: firstName,

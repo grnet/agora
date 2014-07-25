@@ -1,10 +1,7 @@
 [
   {
-    "_id": 0, 
-    "createdDate": "2014-06-17",
-    "modifiedDate": "2014-06-17",
     "version": "1",
-    "_cloudService": 0,
+    "cloudServiceName": "Okeanos",
     "intellectualPropertyRights": {
       "label": "Intellectual Property Rights",
       "rating": 2,
@@ -137,11 +134,8 @@
     }
   },
   {
-    "_id": 0,
-    "createdDate": "2014-06-17",
-    "modifiedDate": "2014-06-17",
     "version": "1",
-    "_cloudService": 0,
+    "cloudServiceName": "BOX",
     "intellectualPropertyRights": {
       "label": "Intellectual Property Rights",
       "rating": 2,
