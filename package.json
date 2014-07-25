@@ -22,7 +22,8 @@
     "grunt-cli": "*",
     "bower": "*",
     "prompt": "*",
-    "nopt": "*"
+    "nopt": "*",
+    "async": "*"
   },
   "devDependencies": {
     "karma": "~0.12",

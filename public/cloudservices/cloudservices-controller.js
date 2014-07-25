@@ -23,7 +23,7 @@ agoraAppCloudServicesController.controller('CloudServiceProfileCtrl',
       { name: 'Amber', value: 1 },
       { name: 'Green', value: 2 }
     ];
-    
+
     $scope.update = function() {
       CloudServiceProfile.update($scope.cloudServiceProfile,
         function(value, headers) {
@@ -31,8 +31,9 @@ agoraAppCloudServicesController.controller('CloudServiceProfileCtrl',
           $scope.message = "Profile Updated";
         },
         function(errorResponse) {
-          $window.scrollTo(0, 0);          
-          $scope.error = errorResponse;
+          $window.scrollTo(0, 0);
+          $scope.cloudServiceProfile = CloudServiceProfile.get();          
+          $scope.error = errorResponse.data.error;
         }
       );
     };

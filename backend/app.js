@@ -46,16 +46,17 @@ mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
 
 app.use('/api/login', login);
     
-//app.all('/api/*', jwtauth);
-    
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
 });
 
+app.put('/api/cloudserviceprofiles/*', jwtauth);
+  
 app.use('/api/countries', countries);
 app.use('/api/providers', cloudServiceProviders); 
 app.use('/api/cloudservices', cloudServices);
 app.use('/api/cloudserviceprofiles', cloudServiceProfiles); 
+
   
 // development error handler
 // will print stacktrace

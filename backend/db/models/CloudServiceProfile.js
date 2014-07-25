@@ -1,13 +1,12 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+  
 var schemaSkeleton = {
-  _id: {
-    type: Number,
-    required: true
-  },
-  createdDate: {
+  createdAt: {
     type: Date,
     required: true
     },
-  modifiedDate: {
+  modifiedAt: {
     type: Date,
     required: true
   },
@@ -15,8 +14,8 @@ var schemaSkeleton = {
     type: String,
     required: true
   },
-  _cloudService: {
-    type: Number,
+  cloudServiceId: {
+    type: Schema.Types.ObjectId,
     ref: 'CloudService',
     required: true
   }
@@ -60,14 +59,20 @@ for (var i = 0; i < criteria.length; i++) {
   };
 }
 
-module.exports = function(mongoose) {
-  var cloudServiceProfileSchema = new mongoose.Schema(schemaSkeleton);
-  cloudServiceProfileSchema.methods.getCriteria = function() {
-    return criteria;
-  };
-    
-  var CloudServiceProfile = mongoose.model('CloudServiceProfile',
-    cloudServiceProfileSchema);
+var cloudServiceProfileSchema = new mongoose.Schema(schemaSkeleton);
+
+cloudServiceProfileSchema.pre('validate', function(next) {
+  var saveDate = new Date;
+  if (!this.createdAt) {
+    this.createdAt = saveDate;
+  }
+  this.modifiedAt = saveDate;
+  next();
+});
   
-  return CloudServiceProfile;
+cloudServiceProfileSchema.methods.getCriteria = function() {
+  return criteria;
 };
+
+module.exports = mongoose.model('CloudServiceProfile',
+  cloudServiceProfileSchema);  

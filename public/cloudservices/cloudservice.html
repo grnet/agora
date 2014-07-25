@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="CloudServicesListCtrl">
+<div class="container-fluid">
 
     <div class="col-md-3">
       <!--Sidebar content-->
@@ -7,8 +7,9 @@
       <br/>
       Sort by:
       <select id="select" class="form-control" ng-model="orderProp">
-        <option value="name">Alphabetical</option>
-        <option value="age">Newest</option>
+        <option value="contents.label">Alphabetical</option>
+        <option value="contents.rating">Rating</option>
+        <option value="order">Initial</option>
       </select>
 
     </div>
@@ -46,10 +47,7 @@
                       (criterion.contents.rating == 1) ,
                       'label-success':
                       (criterion.contents.rating == 2)}">&nbsp;</span>
-            <select ng-model="criterion.contents.rating"
-                    ng-options="colour.value as colour.name for colour
-                                in colours">
-            </select></p>
+          </p>
             <p ng-show="cloudServiceProfile[criterion].tags">Tags:
               {{ criterion.contents.tags }}</p>
           </div>

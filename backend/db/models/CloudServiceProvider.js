@@ -1,12 +1,27 @@
-module.exports = function(mongoose) {
-  var CloudServiceProviderSchema = new mongoose.Schema({  
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    country: { type: String, required: true }
-  });
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+  
+var cloudServiceProviderSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  country: {
+    type: String,
+    required: true
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }  
+});
 
-  var CloudServiceProvider =
-    mongoose.model('CloudServiceProvider', CloudServiceProviderSchema);
-
-  return CloudServiceProvider;
-}
+  
+module.exports =
+  mongoose.model('CloudServiceProvider', cloudServiceProviderSchema);

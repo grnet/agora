@@ -2,8 +2,18 @@
   <div class="row" ng-show="username">
     <div class="col-md-8"/>
     <div class="col-md-4 text-right">
-      {{ firstName }}
-      {{ surname }}
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button"
+                id="userMenu" data-toggle="dropdown">
+          {{ firstName }} {{ surname }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="userMenu">
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" ng-click="signOut()"
+               href="">Sign Out</a></li>
+        </ul>
     </div>
   </div>
 </div>

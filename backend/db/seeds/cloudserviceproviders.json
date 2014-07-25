@@ -2,11 +2,13 @@
   {
     "name": "GRNET",
     "description": "The Greek Research and Technology Network.",
-    "country": "Greece"
+    "country": "Greece",
+    "username": "panos"
   },
   {
-    "name": "GEANT",
-    "description": "GÉANT is the pan European data network dedicated to the research and education community.",
-    "country": "United Kingdom"
+    "name": "Box",
+    "description": "Sharing, Accessing, and Managing Content Online",
+    "country": "United States",
+    "username": "eleni"
   }
 ]
