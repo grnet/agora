@@ -14,17 +14,10 @@ agoraAppCloudServicesService.factory('CloudServiceDetails',
   function($resource, $routeParams) {
     return $resource('api/cloudservices/:cloudServiceId', {
       cloudServiceId: $routeParams.id
-    });
-  }]);
-  
-agoraAppCloudServicesService.factory('CloudServiceProfile',
-  ['$resource', '$routeParams',
-  function($resource, $routeParams) {
-    return $resource('api/cloudserviceprofiles/:cloudServiceProfileId', {
-      cloudServiceProfileId: $routeParams.id
     },
     {
       update: { method: 'PUT' }
     });
   }]);
+  
   

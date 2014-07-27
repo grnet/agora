@@ -10,13 +10,11 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
   }
 ]);
 
-agoraAppCloudServicesController.controller('CloudServiceProfileCtrl',
+agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$routeParams', '$window', 
-   'CloudServiceDetails', 'CloudServiceProfile',
-  function($scope, $routeParams, $window, CloudServiceDetails,
-    CloudServiceProfile) {
+   'CloudServiceDetails',
+  function($scope, $routeParams, $window, CloudServiceDetails) {
     $scope.cloudServiceDetails = CloudServiceDetails.get();
-    $scope.cloudServiceProfile = CloudServiceProfile.get();
       
     $scope.colours = [
       { name: 'Red', value: 0 },
@@ -25,14 +23,14 @@ agoraAppCloudServicesController.controller('CloudServiceProfileCtrl',
     ];
 
     $scope.update = function() {
-      CloudServiceProfile.update($scope.cloudServiceProfile,
+      CloudServiceDetails.update($scope.cloudService,
         function(value, headers) {
           $window.scrollTo(0, 0);
           $scope.message = "Profile Updated";
         },
         function(errorResponse) {
           $window.scrollTo(0, 0);
-          $scope.cloudServiceProfile = CloudServiceProfile.get();          
+          $scope.cloudServiceProfile = CloudServiceDetails.get();          
           $scope.error = errorResponse.data.error;
         }
       );

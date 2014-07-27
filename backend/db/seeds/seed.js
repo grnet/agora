@@ -2,14 +2,12 @@ var fs = require('fs');
 var assert = require('assert');
 var async = require('async');
 
-  
 var mongoose = require('mongoose');
 var conf = require('../../config'); 
 
 var User = require('../models/User');
 var CloudServiceProvider = require('../models/CloudServiceProvider');
 var CloudService = require('../models/CloudService');
-var CloudServiceProfile = require('../models/CloudServiceProfile');  
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);  
@@ -59,7 +57,6 @@ function createObject(objectData, SeedModel, ReferencedModel, referenceId,
       }
     });
 }
-
 
 function createObjects(data, SeedModel, ReferencedModel, referenceId,
   lookUpAttr, referenceAttr, callback) {
@@ -138,14 +135,6 @@ async.series([
       'cloudServiceProviderId', 'name', 'cloudServiceProviderName',
       function() {
         callback(null, 'CloudServices');
-      });
-  },
-  function(callback){
-    seedModelData('cloudserviceprofiles.json', CloudServiceProfile,
-      CloudService,
-      'cloudServiceId', 'name', 'cloudServiceName',
-      function() {
-        callback(null, 'CloudServiceProfiles');
       });
   }],
   function(err, results){
