@@ -23,7 +23,7 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
     ];
 
     $scope.update = function() {
-      CloudServiceDetails.update($scope.cloudService,
+      CloudServiceDetails.update($scope.cloudServiceDetails,
         function(value, headers) {
           $window.scrollTo(0, 0);
           $scope.message = "Profile Updated";

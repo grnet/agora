@@ -45,41 +45,34 @@ router.post('/', function (req, res){
 });
 
 function checkServiceEditPermissions(req, callback) {
+  console.log(req.body);
   CloudService.findOne({_id: req.body._id},
-  function (err, cloudService) {
-    if (err) {
-      callback(err);
-      return;
-    }
-    CloudServiceProfile.findOne({cloudServiceId: cloudService._id},
-      function(err, cloudServiceProfile) {
+    function (err, cloudService) {
+      if (err) {
+        callback(err);
+        return;
+      }
+    CloudServiceProvider.findOne({
+        _id: cloudService.cloudServiceProviderId
+      },
+      function(err, cloudServiceProvider) {
         if (err) {
           callback(err);
           return;
-        } 
-        CloudServiceProvider.findOne({
-          _id: cloudService.cloudServiceProviderId
-        },
-        function(err, cloudServiceProvider) {
-          if (err) {
-            callback(err);
-            return;
-          }
-          if (cloudServiceProvider.userId == req.user.username) {
-            callback(null, cloudServiceProfile);
-          } else {
-            console.log(req.user);
-            callback("User not allowed to edit");
-          }
         }
-      );
+      if (cloudServiceProvider.userId == req.user.username) {
+        callback(null, cloudService);
+        } else {
+          console.log(req.user);
+          callback("User not allowed to edit");
+        }
       }
     );
     }
   );               
 }
 
-router.put('/:id/profile', function (req, res){
+router.put('/:id', function (req, res){
   checkServiceEditPermissions(req,
     function (err, cloudServiceProfile) {
       if (!err) {
