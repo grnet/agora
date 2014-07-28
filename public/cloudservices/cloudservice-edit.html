@@ -41,13 +41,12 @@
     <form novalidate>
       <div class="service">
         <div class="service-item" ng-class="{'service-item-red':
-                    (criterion.contents.rating == 0),
+                    (criterion.rating == 0),
                     'service-item-amber':
-                    (criterion.contents.rating == 1) ,
+                    (criterion.rating == 1) ,
                     'service-item-green':
-                    (criterion.contents.rating == 2)}"
-                    ng-repeat="criterion in
-                    cloudServiceProfile.criteria
+                    (criterion.rating == 2)}"
+                    ng-repeat="criterion in cloudServiceDetails.criteria
                     | filter:query
                     | orderBy:orderProp">
           <div class="service-item-title">
@@ -55,18 +54,17 @@
           </div>
           <p>Rating: <span class="label"
             ng-class="{'label-danger':
-                      (criterion.contents.rating == 0),
+                      (criterion.rating == 0),
                       'label-warning':
-                      (criterion.contents.rating == 1) ,
+                      (criterion.rating == 1) ,
                       'label-success':
-                      (criterion.contents.rating == 2)}">&nbsp;</span>
-            <select ng-model="criterion.contents.rating"
+                      (criterion.rating == 2)}">&nbsp;</span>
+            <select ng-model="criterion.rating"
                     ng-options="colour.value as colour.name for colour
                                 in colours">
             </select>
             </p>
-            <p ng-show="cloudServiceProfile[criterion].tags">Tags:
-              {{ criterion.contents.tags }}</p>
+            <p ng-show="criterion.tags">Tags: {{ criterion.tags }}</p>
           </div>
         
       </div>

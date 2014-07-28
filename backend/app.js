@@ -13,7 +13,6 @@ var conf = require('./config');
 var countries = require('./routes/countries');
 var cloudServiceProviders = require('./routes/cloudserviceproviders');
 var cloudServices = require('./routes/cloudservices');
-var cloudServiceProfiles = require('./routes/cloudserviceprofiles');
 var jwt = require('jwt-simple');
 var login = require('./routes/login');
 var jwtauth = require('./lib/jwtauth');
@@ -50,13 +49,11 @@ app.get('/api', function (req, res) {
   res.send('AGORA API is running');
 });
 
-app.put('/api/cloudserviceprofiles/*', jwtauth);
+app.put('/api/cloudservices/*', jwtauth);
   
 app.use('/api/countries', countries);
 app.use('/api/providers', cloudServiceProviders); 
 app.use('/api/cloudservices', cloudServices);
-app.use('/api/cloudserviceprofiles', cloudServiceProfiles); 
-
   
 // development error handler
 // will print stacktrace
