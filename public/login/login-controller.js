@@ -19,7 +19,7 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
         function(httpResponse) {
           $scope.error = {};
           $scope.errors = {};
-          
+
           if (httpResponse.data.errors) {
             var errors = httpResponse.data.errors;
             angular.forEach(errors, function(error, field) {

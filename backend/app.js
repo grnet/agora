@@ -49,7 +49,7 @@ app.get('/api', function (req, res) {
   res.send('AGORA API is running');
 });
 
-app.put('/api/cloudservices/*', jwtauth);
+app.all('/api/cloudservices/*', jwtauth);
   
 app.use('/api/countries', countries);
 app.use('/api/providers', cloudServiceProviders); 

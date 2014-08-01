@@ -3,7 +3,8 @@
     <div class="col-md-3">
       <!--Sidebar content-->
 
-      Search: <input id="inputSmall" class="form-control input-sm" ng-model="query">
+      Search: <input id="inputSmall" class="form-control input-sm"
+                     ng-model="query">
       <br/>
       Sort by:
       <select id="select" class="form-control" ng-model="orderProp">
@@ -19,7 +20,7 @@
       
       <h2>{{cloudServiceDetails.name}}</h2>
 
-      <div class="well">
+      <div class="well" ng-show="cloudServiceDetails.description">
         {{cloudServiceDetails.description}}
       </div>
 

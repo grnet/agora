@@ -178,7 +178,7 @@ if (parsed.inputfile) {
     email: email
   });
   if (group) {
-    user.group = group;
+    user.group = [ group ];
   }
   if (cloudProviderId) {
     user.cloudProdivedId = cloudProviderId;

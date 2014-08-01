@@ -4,7 +4,6 @@ var agoraAppMainController =
   angular.module('agoraAppMainController', []);
 
 agoraAppMainController.controller('MainCtrl',
-  ['$scope', 
-  function($scope) {
+  function() {
   }
-]);
+);
