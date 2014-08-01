@@ -8,20 +8,20 @@ router.get('/:id', function (req, res) {
   function (err, cloudService) {
     if (!err) {
       if (cloudService) {
-        /* If 'published' or admin user grant access */
+        /* If 'published' or admin user, grant access */
         if (cloudService.status == 'published'
             || req.user.groups.indexOf('admin') != -1) {
           res.send(cloudService);
         } else {
-          /* If user is owner grant access */
+          /* If user is owner, grant access */
           CloudServiceProvider.findOne({
             _id: cloudService.cloudServiceProviderId},
             function (err, cloudServiceProvider) {
               if (err) {
                 res.send(404, {error: 'No Service Provider Found'});
               } else if (cloudServiceProvider
-                && cloudServiceProvider.userId == req.user._id) {
-                req.send(cloudService);                
+                && (cloudServiceProvider.userId.equals(req.user._id))) {
+                res.send(cloudService);
               } else {
                 res.send(404, {error: 'Access Denied'});
               }
