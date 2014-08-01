@@ -6,12 +6,18 @@ var CloudServiceProvider = require('../db/models/CloudServiceProvider');
 router.get('/:id', function (req, res) {
   CloudService.findOne({_id: req.params.id},
   function (err, cloudService) {
+    var isAdmin = false;
+    var cloudServiceJSON = {}; // We need to do that to add canEdit attribute
     if (!err) {
       if (cloudService) {
         /* If 'published' or admin user, grant access */
-        if (cloudService.status == 'published'
-            || req.user.groups.indexOf('admin') != -1) {
-          res.send(cloudService);
+        isAdmin = req.user.groups.indexOf('admin') != -1;
+        if (cloudService.status == 'published' || isAdmin) {
+          if (isAdmin) {
+            cloudServiceJSON = cloudService.toJSON();
+            cloudServiceJSON.canEdit = true;
+          }
+          res.send(cloudServiceJSON);
         } else {
           /* If user is owner, grant access */
           CloudServiceProvider.findOne({
@@ -21,7 +27,9 @@ router.get('/:id', function (req, res) {
                 res.send(404, {error: 'No Service Provider Found'});
               } else if (cloudServiceProvider
                 && (cloudServiceProvider.userId.equals(req.user._id))) {
-                res.send(cloudService);
+                cloudServiceJSON = cloudService.toJSON();
+                cloudServiceJSON.canEdit = true;
+                res.send(cloudServiceJSON);
               } else {
                 res.send(404, {error: 'Access Denied'});
               }
