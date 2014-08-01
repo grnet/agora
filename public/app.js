@@ -3,6 +3,7 @@
 var agoraApp = angular.module('agoraApp', [
   'ngRoute',
   'agoraAppMainController',
+  'agoraAppErrorInterceptor',  
   'agoraAppUserController',
   'agoraAppCloudServicesController',
   'agoraAppCloudServicesService',  

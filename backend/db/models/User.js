@@ -25,8 +25,8 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  group: {
-    type: String,
+  groups: {
+    type: Array,
     required: false
   },
   cloudServiceProviderId: {
@@ -59,11 +59,10 @@ userSchema.pre('save', function(next) {
 //Password verification
 userSchema.methods.comparePassword = function(pass, cb) {
   bcrypt.compare(pass, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    if (cb) {
-      return(cb(null, isMatch));
+    if (err) {
+      cb(err);
     } else {
-      return isMatch;
+      cb(null, isMatch);
     }
   });
 };

@@ -7,13 +7,32 @@ router.get('/:id', function (req, res) {
   CloudService.findOne({_id: req.params.id},
   function (err, cloudService) {
     if (!err) {
-      var criteria = [];
       if (cloudService) {
-        res.send(cloudService);
+        /* If 'published' or admin user grant access */
+        if (cloudService.status == 'published'
+            || req.user.groups.indexOf('admin') != -1) {
+          res.send(cloudService);
+        } else {
+          /* If user is owner grant access */
+          CloudServiceProvider.findOne({
+            _id: cloudService.cloudServiceProviderId},
+            function (err, cloudServiceProvider) {
+              if (err) {
+                res.send(404, {error: 'No Service Provider Found'});
+              } else if (cloudServiceProvider
+                && cloudServiceProvider.userId == req.user._id) {
+                req.send(cloudService);                
+              } else {
+                res.send(404, {error: 'Access Denied'});
+              }
+            }
+          );
+        }
       } else {
         res.send(404, {error: 'No Cloud Service Found'});
       }
     } else {
+      res.send(404, {error: 'No Cloud Service Found'});
       console.log(err);
     }
   });
@@ -22,6 +41,9 @@ router.get('/:id', function (req, res) {
 router.get('/', function (req, res) {
   return CloudService.find(function (err, cloudServices) {
     if (!err) {
+      cloudServices.forEach(function(cloudService) {
+          cloudService.criteria = [];
+      });
       return res.send(cloudServices);
     } else {
       return console.log(err);
@@ -45,29 +67,32 @@ router.post('/', function (req, res){
 });
 
 function checkServiceEditPermissions(req, callback) {
-  console.log(req.body);
   CloudService.findOne({_id: req.body._id},
     function (err, cloudService) {
       if (err) {
         callback(err);
         return;
       }
-    CloudServiceProvider.findOne({
-        _id: cloudService.cloudServiceProviderId
-      },
-      function(err, cloudServiceProvider) {
-        if (err) {
-          callback(err);
-          return;
-        }
-      if (cloudServiceProvider.userId == req.user.username) {
+      if (cloudService.status == 'published') {
         callback(null, cloudService);
-        } else {
-          console.log(req.user);
-          callback("User not allowed to edit");
-        }
+        return;
       }
-    );
+      CloudServiceProvider.findOne({
+          _id: cloudService.cloudServiceProviderId
+          },
+          function(err, cloudServiceProvider) {
+            if (err) {
+            callback(err);
+            return;
+            }
+            if (cloudServiceProvider.userId == req.user.username) {
+              callback(null, cloudService);
+            } else {
+            console.log(req.user);
+            callback("User not allowed to edit");
+            }
+          }
+      );
     }
   );               
 }

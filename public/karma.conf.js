@@ -11,6 +11,7 @@ module.exports = function(config){
       'app.js',
       'cloudserviceproviders/*.js',
       'cloudservices/*.js',
+      'error/*.js',      
       'login/*.js',
       'main/*.js',
       'user/*.js'
