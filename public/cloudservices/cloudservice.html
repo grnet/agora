@@ -17,9 +17,19 @@
 
     <div class="col-md-9">
       <!--Body content-->
-      
-      <h2>{{cloudServiceDetails.name}}</h2>
 
+      <div class="row">
+        <h2 class="col-md-8">{{cloudServiceDetails.name}}</h2>
+        <div ng-show="cloudServiceDetails.canEdit"
+             class="col-md-4">
+          <h2>
+          <a class="btn btn-info"
+             ng-href="#/cloudservices/{{cloudServiceDetails._id}}/edit">
+            Edit Service</a>
+          </h2>
+        </div>
+      </div>            
+      
       <div class="well" ng-show="cloudServiceDetails.description">
         {{cloudServiceDetails.description}}
       </div>

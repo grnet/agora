@@ -3,6 +3,7 @@
     "name": "Okeanos",
     "description": "The GRNET Cloud Service",
     "cloudServiceProviderName": "GRNET",
+    "status": "draft",
     "version": "1",
     "criteria": [
       {
@@ -167,6 +168,7 @@
     "name": "BOX",
     "description": "box.com Online Storage Service",
     "cloudServiceProviderName": "Box",
+    "status": "draft",    
     "version": "1",
     "cloudServiceName": "BOX",
     "criteria": [

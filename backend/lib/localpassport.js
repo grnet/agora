@@ -18,25 +18,25 @@ passport.use(new LocalStrategy(
           'username': { message: 'No user found.' }
           }
         });
-    }
-    
-    // if the user is found but the password is wrong    
-    user.comparePassword(password, function(err, isMatch) {
-      if (err) {
-        done(err);
-      } else {
-        if (!isMatch) {
-          done(null, false, {
-            'errors': {
-              'password': { message: 'Wrong password.'}
-              }
-            });
+    } else {    
+      // if the user is found but the password is wrong    
+      user.comparePassword(password, function(err, isMatch) {
+        if (err) {
+          done(err);
         } else {
-          // all is well, return successful user
-          done(null, user);
+          if (!isMatch) {
+            done(null, false, {
+              'errors': {
+                'password': { message: 'Wrong password.'}
+                }
+              });
+          } else {
+            // all is well, return successful user
+            done(null, user);
+          }
         }
-      }
-    });
+      });
+    }
   });
 }));
 

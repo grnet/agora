@@ -4,8 +4,8 @@ var agoraAppUserController =
   angular.module('agoraAppUserController', []);
 
 agoraAppUserController.controller('UserCtrl',
-  ['$scope', '$window', 
-  function($scope, $window) {
+  ['$scope', '$window', '$location',
+  function($scope, $window, $location) {
 
     $scope.$on('login', function(event, args) {
       signIn();
@@ -18,6 +18,8 @@ agoraAppUserController.controller('UserCtrl',
         $scope.surname = $window.sessionStorage.surname;
       }
     };
+
+    signIn();
     
     $scope.signOut = function() {
       delete $window.sessionStorage.token;
@@ -27,6 +29,7 @@ agoraAppUserController.controller('UserCtrl',
       delete $scope.username;
       delete $scope.firstName;
       delete $scope.surname;
+      $location.path('/');
     };
     
   }

@@ -14,7 +14,7 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$routeParams', '$window', 
    'CloudServiceDetails',
   function($scope, $routeParams, $window, CloudServiceDetails) {
-    $scope.cloudServiceDetails = CloudServiceDetails.get();
+    $scope.cloudServiceDetails = CloudServiceDetails.get();    
       
     $scope.colours = [
       { name: 'Red', value: 0 },
