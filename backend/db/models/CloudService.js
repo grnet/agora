@@ -15,11 +15,11 @@ var CloudServiceSchema = new Schema({
     required: true,
     unique: true
   },
-    description: {
+  description: {
     type: String,
     required: true
   },
-  cloudServiceProviderId: {
+  _cloudServiceProvider: {
     type: Schema.Types.ObjectId,
     ref: 'CloudServiceProvider',
     required: true

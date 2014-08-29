@@ -126,13 +126,13 @@ function seedModelData(filename, SeedModel, ReferencedModel,
 async.series([
   function(callback){
     seedModelData('cloudserviceproviders.json', CloudServiceProvider, User,
-      'userId', 'username', 'username', function() {
+      '_user', 'username', 'username', function() {
         callback(null, 'CloudServiceProviders');
     });
   },
   function(callback){
     seedModelData('cloudservices.json', CloudService, CloudServiceProvider,
-      'cloudServiceProviderId', 'name', 'cloudServiceProviderName',
+      '_cloudServiceProvider', 'name', 'cloudServiceProviderName',
       function() {
         callback(null, 'CloudServices');
       });
