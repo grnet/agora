@@ -4,12 +4,14 @@ var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
 
 router.get('/:id', function (req, res) {
-  CloudService.findOne({_id: req.params.id},
-  function (err, cloudService) {
-    var isAdmin = false;
-    var cloudServiceJSON = {}; // We need to do that to add canEdit attribute
-    if (!err) {
-      if (cloudService) {
+  CloudService
+    .findOne({_id: req.params.id})
+    .populate('_cloudServiceProvider')
+    .exec(function (err, cloudService) {
+      var isAdmin = false;
+      var cloudServiceJSON = {}; // We need to do that to add canEdit attribute
+      var provider = null;
+      if (!err && cloudService) {
         /* If 'published' or admin user, grant access */
         isAdmin = req.user.groups.indexOf('admin') != -1;
         if (cloudService.status == 'published' || isAdmin) {
@@ -18,31 +20,18 @@ router.get('/:id', function (req, res) {
             cloudServiceJSON.canEdit = true;
           }
           res.send(cloudServiceJSON);
-        } else {
-          /* If user is owner, grant access */
-          CloudServiceProvider.findOne({
-            _id: cloudService.cloudServiceProviderId},
-            function (err, cloudServiceProvider) {
-              if (err) {
-                res.send(404, {error: 'No Service Provider Found'});
-              } else if (cloudServiceProvider
-                && (cloudServiceProvider.userId.equals(req.user._id))) {
-                cloudServiceJSON = cloudService.toJSON();
-                cloudServiceJSON.canEdit = true;
-                res.send(cloudServiceJSON);
-              } else {
-                res.send(404, {error: 'Access Denied'});
-              }
-            }
-          );
-        }
+        } else if ((provider = cloudService._cloudServiceProvider)
+            && (provider._user.equals(req.user._id))) {
+            cloudServiceJSON = cloudService.toJSON();
+            cloudServiceJSON.canEdit = true;
+            res.send(cloudServiceJSON);
+          } else {
+            res.send(404, {error: 'Access Denied'});
+          }        
       } else {
         res.send(404, {error: 'No Cloud Service Found'});
+        console.log(err);
       }
-    } else {
-      res.send(404, {error: 'No Cloud Service Found'});
-      console.log(err);
-    }
   });
 });
     
@@ -86,18 +75,17 @@ function checkServiceEditPermissions(req, callback) {
         return;
       }
       CloudServiceProvider.findOne({
-          _id: cloudService.cloudServiceProviderId
+          _id: cloudService._cloudServiceProvider
           },
           function(err, cloudServiceProvider) {
             if (err) {
-            callback(err);
-            return;
+              callback(err);
+              return;
             }
-            if (cloudServiceProvider.userId == req.user.username) {
+            if (cloudServiceProvider._user.equals(req.user._id)) {
               callback(null, cloudService);
             } else {
-            console.log(req.user);
-            callback("User not allowed to edit");
+              callback("User not allowed to edit");
             }
           }
       );
@@ -107,16 +95,17 @@ function checkServiceEditPermissions(req, callback) {
 
 router.put('/:id', function (req, res){
   checkServiceEditPermissions(req,
-    function (err, cloudServiceProfile) {
+    function (err, cloudService) {
       if (!err) {
         var criteria = req.body.criteria;
+        var criterion = null;
+        var criterionIndex = -1;
         criteria.forEach(function(criterion, index, array) {
-          cloudServiceProfile[criterion.name].rating =
-            criterion.contents.rating;
+          cloudService.criteria[index].rating = criterion.rating;
         });
-        cloudServiceProfile.save(function(err) {
+        cloudService.save(function(err) {
           if (!err) {
-            res.send(cloudServiceProfile);
+            res.send(cloudService);
           } else {
             console.log(err);
             res.send(500, {error: err});

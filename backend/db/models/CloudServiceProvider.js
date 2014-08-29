@@ -15,7 +15,7 @@ var cloudServiceProviderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  userId: {
+  _user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true

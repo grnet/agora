@@ -10,11 +10,9 @@ agoraAppCloudServicesService.factory('CloudServicesList', ['$resource',
   }]);
 
 agoraAppCloudServicesService.factory('CloudServiceDetails',
-  ['$resource', '$routeParams',
-  function($resource, $routeParams) {
-    return $resource('api/cloudservices/:cloudServiceId', {
-      cloudServiceId: $routeParams.id
-    },
+  ['$resource',
+  function($resource) {
+    return $resource('api/cloudservices/:cloudServiceId', null,
     {
       update: { method: 'PUT' }
     });
