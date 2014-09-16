@@ -1,7 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
-var logger = require('winston');
+var winston = require('winston');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var localPassport = require('./lib/localpassport');
@@ -19,6 +19,18 @@ var jwtauth = require('./lib/jwtauth');
 
 var app = express();
 
+var logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)(),
+    new winston.transports.File({ filename: 'logs/all-logs.log' })
+  ],
+  exceptionHandlers: [
+    new (winston.transports.Console)(),
+    new winston.transports.File({ filename: 'logs/exceptions.log' })
+  ],
+  exitOnError: false
+});
+  
 app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
