@@ -6,7 +6,6 @@ module.exports = function(req, res, next) {
   var token = (req.body && req.body.access_token) ||
     (req.query && req.query.access_token) ||
     req.headers['x-access-token'];
-
   if (token) {
     try {
       var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
@@ -15,7 +14,7 @@ module.exports = function(req, res, next) {
         res.send(401, 'Access token has expired');
       } else {
         User.findOne({ _id: decoded.iss }, function(err, user) {
-          if (err) {
+          if (err || !user) {
             res.send(401, { error: 'User not found.' });
           } else {
             req.user = user;

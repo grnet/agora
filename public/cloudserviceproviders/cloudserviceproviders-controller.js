@@ -7,6 +7,6 @@ agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProvidersListCtrl',
   ['$scope', 'CloudServiceProvidersList',
   function($scope, CloudServiceProvidersList) {
-    $scope.providers = CloudServiceProvidersList.query();
+    $scope.response = CloudServiceProvidersList.query();
   }
 ]);
