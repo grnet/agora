@@ -97,6 +97,8 @@ router.put('/:id', function (req, res){
   checkServiceEditPermissions(req,
     function (err, cloudService) {
       if (!err) {
+        cloudService.name = req.body.name;
+        cloudService.description = req.body.description;
         var criteria = req.body.criteria;
         var criterion = null;
         var criterionIndex = -1;

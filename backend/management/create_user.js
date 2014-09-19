@@ -116,6 +116,19 @@ function saveUser(user, callback) {
     callback();
   });
 }
+
+function saveUsers(users, callback) {
+  if (users.length == 0) {
+    if (callback) {
+      callback();
+    }
+  } else {
+    var user = new User(users.shift());
+    saveUser(user, function() {
+      saveUsers(users, callback);
+    });
+  }
+}
   
 var parsed = nopt(knownOpts, shortHands);  
 
@@ -131,13 +144,8 @@ if (parsed.inputfile) {
       process.exit(1);
     }
     userData = JSON.parse(data);
-    userData.forEach(function(userDescription, index, arr) {
-      user = new User(userDescription);
-      saveUser(user, function() {
-        if (index == arr.length - 1) {
-          process.exit(0);
-        }
-      });
+    saveUsers(userData, function() {
+      process.exit(0);
     });
   });
 } else {

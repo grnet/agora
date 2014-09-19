@@ -11,9 +11,9 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
 ]);
 
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
-  ['$scope', '$routeParams', '$window', 
+  ['$scope', '$rootScope', '$routeParams', '$window', 
    'CloudServiceDetails',
-  function($scope, $routeParams, $window, CloudServiceDetails) {
+  function($scope, $rootScope, $routeParams, $window, CloudServiceDetails) {
     $scope.cloudServiceDetails =
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
       
@@ -23,23 +23,42 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       { name: 'Green', value: 2 }
     ];
 
-    $scope.update = function() {
+    $scope.nameEdit = false;
+    $scope.descriptionEdit = false;
+    
+    $scope.cloudServiceDetails.$promise.then(function() {
+      $scope.master = angular.copy($scope.cloudServiceDetails);
+    });
+    
+    $scope.update = function(cloudServiceDetails) {
+      $scope.nameEdit = false;
+      $scope.descriptionEdit = false;    
+      $scope.master = angular.copy(cloudServiceDetails);
       CloudServiceDetails.update({
-          cloudServiceId: $scope.cloudServiceDetails._id
+          cloudServiceId: cloudServiceDetails._id
         },
-        $scope.cloudServiceDetails,
+        cloudServiceDetails,
         function(value, headers) {
           $window.scrollTo(0, 0);
-          $scope.message = "Profile Updated";
+          $rootScope.message = "Profile Updated";
         },
         function(errorResponse) {
           $window.scrollTo(0, 0);
-          $scope.cloudServiceProfile =
+          $scope.cloudServiceDetails =
             CloudServiceDetails.get({ cloudServiceId: $routeParams.id });
-          $scope.error = errorResponse.data.error;
+          $rootScope.error = errorResponse.data.error;
         }
       );
     };
+
+    $scope.reset = function() {
+      $scope.cloudServiceDetails = angular.copy($scope.master);
+    };
+    
+    $scope.isUnchanged = function(cloudServiceDetails) {
+      return angular.equals(cloudServiceDetails, $scope.master);
+    };
+    
   }
 ]);
   
