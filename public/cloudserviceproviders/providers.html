@@ -8,6 +8,7 @@
             <select id="select" class="form-control" ng-model="orderProp">
                 <option value="name">Alphabetical</option>
                 <option value="country">Country</option>
+                <option value="">Initial</option>
             </select>
         </p>
 
@@ -15,14 +16,27 @@
     <div class="col-md-9">
       <!--Body content-->
 
-        <div class="providers list-group">
-            <div class="list-group-item"  ng-repeat="provider in providers | filter:query | orderBy:orderProp">
-                <h4 class="list-group-item-heading">{{provider.name}}</h4>
-                <p class="list-group-item-text">{{provider.description}}</p>
-                <p class="list-group-item-text">{{provider.country}}</p>
-            </div>
-        </div>
+      <div class="row">
 
+        <div ng-show="response.canAdd"
+             class="col-md-offset-8 col-md-4">
+          <h2>
+            <a class="btn btn-info"
+               ng-href="#/providers/new">
+              Add Provider</a>
+        </h2>
+        </div>
+      </div>
+      
+      <div class="response.providers list-group">
+          <div class="list-group-item"
+               ng-repeat="provider in response.cloudServiceProviders | filter:query | orderBy:orderProp">
+            <h4 class="list-group-item-heading">{{provider.name}}</h4>
+            <p class="list-group-item-text">{{provider.description}}</p>
+            <p class="list-group-item-text">{{provider.country}}</p>
+          </div>
+      </div>
+      
     </div>
   </div>
 </div>
