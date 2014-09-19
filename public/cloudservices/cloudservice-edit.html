@@ -8,9 +8,9 @@
     <br/>
     Sort by:
     <select id="select" class="form-control" ng-model="orderProp">
-      <option value="contents.label">Alphabetical</option>
-      <option value="contents.rating">Rating</option>
-      <option value="order">Initial</option>
+      <option value="label">Alphabetical</option>
+      <option value="rating">Rating</option>
+      <option value="">Initial</option>
     </select>
 
   </div>
@@ -18,10 +18,25 @@
   <div class="col-md-9">
     <!--Body content-->
       
-    <h2>{{cloudServiceDetails.name}}</h2>
+    <h2>{{cloudServiceDetails.name}}
+        <button type="button" class="btn btn-link"
+                ng-click="nameEdit = !nameEdit">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>          
+    </h2>
+    <h2 ng-show="nameEdit">
+      <input type="text" ng-model="cloudServiceDetails.name">
+    </h2>
     
     <div class="well">
       {{cloudServiceDetails.description}}
+      <button type="button" class="btn btn-link"
+              ng-click="descriptionEdit = !descriptionEdit">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>          
+      
+      <input ng-show="descriptionEdit" class="form-control"
+             type="text" ng-model="cloudServiceDetails.description">      
     </div>
     
     <br/>
@@ -58,8 +73,13 @@
       </div>
       <div class="row">
         <div class="col-md-4">
+          <button class="btn btn-lg btn-block"
+                  ng-disabled="isUnchanged(cloudServiceDetails)"
+                  ng-click="reset()">Reset</button>
+        </div>        
+        <div class="col-md-4">
           <button class="btn btn-lg btn-primary btn-block "
-                  ng-click="update()">Update</button>
+                  ng-click="update(cloudServiceDetails)">Update</button>
         </div>
       </div>
     </form>    
