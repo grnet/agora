@@ -1,11 +1,11 @@
 <div ng-controller="UserCtrl">
-  <div class="row" ng-show="username">
+  <div class="row" ng-show="user">
     <div class="col-md-8"/>
     <div class="col-md-4 text-right">
       <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button"
                 id="userMenu" data-toggle="dropdown">
-          {{ firstName }} {{ surname }}
+          {{ user.firstName }} {{ user.surname }}
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right" role="menu"

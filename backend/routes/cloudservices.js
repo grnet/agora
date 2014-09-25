@@ -9,22 +9,15 @@ router.get('/:id', function (req, res) {
     .populate('_cloudServiceProvider')
     .exec(function (err, cloudService) {
       var isAdmin = false;
-      var cloudServiceJSON = {}; // We need to do that to add canEdit attribute
       var provider = null;
       if (!err && cloudService) {
         /* If 'published' or admin user, grant access */
         isAdmin = req.user.groups.indexOf('admin') != -1;
         if (cloudService.status == 'published' || isAdmin) {
-          if (isAdmin) {
-            cloudServiceJSON = cloudService.toJSON();
-            cloudServiceJSON.canEdit = true;
-          }
-          res.send(cloudServiceJSON);
+          res.send(cloudService);
         } else if ((provider = cloudService._cloudServiceProvider)
             && (provider._user.equals(req.user._id))) {
-            cloudServiceJSON = cloudService.toJSON();
-            cloudServiceJSON.canEdit = true;
-            res.send(cloudServiceJSON);
+            res.send(cloudService);
           } else {
             res.send(404, {error: 'Access Denied'});
           }        

@@ -7,6 +7,14 @@ agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProvidersListCtrl',
   ['$scope', 'CloudServiceProvidersList',
   function($scope, CloudServiceProvidersList) {
-    $scope.response = CloudServiceProvidersList.query();
+    var isAdmin = false;
+    if ($scope.user && $scope.user.groups.indexOf('admin') != -1) {
+      isAdmin = true;
+    }
+    
+    if (isAdmin) {
+      $scope.canAdd = true;
+    }
+    $scope.cloudServiceProviders = CloudServiceProvidersList.query();
   }
 ]);

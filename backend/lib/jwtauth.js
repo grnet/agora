@@ -11,11 +11,11 @@ module.exports = function(req, res, next) {
       var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
  
       if (decoded.exp <= Date.now()) {
-        res.send(401, 'Access token has expired');
+        res.status(401).send('Access token has expired');
       } else {
         User.findOne({ _id: decoded.iss }, function(err, user) {
           if (err || !user) {
-            res.send(401, { error: 'User not found.' });
+            res.status(401).send({ error: 'User not found.' });
           } else {
             req.user = user;
             next();
@@ -23,10 +23,10 @@ module.exports = function(req, res, next) {
         });
       }
     } catch (err) {
-      res.send(401, { error: 'Invalid token.' });
+      res.status(401).send({ error: 'Invalid token.' });
     }
   } else {
-    res.send(401, {error: 'No access token, please login.'});
+    res.status(401).send({error: 'No access token, please login.'});
   }
 };
 
