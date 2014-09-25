@@ -89,7 +89,7 @@ router.put('/:id', function (req, res){
         var criterionIndex = -1;
         criteria.forEach(function(criterion, index, array) {
           cloudService.criteria[index].rating = criterion.rating;
-          cloudService.criteria[index].rating = criterion.comment;
+          cloudService.criteria[index].comment = criterion.comment;
         });
         cloudService.save(function(err) {
           if (!err) {
