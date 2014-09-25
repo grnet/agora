@@ -56,8 +56,8 @@ router.post('/', function (req, res){
   return res.send(cloudService);
 });
 
-function checkServiceEditPermissions(req, callback) {
-  CloudService.findOne({_id: req.body._id},
+function checkServiceEditPermissions(id, user, callback) {
+  CloudService.findOne({_id: id},
     function (err, cloudService) {
       if (err) {
         callback(err);
@@ -67,27 +67,19 @@ function checkServiceEditPermissions(req, callback) {
         callback(null, cloudService);
         return;
       }
-      CloudServiceProvider.findOne({
-          _id: cloudService._cloudServiceProvider
-          },
-          function(err, cloudServiceProvider) {
-            if (err) {
-              callback(err);
-              return;
-            }
-            if (cloudServiceProvider._user.equals(req.user._id)) {
-              callback(null, cloudService);
-            } else {
-              callback("User not allowed to edit");
-            }
-          }
-      );
+      var isAdmin = user.groups.indexOf('admin') != -1;
+      var provider = cloudService._cloudServiceProvider;
+      if (isAdmin || (provider && provider._user.equals(user._id))) {
+        callback(null, cloudService);
+      } else {
+        callback("User not allowed to edit");
+      }
     }
   );               
 }
 
 router.put('/:id', function (req, res){
-  checkServiceEditPermissions(req,
+  checkServiceEditPermissions(req.body._id, req.user,
     function (err, cloudService) {
       if (!err) {
         cloudService.name = req.body.name;
@@ -97,18 +89,19 @@ router.put('/:id', function (req, res){
         var criterionIndex = -1;
         criteria.forEach(function(criterion, index, array) {
           cloudService.criteria[index].rating = criterion.rating;
+          cloudService.criteria[index].rating = criterion.comment;
         });
         cloudService.save(function(err) {
           if (!err) {
             res.send(cloudService);
           } else {
             console.log(err);
-            res.send(500, {error: err});
+            res.status(500).send({error: err});
           }
         });
       } else {
         console.log(err);
-        res.send(401, {error: err});
+        res.status(401).send({error: err});
       }
   });
 });

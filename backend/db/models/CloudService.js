@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var CriterionSchema = new Schema({
   name: String,
   label: String,
+  comment: String,
   rating: Number,
   tags: Array,
   required: Boolean
