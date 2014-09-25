@@ -9,7 +9,17 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
     $scope.cloudServices = CloudServicesList.query();
   }
 ]);
-
+ 
+agoraAppCloudServicesController.controller('CollapseCommentCtrl', ['$scope',
+  function($scope) {
+    if ($scope.criterion.comment) {
+      $scope.isCollapsed = false;
+    } else {
+      $scope.isCollapsed = true;
+    }
+  }
+]);
+  
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window', 
    'CloudServiceDetails',

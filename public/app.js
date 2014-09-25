@@ -2,6 +2,7 @@
 
 var agoraApp = angular.module('agoraApp', [
   'ngRoute',
+  'ui.bootstrap',
   'agoraAppMainController',
   'agoraAppErrorInterceptor',  
   'agoraAppUserController',

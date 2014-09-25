@@ -130,3 +130,6 @@
     margin-bottom: 10px;
     font-weight: 400;
 }
+
+/* for angular-ui  */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
