@@ -9,11 +9,11 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
     $scope.login = function(form) {
       Login.login({username: $scope.username, password: $scope.password},
         function(value, responseHeaders) {
-          $window.sessionStorage.token = value.token;
-          $window.sessionStorage.firstName = value.firstName;
-          $window.sessionStorage.surname = value.surname;
-          $window.sessionStorage.username = value.username;
-          $rootScope.$broadcast('login', {user: value.username});
+          var token = value.token;
+          delete value.token;
+          $window.sessionStorage.setItem('user', JSON.stringify(value));
+          $window.sessionStorage.setItem('token', token);
+          $rootScope.$broadcast('login');
           $location.path('/');
         }, 
         function(httpResponse) {

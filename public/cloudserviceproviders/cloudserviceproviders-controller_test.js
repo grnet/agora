@@ -17,10 +17,7 @@ describe('Agora controllers', function() {
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('api/providers').
-        respond({
-            cloudServiceProviders: [{name: 'GRNET'}, {name: 'GEANT'}],
-            canAdd: false
-        });
+        respond([{name: 'GRNET'}, {name: 'GEANT'}]);
 
       scope = $rootScope.$new();
       ctrl = $controller('CloudServiceProvidersListCtrl', {$scope: scope});
@@ -28,8 +25,9 @@ describe('Agora controllers', function() {
 
     it('should create "providers" model with 2 providers fetched from xhr',
       function() {
+        expect(scope.cloudServiceProviders).toEqualData([]);
         $httpBackend.flush();
-        expect(scope.response.cloudServiceProviders).toEqualData(
+        expect(scope.cloudServiceProviders).toEqualData(
           [{name: 'GRNET'}, {name: 'GEANT'}]);
       });
 

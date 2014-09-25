@@ -18,7 +18,7 @@
 
       <div class="row">
 
-        <div ng-show="response.canAdd"
+        <div ng-show="canAdd"
              class="col-md-offset-8 col-md-4">
           <h2>
             <a class="btn btn-info"
@@ -28,9 +28,9 @@
         </div>
       </div>
       
-      <div class="response.providers list-group">
+      <div class="providers list-group">
           <div class="list-group-item"
-               ng-repeat="provider in response.cloudServiceProviders | filter:query | orderBy:orderProp">
+               ng-repeat="provider in cloudServiceProviders | filter:query | orderBy:orderProp">
             <h4 class="list-group-item-heading">{{provider.name}}</h4>
             <p class="list-group-item-text">{{provider.description}}</p>
             <p class="list-group-item-text">{{provider.country}}</p>

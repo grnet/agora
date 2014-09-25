@@ -25,9 +25,16 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
 
     $scope.nameEdit = false;
     $scope.descriptionEdit = false;
-    
+
+    $scope.canEdit = false;
+
     $scope.cloudServiceDetails.$promise.then(function() {
       $scope.master = angular.copy($scope.cloudServiceDetails);
+      var isAdmin = $rootScope.user.groups.indexOf('admin') != -1;
+      var provider = $scope.cloudServiceDetails._cloudServiceProvider;
+      if (isAdmin || provider._user.equals($rootScope.user._id)) {
+        $scope.canEdit = true;
+      }
     });
     
     $scope.update = function(cloudServiceDetails) {

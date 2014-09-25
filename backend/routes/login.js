@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
         username: user.username,
         firstName: user.firstName,
         surname: user.surname,
-        group: user.group
+        groups: user.groups
     }));
  })(req, res, next);
 });

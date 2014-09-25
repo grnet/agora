@@ -60,7 +60,8 @@ app.use('/api/login', login);
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
 });
- 
+
+app.all('/api/cloudservices', jwtauth); 
 app.all('/api/cloudservices/*', jwtauth); 
 app.all('/api/providers', jwtauth); 
   
