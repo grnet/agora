@@ -66,22 +66,23 @@
                     ng-options="colour.value as colour.name for colour
                                 in colours">
             </select>
-            <div ng-controller="CollapseCommentCtrl">
-              <button class="btn btn-default"
-                      ng-click="isCollapsed = !isCollapsed">Toggle
-                      comment
-              </button>
-	      <hr>
-	      <div collapse="isCollapsed">                
-		<div class="well well-lg">
-                  <input type="text" ng-model="criterion.comment"/>
-                </div> 
-	      </div>
-            </div>              
-            </p>
-            <p ng-show="criterion.tags">Tags: {{ criterion.tags }}</p>
-          </div>
-        
+            <span ng-controller="CriterionCommentCtrl">
+              <span popover-placement="top"
+                    popover="{{criterion.comment}}">
+                <span ng-class="{dimmed: noComment, bla: dimmed}"
+                      class="glyphicon glyphicon-comment"></span>
+              </span>
+              <button type="button" class="btn btn-link"
+                      ng-click="editComment = !editComment">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>          
+              <input type="text" ng-show="editComment"
+                     ng-change="toggleComment()"
+                     ng-model="criterion.comment"/>
+            </span>
+          </p>
+          <p ng-show="criterion.tags">Tags: {{ criterion.tags }}</p>
+        </div>        
       </div>
       <div class="row">
         <div class="col-md-4">

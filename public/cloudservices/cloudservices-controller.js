@@ -10,13 +10,23 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
   }
 ]);
  
-agoraAppCloudServicesController.controller('CollapseCommentCtrl', ['$scope',
+agoraAppCloudServicesController.controller('CriterionCommentCtrl', ['$scope',
   function($scope) {
-    if ($scope.criterion.comment) {
-      $scope.isCollapsed = false;
+    if (!$scope.criterion.comment) {
+      $scope.noComment = true;
     } else {
-      $scope.isCollapsed = true;
+      $scope.noComment = false;
     }
+    
+    $scope.editComment = false;
+
+    $scope.toggleComment = function() {
+      if (!$scope.criterion.comment) {
+        $scope.noComment = true;
+      } else {
+        $scope.noComment = false;
+      }
+    };
   }
 ]);
   
