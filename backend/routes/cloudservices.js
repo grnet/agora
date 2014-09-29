@@ -19,10 +19,10 @@ router.get('/:id', function (req, res) {
             && (provider._user.equals(req.user._id))) {
             res.send(cloudService);
           } else {
-            res.send(404, {error: 'Access Denied'});
+            res.status(404).send({error: 'Access Denied'});
           }        
       } else {
-        res.send(404, {error: 'No Cloud Service Found'});
+        res.status(404).send({error: 'No Cloud Service Found'});
         console.log(err);
       }
   });

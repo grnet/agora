@@ -73,7 +73,6 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
           $window.scrollTo(0, 0);
           $scope.cloudServiceDetails =
             CloudServiceDetails.get({ cloudServiceId: $routeParams.id });
-          $rootScope.error = errorResponse.data.error;
         }
       );
     };

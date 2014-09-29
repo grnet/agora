@@ -7,15 +7,9 @@ var agoraAppErrorInterceptor =
 agoraAppErrorInterceptor.factory('errorInterceptor',
   function ($rootScope, $q, $window) {
   return {
-    response: function(response) {
-      if ($rootScope.error) {
-        delete $rootScope.error;
-      }
-      return response;
-    },
     responseError: function(response) {
       if (response.data.error) {
-        $rootScope.error = response.data.error;
+        $rootScope.error = response.data.error.message;
       }
       return $q.reject(response);
     }
