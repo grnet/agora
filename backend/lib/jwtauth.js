@@ -15,7 +15,12 @@ module.exports = function(req, res, next) {
       } else {
         User.findOne({ _id: decoded.iss }, function(err, user) {
           if (err || !user) {
-            res.status(401).send({ error: 'User not found.' });
+            res.status(401).send({
+                error: {
+                  message: 'User not found.',
+                  name: 'jwtauthError'
+                }
+            });
           } else {
             req.user = user;
             next();
@@ -23,10 +28,19 @@ module.exports = function(req, res, next) {
         });
       }
     } catch (err) {
-      res.status(401).send({ error: 'Invalid token.' });
+      res.status(401).send({
+          error: {
+            message: 'Invalid token.',
+            name: 'jwtauthError'
+          }
+      });
     }
   } else {
-    res.status(401).send({error: 'No access token, please login.'});
+    res.status(401).send({
+        error: {
+          message: 'No access token, please login.'},
+          name: 'jwtauthError'
+    });
   }
 };
 
