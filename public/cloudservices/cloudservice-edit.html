@@ -66,19 +66,19 @@
                     ng-options="colour.value as colour.name for colour
                                 in colours">
             </select>
-            <span ng-controller="CriterionCommentCtrl">
+            <span ng-controller="CommentModalCtrl">
               <span popover-placement="top"
                     popover="{{criterion.comment}}">
                 <span ng-class="{dimmed: noComment, bla: dimmed}"
                       class="glyphicon glyphicon-comment"></span>
               </span>
               <button type="button" class="btn btn-link"
-                      ng-click="editComment = !editComment">
+                      ng-click="openCommentModal()">
                 <span class="glyphicon glyphicon-pencil"></span>
-              </button>          
-              <input type="text" ng-show="editComment"
-                     ng-change="toggleComment()"
-                     ng-model="criterion.comment"/>
+              </button>
+              <!-- <input type="text" ng-show="editComment" -->
+              <!--        ng-change="toggleComment()" -->
+              <!--        ng-model="criterion.comment"/> -->
             </span>
           </p>
           <p ng-show="criterion.tags">Tags: {{ criterion.tags }}</p>

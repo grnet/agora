@@ -29,6 +29,56 @@ agoraAppCloudServicesController.controller('CriterionCommentCtrl', ['$scope',
     };
   }
 ]);
+
+agoraAppCloudServicesController.controller('CommentModalCtrl',
+  ['$scope', '$route', '$modal', '$log', 
+  function($scope, $route, $modal, $log) {
+
+  $scope.openCommentModal = function(size) {
+
+    var modalInstance = $modal.open({
+      templateUrl: $route.current.commentUrl,
+      controller: 'CommentModalInstanceCtrl',
+      size: size,
+      resolve: {
+        criterionLabel: function() {
+          return $scope.criterion.label;
+        },
+        commentText: function() {
+          return $scope.criterion.comment;
+        }
+      }
+    });
+
+    modalInstance.result.then(function(commentText) {
+      $scope.criterion.comment = commentText;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+  
+}]);
+
+// Please note that $modalInstance represents a modal window
+// (instance) dependency. It is not the same as the $modal service
+// used above.
+
+agoraAppCloudServicesController.controller('CommentModalInstanceCtrl',
+  ['$scope', '$modalInstance', 'criterionLabel', 'commentText',
+  function ($scope, $modalInstance, criterionLabel, commentText) {
+
+  $scope.criterionLabel = criterionLabel;
+  $scope.commentText = commentText;
+  
+  $scope.ok = function(commentText) {
+    $modalInstance.close(commentText);
+  };
+
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+  
+}]);
   
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window', 

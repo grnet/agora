@@ -35,6 +35,7 @@ agoraApp.config(['$routeProvider',
       }).
       when('/cloudservices/:id\/edit', {
         templateUrl: 'cloudservices/cloudservice-edit.html',
+        commentUrl: 'cloudservices/commentmodalcontent.html',
         controller: 'CloudServiceCtrl'
       }).      
       when('/cloudservices', {
