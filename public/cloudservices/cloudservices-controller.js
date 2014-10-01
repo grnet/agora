@@ -10,26 +10,6 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
   }
 ]);
  
-agoraAppCloudServicesController.controller('CriterionCommentCtrl', ['$scope',
-  function($scope) {
-    if (!$scope.criterion.comment) {
-      $scope.noComment = true;
-    } else {
-      $scope.noComment = false;
-    }
-    
-    $scope.editComment = false;
-
-    $scope.toggleComment = function() {
-      if (!$scope.criterion.comment) {
-        $scope.noComment = true;
-      } else {
-        $scope.noComment = false;
-      }
-    };
-  }
-]);
-
 agoraAppCloudServicesController.controller('CommentModalCtrl',
   ['$scope', '$route', '$modal', '$log', 
   function($scope, $route, $modal, $log) {

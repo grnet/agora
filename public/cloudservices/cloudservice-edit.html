@@ -69,7 +69,7 @@
             <span ng-controller="CommentModalCtrl">
               <span popover-placement="top"
                     popover="{{criterion.comment}}">
-                <span ng-class="{dimmed: noComment, bla: dimmed}"
+                <span ng-class="{dimmed: !criterion.comment}"
                       class="glyphicon glyphicon-comment"></span>
               </span>
               <button type="button" class="btn btn-link"
