@@ -2,11 +2,12 @@ var express = require('express');
 var router = express.Router();
 var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
-
+var CriterionSchema = require('../db/models/Criterion');
+  
 router.get('/:id', function (req, res) {
   CloudService
     .findOne({_id: req.params.id})
-    .populate('_cloudServiceProvider')
+    .populate('_cloudServiceProvider ratings._criterion')
     .exec(function (err, cloudService) {
       var isAdmin = false;
       var provider = null;
@@ -14,6 +15,13 @@ router.get('/:id', function (req, res) {
         /* If 'published' or admin user, grant access */
         isAdmin = req.user.groups.indexOf('admin') != -1;
         if (cloudService.status == 'published' || isAdmin) {
+          if (!isAdmin) {
+            cloudService.ratings.forEach(function(rating) {
+              if (rating.comment && rating.mark == 2) {
+                rating.comment = "";
+              }
+            });
+          }
           res.send(cloudService);
         } else if ((provider = cloudService._cloudServiceProvider)
             && (provider._user.equals(req.user._id))) {
@@ -84,12 +92,10 @@ router.put('/:id', function (req, res){
       if (!err) {
         cloudService.name = req.body.name;
         cloudService.description = req.body.description;
-        var criteria = req.body.criteria;
-        var criterion = null;
-        var criterionIndex = -1;
-        criteria.forEach(function(criterion, index, array) {
-          cloudService.criteria[index].rating = criterion.rating;
-          cloudService.criteria[index].comment = criterion.comment;
+        var ratings = req.body.ratings;
+        ratings.forEach(function(rating, index, array) {
+          cloudService.ratings[index].mark = rating.mark;
+          cloudService.ratings[index].comment = rating.comment;
         });
         cloudService.save(function(err) {
           if (!err) {

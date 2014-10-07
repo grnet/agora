@@ -1,0 +1,314 @@
+- name: intellectualPropertyRights 
+  label: IPR in Respect of Customer Data 
+  description: >
+    All intellectual property rights, including any copyright or
+    database right to the data (i.e. the file and/or files with the data) will
+    at all times remain vested in the GÉANT User (i.e. the NREN, the
+    Institution, the User concerned, or their respective licensor(s)). 
+  tags: []
+
+- name: processingData
+  label: Processing Data
+  description: >
+    The CSP should accept that it will be a potential processor of GÉANT
+    users data, and this should be clearly stated in any contractual
+    agreement with the Institution. The CSP will process the data in a
+    proper and careful manner and in accordance with all applicable
+    regulations. 
+  tags: []
+
+- name: ownership
+  label: Ownership of Data
+  description: >
+    All data created by the GÉANT User will be owned by the user that has
+    created said data, or by the entity (eg NREN or Institution) that is
+    storing the data. The preferred position for the GÉANT User is that the
+    CSP has no ownership of any customer data.
+  tags: []
+
+- name: dataProtection
+  label: Data Protection
+  description: >  
+    The CSP should treat all GÉANT User data as though it were
+    confidential regardless of its classification by the GÉANT User. It
+    is anticipated that CSPs will be required to evidence that they will
+    cascade this responsibility down its supply chain to all relevant
+    3rd parties. It is also anticipated that GÉANT User will expect CSPs
+    to make every effort to safeguard data access and the interests of
+    the GÉANT Users at all times. CSPs will be expected to ensure that
+    all staff sign a confidentiality statement regarding confidential
+    data.
+  tags: []
+
+- name: requestsForDataAccessFrom3rdParties
+  label: Requests for Data Access from 3rd Parties
+  description: >
+    Where a request for access to GÉANT User data comes from a
+    recognised government authority, the CSP will be expected to check
+    what their actual legal obligation is before they comply with the
+    request. GÉANT Users do not expect the CSP to cooperate where no
+    legal obligation exists and thus deny the request. Where a
+    legitimate request is received, the CSP should only release a
+    minimum data set and in all cases will be expected to inform the
+    affected GÉANT User as soon as possible.
+  tags: []
+
+- name: notification
+  label: Notification
+  description: >    
+    The CSP should notify the GÉANT User immediately it becomes aware
+    of a suspected or actual breach of confidentiality, loss of data,
+    breach of the security measures, deterioration of the service, or
+    downtime of the service. The CSP will take all necessary measures,
+    at its own cost, to secure the data and to rectify the
+    shortcomings in the security measures so as to prevent any further
+    perusal, alteration, or provision, without prejudice to any right
+    of the GÉANT User to damages or other measures. Following such an
+    incident, at the GÉANT User’s reasonable request, the CSP will
+    cooperate with the provision of information about the incident and
+    its resolution to concerned parties.
+  tags: []
+
+- name: liquidatedDamages
+  label: Liquidated Damages
+  description: >
+    For every contravention of the confidentiality obligation by a
+    CSP, the GÉANT User will be advised to seek a service credit of
+    no less than one month of service fees. Note that this service
+    credit should not affect the GÉANT User's other remedies within
+    any resultant agreement.
+  tags: []
+
+- name: externalSecurityAuditCertificate
+  label: External Security Audit Certificate
+  description: >
+    Companies operating in the European Union are not allowed to send
+    personal data to countries outside the European Economic Area
+    unless there is a guarantee that it will receive adequate levels
+    of protection. The Safe Harbour Privacy Principles allow US
+    companies to register their certification if they meet the
+    European Union requirements. Ahead of any actual committed
+    contract, the GÉANT Customer will require the ability to request
+    certificates of independent security audit to confirm that the
+    CSPs processes are in accordance with the applicable legislation.
+    For CSPs based in the USA, it will be mandatory that they are Safe
+    Harbour certified. Note that for CSPs based in the EU, the USA,
+    the European Economic Area (EEA) or countries which the European
+    Commission considers to have acceptable levels of data protection;
+    (http://ec.europa.eu/justice/data-protection/document/international-transfers/adequacy/index_en.htm),
+    it should be assumed that the personal data provisions do apply.
+  tags: []
+
+- name: concordanceWithNationalPrivacyActs
+  label: Concordance with National Privacy Act(s)
+  description: >
+    If requested by the GÉANT User, the CSP should be able to produce
+    annual verification of its compliance with the GÉANT Users
+    national privacy legislation in respect of any private data
+    security inherent within the cloud service. This requires that the
+    CSP understands who their "data controller" is and the
+    responsibilities that they have under the applicable legislation.
+  tags: []
+
+- name: securityOfTheCloudService
+  label: Security of the Cloud Service
+  description: >
+    GÉANT Users will expect CSPs to have appropriate measures in place
+    to safeguard the physical and logical security of the service to
+    prevent any loss or damage or any form of unauthorised access,
+    alteration, or provision, or any other wrongful processing of the
+    GÉANT User's data. The security measures will be articulated
+    within any final Agreement.
+  tags: []
+
+- name: managingSecurityIncidents
+  label: Managing security incidents
+  description: >  
+    The CSP should have a readily available policy document that
+    evidences their process for dealing with security incidents, and
+    the means by which such incidents are logged and reported on to
+    ensure the customer is kept informed throughout the process.
+  tags: []
+
+- name: dataBackupAndRestore
+  label: Data Backup and Restore
+  description: >
+    GÉANT Users will require evidence of sufficient
+    backup and restoration facilities to guarantee availability of the
+    service (and access to their data). All backups provided by the
+    CSP must be up to date so the CSP should briefly describe how they
+    manage this.
+  tags: []
+
+- name: compatibility
+  label: Compatibility
+  description: >
+    GÉANT Users will require that services taken from the cloud will
+    be compatible with their IT infrastructure. As a minimum GÉANT
+    Users will wish to understand any restrictions on interface types
+    and protocols used and some may require that the CSP "guarantees
+    the compatibility" of the service for current cloud applications
+    and services as well as future iterations that the CSP may be
+    planning during the term of a typical Agreement.
+  tags: []
+
+- name: portability
+  label: Portability
+  description: >
+    GÉANT Users will require that post contract termination (for
+    whatever reason), all data and metadata held by the CSP must be
+    easily exported to the User in a machine readable format
+    acceptable to the GÉANT User. It will also need to be deleted from
+    all CSP sites, including backup sites, by the current CSP. At the
+    request of the GÉANT User, all data will be made available to
+    subsequent CSP without additional charge. The outgoing CSP will be
+    required to ensure that all data will be exported in such way that
+    there will be no loss of functionality of the data or any parts of
+    the data. In case of CSPs filing for bankruptcy the data will have
+    to be accessible for three months after the day of bankruptcy
+    filing.
+  tags: []
+
+- name: supervision
+  label: Supervision
+  description: >
+    At the written request of Institution, CSP will cooperate with the
+    exercise of supervision of the CS and use of confidential data by
+    CSP, by or on behalf of Institution.
+  tags: []
+  
+- name: electronicDataProcessing
+  label: Electronic Data Processing (EDP)
+  description: >
+    GÉANT Users anticipate that the CSP will subject itself to an
+    audit by an independent EDP auditor or expert that it designates
+    in order to determine: that the CSP complies with the provisions
+    of any extant agreement regarding the protection of data
+    (including personal data and privacy aspects); that the CSP
+    complies with the provisions of any extant agreement regarding
+    confidentiality, integrity, availability, effectiveness, and
+    efficiency of the service. Aggregate audit reports for all GÉANT
+    Users are acceptable and can be delivered into a single point of
+    contact—GÉANT Cloud Operations Team or directly to the GÉANT
+    User.
+  tags: []
+
+- name: networkConnectivity
+  label: Network Connectivity
+  description: >
+    GÉANT Users will wish to access the service via GÉANT
+    (recommended) or specific NREN's infrastructure. This is to
+    overcome issues of latency, bandwidth, data loss, or any other
+    degradation of network connectivity.
+  tags: []
+
+- name: aai
+  label: AAI
+  description: >
+    AAI Where appropriate and subject to a request by the GÉANT User
+    in the context of a specific service being taken, the service
+    should be able to support authentication provided by eduGAIN—the
+    standardised pan-European SAML-based authentication and
+    authorization infrastructure for single-sign on/off.
+  tags: []
+
+- name: userProvisioning
+  label: User Provisioning
+  description: >
+    If there is need to pre-provision users, CSP will provide
+    practical provisioning methods, e.g. auto-provisioning,
+    batch-provisioning, or similar.
+  tags: []
+
+- name: protectionOfMinorsAsUsers
+  label: Protection of Minors as Users
+  description: >
+    All CSPs should take reasonable steps to assure that all actions
+    taken by minors as potential users of a service (for example
+    accepting online Terms and Conditions) will be properly authorised
+    by their parents or legal guardians.
+  tags: []
+    
+- name: subcontractors
+  label: Subcontractors
+  description: >
+    Where the CSP is using subcontractors of any kind in any part of
+    the delivery process, including support for the service, the
+    subcontractor should also be located within the EU, USA or a
+    country on the EU list with adequate privacy protection.
+    Alternatively the CSP should be able to offer a clear and
+    auditable qualified User-consent option.
+
+- name: serviceLevelAgreement
+  label: Service Level Agreement
+  description: >
+    The CSP will be required to establish an appropriate SLA with the
+    GÉANT User in respect of the type of service being provided.
+    Typically this will be an availability target of at least 99%,
+    proactive notification of any planned downtime and the provision
+    of a 24/7 support desk.
+  tags: []
+  
+- name: qualityReview
+  label: Quality Review
+  description: >    
+    GÉANT Users will seek rights, as reasonably required, to perform
+    (either itself or through an appointed representative), full and
+    detailed audits and inspections of the CSP in order to verify the
+    charges, the CSP's compliance with any agreement and its
+    performance against the Service Levels.
+  tags: []
+  
+- name: informationPerformance
+  label: Information about the Performance of the Service
+  description: >
+    GÉANT Users seek assurances that CSPs will make all agreement and
+    service performance data in their possession available to the
+    GÉANT User on first request.
+  tags: []
+
+- name: reportingMeteringSalesEstimates
+  label: Reporting / Metering / Sales Estimates
+  description: >
+    There should be appropriate means of metering the GÉANT Users’
+    aggregate and individual usage of the services along with monthly
+    or annual sales estimates. Reports should be capable of being
+    delivered online and should be on a per site, per Institution or
+    per User basis (where a user is any person considered to be an end
+    user within the GÉANT User base).
+  tags: []
+
+- name: billing
+  label: Billing
+  description:
+    The CSPs' billing infrastructure should support cost-effective
+    invoicing & payment processing, including hierarchical roles for
+    NRENs (national and regional ones), institutions which are NRENs
+    institutional users (Universities, Research Institutes, Schools,
+    etc).
+  tags: []
+
+- name: governingLaw
+  label: Governing Law
+  description: >    
+    The GÉANT User may wish to contract under the laws of their member state. 
+  tags: []
+
+- name: peeringConnectivityCosts
+  label: Peering, Network Connectivity and Associated Costs
+  description: >    
+    It is anticipated that a high quality network connection will be
+    required. The community’s preference is typically that CSP will
+    connect their networks directly to GÉANT (recommended) or specific
+    a NREN’s network infrastructure in order to overcome potential
+    issues with latency, bandwidth, data loss, or any other
+    degradation of network connectivity. All peering should be done in
+    accordance with the GÉANT Peering Policy in one of the designated
+    GÉANT PoPs. GÉANT considers networking peering to be a win-win
+    solution for both parties, and discourages its customers from
+    accepting connectivity fees aside from any relevant connection
+    cost recovery fee. CSPs that charge end users for networking
+    connectivity and/or usage, should not impose such charges if the
+    user is coming from GÉANT network. Is network peering acceptable
+    to the CSP under said terms and conditions?
+  tags: []

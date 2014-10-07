@@ -8,9 +8,9 @@
       <br/>
       Sort by:
       <select id="select" class="form-control" ng-model="orderProp">
-        <option value="contents.label">Alphabetical</option>
-        <option value="contents.rating">Rating</option>
-        <option value="order">Initial</option>
+        <option value="_criterion.name">Alphabetical</option>
+        <option value="-mark">Rating</option>
+        <option value="">Initial</option>
       </select>
 
     </div>
@@ -36,40 +36,56 @@
 
       <br/>
 
-      <div class="service">
-        <div class="service-item" ng-class="{'service-item-red':
-                    (criterion.rating == 0),
-                    'service-item-amber':
-                    (criterion.rating == 1) ,
-                    'service-item-green':
-                    (criterion.rating == 2)}"
-                    ng-repeat="criterion in cloudServiceDetails.criteria
-                    | filter:query
-                    | orderBy:orderProp">
-          <div class="service-item-title">
-            {{ criterion.label }}
+      <div ng-repeat="rating in cloudServiceDetails.ratings
+                      | filter:query
+                      | orderBy:orderProp" ng-class-even="'row'">
+        
+        <div class="criterion col-md-4"
+             ng-class="{'criterion-red': (rating.mark == 0),
+                       'criterion-amber': (rating.mark == 1) ,
+                       'criterion-green': (rating.mark == 2)}">
+          <div class="criterion-name">
+            {{ rating._criterion.label }}
+            <span popover-placement="left" 
+                  popover="{{rating._criterion.description}}">
+              <button type="button" class="btn btn-link">
+                <span class="glyphicon glyphicon-info-sign"></span>
+              </button>
+            </span>
           </div>
-          <p>Rating: <span class="label"
-            ng-class="{'label-danger':
-                      (criterion.rating == 0),
-                      'label-warning':
-                      (criterion.rating == 1) ,
-                      'label-success':
-                      (criterion.rating == 2)}">&nbsp;</span>
+          <p>Rating:
+            <span class="label"
+                  ng-class="{'label-danger': (rating.mark == 0),
+                            'label-warning': (rating.mark == 1) ,
+                            'label-success': (rating.mark == 2)}">
+              &nbsp;</span>
+            <span ng-show="{{rating.comment}}"
+                  ng-controller="CommentModalCtrl">
+              <span popover-placement="top"
+                    popover="{{rating.comment}}">
+                <span class="glyphicon glyphicon-comment"></span>
+              </span>
+            </span>            
           </p>
-            <p ng-show="criterion.tags">Tags:
-              {{ criterion.contents.tags }}</p>
-          </div>
-
-            <div class="service-item" ng-class="{'service-item-red': (criterio.rating == 1), 'service-item-amber': (criterion.rating == 2) , 'service-item-green': (criterion.rating == 3)}" ng-repeat="criterion in criteria">
-              <div class="service-item-title">{{ criterion.label }}</div>
-              <p>Rating: <span class="label" ng-class="{'label-danger': (criterion.rating == 1), 'label-warning': (criterion.rating == 2) , 'label-success': (criterion.rating == 3)}">&nbsp;</span></p>
-              <p ng-show="criterion.tags">Tags: {{ criterion.tags }}</p>
-            </div>
-
-          </div>
+          <p ng-show="criterion.tags">Tags:
+            {{ rating._criterion.tags }}</p>
+        </div>
+        
+        <div class="criterion"
+             ng-class="{'criterion-red': (rating.mark == 1),
+                       'criterion-amber': (rating.mark == 2) ,
+                       'criterion-green': (rating.mark == 3)}"
+             ng-repeat="rating in ratings">
+          <div class="criterion-title">{{ rating._criterion.label }}</div>
+          <p>Rating: <span class="label"
+                           ng-class="{'label-danger': (rating.mark == 1),
+                                     'label-warning': (rating.mark == 2) ,
+                                     'label-success': (rating.mark == 3)}">
+              &nbsp;</span></p>
+            <p ng-show="rating._criterion.tags">
+              Tags: {{ rating._criterion.tags }}</p>
+        </div>
       </div>
-
     </div>
-
+    
 </div>

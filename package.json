@@ -26,6 +26,7 @@
     "async": "*"
   },
   "devDependencies": {
+    "js-yaml": "*",
     "karma": "~0.12",
     "karma-cli": "*",
     "karma-firefox-launcher": "~0.1",

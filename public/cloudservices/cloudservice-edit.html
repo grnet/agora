@@ -8,8 +8,8 @@
     <br/>
     Sort by:
     <select id="select" class="form-control" ng-model="orderProp">
-      <option value="label">Alphabetical</option>
-      <option value="rating">Rating</option>
+      <option value="_criterion.name">Alphabetical</option>
+      <option value="mark">Rating</option>
       <option value="">Initial</option>
     </select>
 
@@ -42,48 +42,48 @@
     <br/>
 
     <form novalidate>
-      <div class="service">
-        <div class="service-item" ng-class="{'service-item-red':
-                    (criterion.rating == 0),
-                    'service-item-amber':
-                    (criterion.rating == 1) ,
-                    'service-item-green':
-                    (criterion.rating == 2)}"
-                    ng-repeat="criterion in cloudServiceDetails.criteria
-                    | filter:query
-                    | orderBy:orderProp">
-          <div class="service-item-title">
-            {{ criterion.label }}
+      <div ng-repeat="rating in cloudServiceDetails.ratings
+                      | filter:query
+                      | orderBy:orderProp" ng-class-even="'row'">
+        
+        <div class="criterion col-md-4"
+             ng-class="{'criterion-red': (rating.mark == 0),
+                       'criterion-amber': (rating.mark == 1) ,
+                       'criterion-green': (rating.mark == 2)}">
+          <div class="criterion-name">
+            {{ rating._criterion.label }}
+            <span popover-placement="left" 
+                  popover="{{rating._criterion.description}}">
+              <button type="button" class="btn btn-link">
+                <span class="glyphicon glyphicon-info-sign"></span>
+              </button>
+            </span>          
           </div>
           <p>Rating: <span class="label"
-            ng-class="{'label-danger':
-                      (criterion.rating == 0),
-                      'label-warning':
-                      (criterion.rating == 1) ,
-                      'label-success':
-                      (criterion.rating == 2)}">&nbsp;</span>
-            <select ng-model="criterion.rating"
+                           ng-class="{'label-danger': (rating.mark == 0),
+                                     'label-warning': (rating.mark == 1) ,
+                                     'label-success': (rating.mark == 2)}">
+              &nbsp;</span>
+            <select ng-model="rating.mark"
                     ng-options="colour.value as colour.name for colour
                                 in colours">
             </select>
             <span ng-controller="CommentModalCtrl">
               <span popover-placement="top"
-                    popover="{{criterion.comment}}">
-                <span ng-class="{dimmed: !criterion.comment}"
+                    popover="{{rating.comment}}">
+                <span ng-class="{dimmed: !rating.comment}"
                       class="glyphicon glyphicon-comment"></span>
               </span>
               <button type="button" class="btn btn-link"
                       ng-click="openCommentModal()">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-              <!-- <input type="text" ng-show="editComment" -->
-              <!--        ng-change="toggleComment()" -->
-              <!--        ng-model="criterion.comment"/> -->
             </span>
           </p>
-          <p ng-show="criterion.tags">Tags: {{ criterion.tags }}</p>
+          <p ng-show="criterion.tags">Tags: {{ rating._criterion.tags }}</p>
         </div>        
       </div>
+      
       <div class="row">
         <div class="col-md-4">
           <button class="btn btn-lg btn-block"

@@ -1,15 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-var CriterionSchema = new Schema({
-  name: String,
-  label: String,
-  comment: String,
-  rating: Number,
-  tags: Array,
-  required: Boolean
-});
-
+  
 var CloudServiceSchema = new Schema({
   name: {
     type: String,
@@ -41,7 +32,20 @@ var CloudServiceSchema = new Schema({
     type: String,
     required: true
   },
-  criteria: [CriterionSchema]
+  ratings: [{
+    _criterion: {
+      type: Schema.Types.ObjectId,
+      ref: 'Criterion',
+      required: true
+    },
+    mark: {
+      type: Number,
+      required: true
+    },
+    comment: {
+      type: String
+    }
+  }]
 });
 
 CloudServiceSchema.pre('validate', function(next) {

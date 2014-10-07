@@ -22,18 +22,16 @@ agoraAppCloudServicesController.controller('CommentModalCtrl',
       size: size,
       resolve: {
         criterionLabel: function() {
-          return $scope.criterion.label;
+          return $scope.rating._criterion.label;
         },
         commentText: function() {
-          return $scope.criterion.comment;
+          return $scope.rating.comment;
         }
       }
     });
 
     modalInstance.result.then(function(commentText) {
-      $scope.criterion.comment = commentText;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
+      $scope.rating.comment = commentText;
     });
   };
   
