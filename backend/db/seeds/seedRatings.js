@@ -58,7 +58,7 @@ var criteria = [
 
 function rateService(service, cbk) {
 
-  async.each(criteria, function(criterionName, callback) {
+  async.eachSeries(criteria, function(criterionName, callback) {
     CriterionSchema.findOne({name: criterionName}, function(err, criterion) {
         var msg = "";
         if (err) {
