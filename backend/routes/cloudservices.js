@@ -40,7 +40,7 @@ router.get('/', function (req, res) {
   return CloudService.find(function (err, cloudServices) {
     if (!err) {
       cloudServices.forEach(function(cloudService) {
-          cloudService.criteria = [];
+          cloudService.ratings = [];
       });
       return res.send(cloudServices);
     } else {

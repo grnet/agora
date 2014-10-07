@@ -11,6 +11,9 @@ agoraAppErrorInterceptor.factory('errorInterceptor',
       if ($rootScope.error) {
         delete $rootScope.error;
       }
+      if ($rootScope.message) {
+        delete $rootScope.message;
+      }
       return response;
     },
     responseError: function(response) {
