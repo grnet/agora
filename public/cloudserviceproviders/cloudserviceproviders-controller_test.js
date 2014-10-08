@@ -16,7 +16,7 @@ describe('Agora controllers', function() {
 
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
-      $httpBackend.expectGET('api/providers').
+      $httpBackend.expectGET('api/cloudserviceproviders').
         respond([{name: 'GRNET'}, {name: 'GEANT'}]);
 
       scope = $rootScope.$new();

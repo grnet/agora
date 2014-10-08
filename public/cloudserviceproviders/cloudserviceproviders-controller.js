@@ -27,7 +27,15 @@ agoraAppCloudServiceProvidersController.controller(
      CloudServiceProviderDetails, UsersList) {
 
    $scope.getUsers = function(val) {
-     return UsersList.query(val);
+     return UsersList.query({term: val}).$promise.then(function(users) {
+       return users.map(function(user) {
+         var displayName = user.username
+           + " (" + user.firstName + " " + user.surname
+           + " " + user.email + ")";
+         user.displayName = displayName;
+         return user;
+       });
+     });
    };
    
    $scope.update = function(cloudServiceProviderDetails) {

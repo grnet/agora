@@ -11,8 +11,7 @@ var User = require('../db/models/User');
 var user;
 var usersFile, userData;
   
-var username, password, firstName, surname, email, group,
-  cloudProviderId, inputFile;
+var id, username, password, firstName, surname, email, group, inputFile;
 
 var prompts = [
   {
@@ -55,7 +54,6 @@ var knownOpts = {
   'surname': [String, null],
   'email': [String, null],
   'group': [String, null],
-  'cloudproviderid': [String, null],
   'inputfile': [String, null],
   'help': [Boolean, false]
 };
@@ -68,7 +66,6 @@ var shortHands = {
   "s": ["--surname"],
   "e": ["--email"],
   "g": ["--group"],
-  "c": ["--cloudproviderid"],
   "i": ["--inputfile"],
   "h": ["--help"]
 };
@@ -82,7 +79,6 @@ function usage() {
     "[-s surname] ",
     "[-e email] ",
     "[-g group] ",
-    "[-c cloudproviderid] ",
     "[-i inputfile] ",
     "[-h]");
   util.puts("", "");
@@ -98,7 +94,6 @@ function usage() {
   util.puts("\t -s surname");
   util.puts("\t -e email");
   util.puts("\t -g group");
-  util.puts("\t -c cloud provider id");
   util.print("\t -i input file: this is a JSON file containing an array of ",
     "user descriptions");
   util.puts("");
@@ -172,10 +167,6 @@ if (parsed.inputfile) {
     group = null;
   } 
   
-  cloudProviderId = parsed.cloudproviderid || results.cloudproviderid;
-  if (cloudProviderId == '') {
-    cloudProviderId = null;
-  }
   
   user = new User({
     id: id,
@@ -188,9 +179,7 @@ if (parsed.inputfile) {
   if (group) {
     user.groups = [ group ];
   }
-  if (cloudProviderId) {
-    user.cloudProdivedId = cloudProviderId;
-  }
+
   saveUser(user, function() {
     process.exit();
     });

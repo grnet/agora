@@ -35,9 +35,11 @@
                id="cloudServiceProviderUser"
                ng-model="cloudServiceProviderDetailsUser"
                placeholder="A User"
-               typeahead="user for users in getUsers($viewValue)"
-               typeahead-loading="loadingLocations" class="form-control">
-        <i ng-show="loadingLocations"
+               typeahead-editable="false"
+               typeahead-input-formatter="user.username"
+               typeahead="user.displayName for user in getUsers($viewValue)"
+               typeahead-loading="loadingUsers" class="form-control">
+        <i ng-show="loadingUsers"
            class="glyphicon glyphicon-refresh"></i>
       </div>
       

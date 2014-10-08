@@ -28,10 +28,6 @@ var userSchema = new mongoose.Schema({
   groups: {
     type: Array,
     required: false
-  },
-  cloudServiceProviderId: {
-    type: String,
-    required: false
   }
 });
 

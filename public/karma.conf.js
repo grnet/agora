@@ -10,12 +10,13 @@ module.exports = function(config){
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'app.js',
+      'utils-service.js',
       'cloudserviceproviders/*.js',
       'cloudservices/*.js',
       'error/*.js',      
       'login/*.js',
       'main/*.js',
-      'user/*.js'
+      'users/*.js'
     ],
 
     autowatch : true,
