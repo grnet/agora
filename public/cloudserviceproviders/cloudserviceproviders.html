@@ -22,7 +22,7 @@
              class="col-md-offset-8 col-md-4">
           <h2>
             <a class="btn btn-info"
-               ng-href="#/providers/new">
+               ng-href="#/cloudserviceproviders/new">
               Add Provider</a>
         </h2>
         </div>
@@ -30,8 +30,13 @@
       
       <div class="providers list-group">
           <div class="list-group-item"
-               ng-repeat="provider in cloudServiceProviders | filter:query | orderBy:orderProp">
-            <h4 class="list-group-item-heading">{{provider.name}}</h4>
+               ng-repeat="provider in cloudServiceProviders
+                          | filter:query
+                          | orderBy:orderProp">
+            <h4 class="list-group-item-heading">
+              <a ng-href="#/cloudserviceproviders/{{provider._id}}">
+                {{provider.name}}
+              </a></h4>
             <p class="list-group-item-text">{{provider.description}}</p>
             <p class="list-group-item-text">{{provider.country}}</p>
           </div>

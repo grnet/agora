@@ -1,0 +1,59 @@
+<div class="container-fluid">
+
+  <div class="col-md-9 col-md-offset-3 cloud-service">
+    <!--Body content-->
+
+    <form role="form" novalidate>
+
+      <div class="form-group">
+        <label for="cloudServiceProviderName">
+          Provider name</label>
+        <input type="text" class="form-control"
+               id="cloudServiceProviderName"
+               ng-model="cloudServiceProviderDetails.name"/>
+      </div>
+
+      <div class="form-group">
+        <label for="cloudServiceProviderDescription">
+          Provider description</label>
+        <textarea id="cloudServiceProviderDescription"
+                  class="form-control"
+                  ng-model="cloudServiceProviderDetails.description"
+                  rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="cloudServiceProviderCountry">
+          Provider country</label>
+        <input type="text" class="form-control" id="cloudServiceProviderCountry"
+               ng-model="cloudServiceProviderDetails.country"/>
+      </div>
+
+      <div class="form-group">
+        <label for="cloudServiceProviderUser">User</label>
+        <input type="text" class="form-control"
+               id="cloudServiceProviderUser"
+               ng-model="cloudServiceProviderDetailsUser"
+               placeholder="A User"
+               typeahead="user for users in getUsers($viewValue)"
+               typeahead-loading="loadingLocations" class="form-control">
+        <i ng-show="loadingLocations"
+           class="glyphicon glyphicon-refresh"></i>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <button class="btn btn-lg btn-block"
+                  ng-disabled="isUnchanged(cloudServiceProviderDetails)"
+                  ng-click="reset()">Reset</button>
+        </div>        
+        <div class="col-md-4">
+          <button class="btn btn-lg btn-primary btn-block "
+                  ng-click="update(cloudServiceProviderDetails)">Save</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  
+</div>

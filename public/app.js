@@ -4,8 +4,10 @@ var agoraApp = angular.module('agoraApp', [
   'ngRoute',
   'ui.bootstrap',
   'agoraAppMainController',
+  'agoraAppUtilsService',
   'agoraAppErrorInterceptor',  
-  'agoraAppUserController',
+  'agoraAppUsersController',
+  'agoraAppUsersService',
   'agoraAppCloudServicesController',
   'agoraAppCloudServicesService',  
   'agoraAppCloudServiceProvidersController',
@@ -25,10 +27,26 @@ agoraApp.config(['$routeProvider',
           templateUrl: 'login/login.html',
           controller: 'LoginCtrl'
       }).
-      when('/providers', {
-        templateUrl: 'cloudserviceproviders/providers.html',
+      when('/cloudserviceproviders', {
+        templateUrl: 'cloudserviceproviders/cloudserviceproviders.html',
         controller: 'CloudServiceProvidersListCtrl'
       }).
+      when('/cloudserviceproviders/new', {
+        templateUrl: 'cloudserviceproviders/cloudserviceprovider-edit.html',
+        controller: 'CloudServiceProvidersListCtrl'
+      }).
+      when('/cloudserviceproviders/:id', {
+        templateUrl: 'cloudserviceproviders/cloudserviceprovider.html',
+        controller: 'CloudServiceProviderCtrl'
+      }).
+      when('/cloudserviceproviders/:id\/edit', {
+        templateUrl: 'cloudserviceproviders/cloudserviceprovider-edit.html',
+        controller: 'CloudServiceProviderCtrl'
+      }).      
+      when('/cloudserviceproviders/new', {
+        templateUrl: 'cloudserviceproviders/cloudserviceprovider-edit.html',
+        controller: 'CloudServiceProviderNewCtrl'
+      }).      
       when('/cloudservices/:id', {
         templateUrl: 'cloudservices/cloudservice.html',
         controller: 'CloudServiceCtrl'

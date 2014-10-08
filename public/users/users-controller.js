@@ -1,9 +1,9 @@
 'use strict';
 
-var agoraAppUserController =
-  angular.module('agoraAppUserController', []);
+var agoraAppUsersController =
+  angular.module('agoraAppUsersController', []);
 
-agoraAppUserController.controller('UserCtrl',
+agoraAppUsersController.controller('UserCtrl',
   ['$scope', '$rootScope', '$window', '$location',
   function($scope, $rootScope, $window, $location) {
 

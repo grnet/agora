@@ -1,0 +1,27 @@
+<div class="container-fluid">
+
+  <div class="col-md-9 col-md-offset-3">
+    <!--Body content-->
+
+    <div class="row" ng-show="canEdit">
+      <div class="col-md-4 col-md-offset-8">
+        <h2>
+          <a class="btn btn-info"
+             ng-href="#/cloudserviceproviders/{{cloudServiceProviderDetails._id}}/edit">
+            Edit Provider</a>
+        </h2>
+      </div>
+    </div>
+
+    <dl class="dl-horizontal cloudservice">
+      <dt>Name</dt>
+      <dd>{{ cloudServiceProviderDetails.name }}</dd>
+      <dt>Description</dt>
+      <dd> {{ cloudServiceProviderDetails.description }}</dd>
+      <dt>Country</dt>
+      <dd>{{ cloudServiceProviderDetails.country }} </dd>
+    </dl>
+
+  </div>
+  
+</div>

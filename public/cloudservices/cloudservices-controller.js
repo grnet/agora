@@ -95,7 +95,7 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         cloudServiceDetails,
         function(value, headers) {
           $window.scrollTo(0, 0);
-          $rootScope.message = "Profile Updated";
+          $rootScope.message = "Profile updated.";
         },
         function(errorResponse) {
           $window.scrollTo(0, 0);

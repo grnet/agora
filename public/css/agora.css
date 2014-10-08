@@ -126,12 +126,24 @@
     border: 1px solid #60ca72;
 }
 .criterion-name {
-    font-size: 19px;
+    font-size: 18px;
     margin-bottom: 10px;
     font-weight: 400;
 }
 .criterion-name .popover-content {
     font-size: 14px;
+}
+
+.cloudservice {
+    font-size: 18px;
+}
+
+form .form-group input {
+    width: 150px;
+}
+
+form .form-group textarea {
+    width: 300px;
 }
 
 /* for angular-ui  */

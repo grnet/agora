@@ -7,7 +7,15 @@ var agoraAppCloudServiceProvidersService =
 agoraAppCloudServiceProvidersService.factory('CloudServiceProvidersList',
   ['$resource',
    function($resource) {
-     return $resource('api/:providers', {}, {
-       query: {method:'GET', params:{providers:'providers'}, isArray: true}
-     });
+     return $resource('api/cloudserviceproviders');
   }]);
+
+agoraAppCloudServiceProvidersService.factory('CloudServiceProviderDetails',
+  ['$resource',
+  function($resource) {
+    return $resource('api/cloudserviceproviders/:cloudServiceProviderId', null,
+    {
+      update: { method: 'PUT' }
+    });
+  }]);
+  
