@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
-var CriterionSchema = require('../db/models/Criterion');
   
 router.get('/:id', function (req, res) {
   CloudService
@@ -52,16 +51,18 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res){
   var cloudService = new CloudService({
     name: req.body.name,
-    description: req.body.description
+    description: req.body.description,
+    status: 'draft',
+    _cloudServiceProvider: req.body._cloudServiceProvider
   });
   cloudService.save(function (err) {
     if (!err) {
-      return console.log("created");
+      res.send(cloudService);
     } else {
-      return console.log(err);
+      res.status(500).send({error: err});
+      console.log(err);
     }
   });
-  return res.send(cloudService);
 });
 
 function checkServiceEditPermissions(id, user, callback) {

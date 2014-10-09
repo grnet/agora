@@ -4,12 +4,73 @@ var agoraAppCloudServicesController =
   angular.module('agoraAppCloudServicesController', []);
 
 agoraAppCloudServicesController.controller('CloudServicesListCtrl',
-  ['$scope', 'CloudServicesList',
-  function($scope, CloudServicesList) {
+  ['$scope', 'CloudServicesList', 'Utils',
+  function($scope, CloudServicesList, Utils) {
+
+    if (Utils.isAdmin($scope)) {
+      $scope.canAdd = true;
+    } else {
+      $scope.canAdd = false;
+    }
+    
     $scope.cloudServices = CloudServicesList.query();
   }
 ]);
- 
+
+agoraAppCloudServicesController.controller(
+  'CloudServiceProviderSelectCtrl',
+  ['$scope', 'CloudServiceProvidersList',
+   function($scope, CloudServiceProvidersList) {
+
+     $scope.getCloudServiceProviders = function(val) {
+       return CloudServiceProvidersList.query({term: val})
+         .$promise.then(function(cloudServices) {
+           return cloudServices;
+         });
+     };
+
+     $scope.selectCloudServiceProvider = function($item, $model, $label) {
+       $scope.cloudServiceDetails._cloudServiceProvider = $item._id;
+     };
+     
+}]);
+  
+agoraAppCloudServicesController.controller(
+  'CloudServiceNewCtrl',
+  ['$scope', '$rootScope', '$window', 'CloudServiceDetails',
+   function($scope, $rootScope, $window, CloudServiceDetails) {
+
+   $scope.cloudServiceDetails = {
+     'name': null,
+     'description': null,
+     '_cloudServiceProvider': null
+   };
+     
+   $scope.update = function() {
+     $scope.master = angular.copy($scope.cloudServiceDetails);
+     CloudServiceDetails.save({},
+       $scope.cloudServiceDetails,
+         function(value, headers) {
+           $window.scrollTo(0, 0);
+           $rootScope.message = "Service saved.";
+       },
+       function(errorResponse) {
+         $window.scrollTo(0, 0);
+         $scope.reset();
+       }
+     );
+   };
+
+    $scope.reset = function() {
+      $scope.cloudServiceDetails = angular.copy($scope.master);
+    };
+    
+    $scope.isUnchanged = function() {
+      return angular.equals($scope.cloudServiceDetails, $scope.master);
+    };
+
+}]);
+  
 agoraAppCloudServicesController.controller('CommentModalCtrl',
   ['$scope', '$route', '$modal', '$log', 
   function($scope, $route, $modal, $log) {

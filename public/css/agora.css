@@ -150,6 +150,10 @@ form .form-group #cloudServiceProviderUser {
     width: 300px;
 }
 
+.user-box {
+    margin-bottom: 20px;
+}
+
 /* for angular-ui  */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 

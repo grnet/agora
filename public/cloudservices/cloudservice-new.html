@@ -1,0 +1,58 @@
+<div class="container-fluid">
+
+  <div class="col-md-9 col-md-offset-3 cloud-service">
+    <!--Body content-->
+
+    <form role="form" novalidate>
+
+      <div class="form-group">
+        <label for="cloudServiceName">
+          Service name</label>
+        <input type="text" class="form-control"
+               id="cloudServiceName"
+               ng-model="cloudServiceDetails.name"/>
+      </div>
+
+      <div class="form-group">
+        <label for="cloudServiceDescription">
+          Service description</label>
+        <textarea id="cloudServiceDescription"
+                  class="form-control"
+                  ng-model="cloudServiceDetails.description"
+                  rows="3"></textarea>
+      </div>
+
+      <div class="form-group" ng-controller="CloudServiceProviderSelectCtrl">
+        <label for="cloudServiceUser">Service provider</label>
+        <input type="text" class="form-control"
+               id="cloudServiceUser"
+               ng-model="cloudServiceDetails.cloudServiceProvider"
+               placeholder="A Provider"
+               typeahead-editable="false"
+               typeahead-on-select="selectCloudServiceProvider($item,
+                                    $model, $label)"
+               typeahead="cloudServiceProvider.name
+                          for cloudServiceProvider
+                          in getCloudServiceProviders($viewValue)"
+               typeahead-loading="loadingCloudServiceProviders"
+               class="form-control">
+        <i ng-show="loadingCloudServiceProviders"
+           class="glyphicon glyphicon-refresh"></i>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <button class="btn btn-lg btn-block"
+                  ng-disabled="isUnchanged(cloudServiceDetails)"
+                  ng-click="reset()">Reset</button>
+        </div>        
+        <div class="col-md-4">
+          <button class="btn btn-lg btn-primary btn-block "
+                  ng-click="update(cloudServiceDetails)">Save</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  
+</div>

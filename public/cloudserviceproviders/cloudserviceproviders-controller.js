@@ -4,17 +4,16 @@ var agoraAppCloudServiceProvidersController =
   angular.module('agoraAppCloudServiceProvidersController', []);
 
 agoraAppCloudServiceProvidersController.controller(
-  'CloudServiceProvidersListCtrl',
-  ['$scope', 'CloudServiceProvidersList',
-  function($scope, CloudServiceProvidersList) {
-    var isAdmin = false;
-    if ($scope.user && $scope.user.groups.indexOf('admin') != -1) {
-      isAdmin = true;
+  'CloudServiceProvidersListCtrl', 
+  ['$scope', 'CloudServiceProvidersList', 'Utils',
+  function($scope, CloudServiceProvidersList, Utils) {
+
+    if (Utils.isAdmin($scope)) {
+      $scope.canAdd = true;
+    } else {
+      $scope.canAdd = false;
     }
     
-    if (isAdmin) {
-      $scope.canAdd = true;
-    }
     $scope.cloudServiceProviders = CloudServiceProvidersList.query();
   }
 ]);
@@ -26,7 +25,7 @@ function displayName(user) {
 }
   
 agoraAppCloudServiceProvidersController.controller(
-  'CloudServiceProviderUserCtrl',
+  'UserSelectCtrl',
   ['$scope', 'UsersList',
    function($scope, UsersList) {
 
@@ -50,13 +49,20 @@ agoraAppCloudServiceProvidersController.controller(
   ['$scope', '$rootScope', '$window',
    'CloudServiceProviderDetails',
    function($scope, $rootScope, $window, CloudServiceProviderDetails) {
+
+   $scope.cloudServiceProviderDetails = {
+     'name': null,
+     'description': null,
+     'country': null,
+     '_user': null
+   };
    
-   $scope.update = function(cloudServiceProviderDetails) {
-     $scope.master = angular.copy(cloudServiceProviderDetails);
+   $scope.update = function() {
+     $scope.master = angular.copy($scope.cloudServiceProviderDetails);
      CloudServiceProviderDetails.save({
-       cloudServiceProviderId: cloudServiceProviderDetails._id
+       cloudServiceProviderId: $scope.cloudServiceProviderDetails._id
        },
-       cloudServiceProviderDetails,
+       $scope.cloudServiceProviderDetails,
          function(value, headers) {
            $window.scrollTo(0, 0);
            $rootScope.message = "Provider saved.";
@@ -72,11 +78,11 @@ agoraAppCloudServiceProvidersController.controller(
       $scope.cloudServiceProviderDetails = angular.copy($scope.master);
     };
     
-    $scope.isUnchanged = function(cloudServiceProviderDetails) {
-      return angular.equals(cloudServiceProviderDetails, $scope.master);
+    $scope.isUnchanged = function() {
+      return angular.equals($scope.cloudServiceProviderDetails, $scope.master);
     };
 
-  }]);
+}]);
 
   
 agoraAppCloudServiceProvidersController.controller(
@@ -98,17 +104,17 @@ agoraAppCloudServiceProvidersController.controller(
       });
     
     $scope.cloudServiceProviderDetails.$promise.then(function() {
-      $scope.master = angular.copy($scope.cloudServiceProviderDetails);
-      $scope.cloudServiceProviderUser =
+      $scope.cloudServiceProviderDetails.cloudServiceProviderUser =
         displayName($scope.cloudServiceProviderDetails._user);
+      $scope.master = angular.copy($scope.cloudServiceProviderDetails);
     });
     
-    $scope.update = function(cloudServiceProviderDetails) {
-      $scope.master = angular.copy(cloudServiceProviderDetails);
+    $scope.update = function() {
+      $scope.master = angular.copy($scope.cloudServiceProviderDetails);
       CloudServiceProviderDetails.update({
-          cloudServiceProviderId: cloudServiceProviderDetails._id
+          cloudServiceProviderId: $scope.cloudServiceProviderDetails._id
         },
-        cloudServiceProviderDetails,
+        $scope.cloudServiceProviderDetails,
         function(value, headers) {
           $window.scrollTo(0, 0);
           $rootScope.message = "Provider updated.";
@@ -124,8 +130,8 @@ agoraAppCloudServiceProvidersController.controller(
       $scope.cloudServiceProviderDetails = angular.copy($scope.master);
     };
     
-    $scope.isUnchanged = function(cloudServiceProviderDetails) {
-      return angular.equals(cloudServiceProviderDetails, $scope.master);
+    $scope.isUnchanged = function() {
+      return angular.equals($scope.cloudServiceProviderDetails, $scope.master);
     };
 
     

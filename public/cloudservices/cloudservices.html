@@ -16,6 +16,18 @@
     <div class="col-md-9">
       <!--Body content-->
 
+      <div class="row">
+
+        <div ng-show="canAdd"
+             class="col-md-offset-8 col-md-4">
+          <h2>
+            <a class="btn btn-info"
+               ng-href="#/cloudservices/new">
+              Add Service</a>
+        </h2>
+        </div>
+      </div>
+      
       <div class="services list-group">
         <div class="list-group-item" ng-repeat="cloudService in cloudServices | filter:query | orderBy:orderProp">
             <h4 class="list-group-item-heading"><a href="#/cloudservices/{{cloudService._id}}">{{cloudService.name}}</a></h4>

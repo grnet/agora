@@ -1,5 +1,70 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Criterion = require('./Criterion');
+  
+var async = require('async');
+  
+var criteria = [
+  "intellectualPropertyRights",
+  "processingData",
+  "ownership",
+  "dataProtection",
+  "requestsForDataAccessFrom3rdParties",
+  "notification",
+  "liquidatedDamages",
+  "externalSecurityAuditCertificate",
+  "concordanceWithNationalPrivacyActs",
+  "securityOfTheCloudService",
+  "managingSecurityIncidents",
+  "dataBackupAndRestore",
+  "compatibility",
+  "portability",
+  "supervision",
+  "electronicDataProcessing",
+  "networkConnectivity",
+  "aai",
+  "userProvisioning",
+  "protectionOfMinorsAsUsers",
+  "subcontractors",
+  "serviceLevelAgreement",
+  "qualityReview",
+  "informationPerformance",
+  "reportingMeteringSalesEstimates",
+  "billing",
+  "governingLaw",
+  "peeringConnectivityCosts"
+];
+
+function rateService(service, cbk) {
+
+  async.eachSeries(criteria, function(criterionName, callback) {
+    Criterion.findOne({name: criterionName}, function(err, criterion) {
+        var msg = "";
+        if (err) {
+          console.log(err);
+          callback(err);
+        } else if (!criterion) {
+          msg = 'Not found: ' + criteria[i];
+          console.log(msg);
+          callback(msg);
+        } else {
+          service.ratings.push({
+            _criterion: criterion._id,
+            mark: 1
+          });
+          callback();
+        }
+    });
+  },
+  function(err) {
+    if (err) {
+      console.log('Failed to rate all criteria');
+      cbk(err);
+    } else {
+      cbk();
+    }  
+  });
+}
   
 var CloudServiceSchema = new Schema({
   name: {
@@ -22,10 +87,6 @@ var CloudServiceSchema = new Schema({
     },
   modifiedAt: {
     type: Date,
-    required: true
-  },
-  version: {
-    type: String,
     required: true
   },
   status: {
@@ -54,7 +115,18 @@ CloudServiceSchema.pre('validate', function(next) {
     this.createdAt = saveDate;
   }
   this.modifiedAt = saveDate;
-  next();
+
+  if (!this.ratings || this.ratings.length == 0) {
+    rateService(this, function(err) {
+      if (err) {
+        next(err);
+      } else {
+        next();
+      }
+    });
+  } else {
+    next();
+  }
 });
   
 module.exports = mongoose.model('CloudService', CloudServiceSchema);

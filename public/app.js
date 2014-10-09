@@ -46,6 +46,10 @@ agoraApp.config(['$routeProvider',
       when('/cloudserviceproviders/new', {
         templateUrl: 'cloudserviceproviders/cloudserviceprovider-edit.html',
         controller: 'CloudServiceProviderNewCtrl'
+      }).
+      when('/cloudservices/new', {
+        templateUrl: 'cloudservices/cloudservice-new.html',
+        controller: 'CloudServiceNewCtrl'
       }).      
       when('/cloudservices/:id', {
         templateUrl: 'cloudservices/cloudservice.html',
@@ -59,8 +63,8 @@ agoraApp.config(['$routeProvider',
       when('/cloudservices', {
         templateUrl: 'cloudservices/cloudservices.html',
         controller: 'CloudServicesListCtrl'
-      }).
+      }).      
       otherwise({
-          redirectTo: '/'
+        redirectTo: '/'
       });
 }]);
