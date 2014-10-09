@@ -19,6 +19,18 @@ agoraAppCloudServiceProvidersController.controller(
   }
 ]);
 
+function getUsers(val, UsersList) {
+  return UsersList.query({term: val}).$promise.then(function(users) {
+    return users.map(function(user) {
+      var displayName = user.username
+        + " (" + user.firstName + " " + user.surname
+        + " " + user.email + ")";
+      user.displayName = displayName;
+      return user;
+    });
+  });
+};
+  
 agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProviderNewCtrl',
   ['$scope', '$rootScope', '$window',
@@ -27,17 +39,9 @@ agoraAppCloudServiceProvidersController.controller(
      CloudServiceProviderDetails, UsersList) {
 
    $scope.getUsers = function(val) {
-     return UsersList.query({term: val}).$promise.then(function(users) {
-       return users.map(function(user) {
-         var displayName = user.username
-           + " (" + user.firstName + " " + user.surname
-           + " " + user.email + ")";
-         user.displayName = displayName;
-         return user;
-       });
-     });
+     return getUsers(val, UsersList);
    };
-
+ 
    $scope.selectUser = function($item, $model, $label) {
      $scope.cloudServiceProviderDetails._user = $item._id;
    };
@@ -73,9 +77,9 @@ agoraAppCloudServiceProvidersController.controller(
 agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProviderCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window',
-   'CloudServiceProviderDetails', 'Utils',
+   'CloudServiceProviderDetails', 'UsersList', 'Utils',
   function($scope, $rootScope, $routeParams, $window,
-    CloudServiceProviderDetails, Utils) {
+    CloudServiceProviderDetails, UsersList, Utils) {
 
     if (Utils.isAdmin($scope)) {
       $scope.canEdit = true;
@@ -86,11 +90,24 @@ agoraAppCloudServiceProvidersController.controller(
     $scope.cloudServiceProviderDetails =
       CloudServiceProviderDetails.get({
           cloudServiceProviderId: $routeParams.id
-        });
+      });
     
     $scope.cloudServiceProviderDetails.$promise.then(function() {
       $scope.master = angular.copy($scope.cloudServiceProviderDetails);
+      $scope.cloudServiceProviderUser =
+        $scope.cloudServiceProviderDetails._user.username
+        + " (" + $scope.cloudServiceProviderDetails._user.firstName
+        + " " + $scope.cloudServiceProviderDetails._user.surname
+        + " " + $scope.cloudServiceProviderDetails._user.email + ")";
     });
+    
+    $scope.getUsers = function(val) {
+     return getUsers(val, UsersList);
+    };
+
+    $scope.selectUser = function($item, $model, $label) {
+     $scope.cloudServiceProviderDetails._user = $item._id;
+   };
 
     $scope.update = function(cloudServiceProviderDetails) {
       $scope.master = angular.copy(cloudServiceProviderDetails);

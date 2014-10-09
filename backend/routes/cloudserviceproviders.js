@@ -15,9 +15,10 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
   CloudServiceProvider
     .findOne({_id: req.params.id})
+    .populate('_user')  
     .exec(function (err, cloudServiceProvider) {
       if (!err && cloudServiceProvider) {
-          res.send(cloudServiceProvider);
+        res.send(cloudServiceProvider);
       } else {
         res.status(404).send({error: 'No Cloud Service Provider Found'});
         console.log(err);
@@ -49,6 +50,7 @@ router.put('/:id', function (req, res) {
         cloudServiceProvider.name = req.body.name;
         cloudServiceProvider.description = req.body.description;
         cloudServiceProvider.country = req.body.country;
+        cloudServiceProvider._user = req.body._user;
         cloudServiceProvider.save(function(err) {
           if (!err) {
             res.send(cloudServiceProvider);
