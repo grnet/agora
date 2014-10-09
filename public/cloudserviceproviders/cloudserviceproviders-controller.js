@@ -37,23 +37,27 @@ agoraAppCloudServiceProvidersController.controller(
        });
      });
    };
+
+   $scope.selectUser = function($item, $model, $label) {
+     $scope.cloudServiceProviderDetails._user = $item._id;
+   };
    
    $scope.update = function(cloudServiceProviderDetails) {
-      $scope.master = angular.copy(cloudServiceProviderDetails);
-      CloudServiceProviderDetails.save({
-          cloudServiceProviderId: cloudServiceProviderDetails._id
-        },
-        cloudServiceProviderDetails,
-        function(value, headers) {
-          $window.scrollTo(0, 0);
-          $rootScope.message = "Provider saved.";
-        },
-        function(errorResponse) {
-          $window.scrollTo(0, 0);
-          $scope.reset();
-        }
-      );
-    };
+     $scope.master = angular.copy(cloudServiceProviderDetails);
+     CloudServiceProviderDetails.save({
+       cloudServiceProviderId: cloudServiceProviderDetails._id
+       },
+       cloudServiceProviderDetails,
+         function(value, headers) {
+           $window.scrollTo(0, 0);
+           $rootScope.message = "Provider saved.";
+       },
+       function(errorResponse) {
+         $window.scrollTo(0, 0);
+         $scope.reset();
+       }
+     );
+   };
 
     $scope.reset = function() {
       $scope.cloudServiceProviderDetails = angular.copy($scope.master);

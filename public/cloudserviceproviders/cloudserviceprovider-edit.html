@@ -33,11 +33,12 @@
         <label for="cloudServiceProviderUser">User</label>
         <input type="text" class="form-control"
                id="cloudServiceProviderUser"
-               ng-model="cloudServiceProviderDetailsUser"
+               ng-model="cloudServiceProviderUser"
                placeholder="A User"
                typeahead-editable="false"
-               typeahead-input-formatter="user.username"
-               typeahead="user.displayName for user in getUsers($viewValue)"
+               typeahead-on-select="selectUser($item, $model, $label)"
+               typeahead="loadedUser.displayName
+                          for loadedUser in getUsers($viewValue)"
                typeahead-loading="loadingUsers" class="form-control">
         <i ng-show="loadingUsers"
            class="glyphicon glyphicon-refresh"></i>

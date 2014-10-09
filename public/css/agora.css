@@ -146,6 +146,10 @@ form .form-group textarea {
     width: 300px;
 }
 
+form .form-group #cloudServiceProviderUser {
+    width: 300px;
+}
+
 /* for angular-ui  */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
