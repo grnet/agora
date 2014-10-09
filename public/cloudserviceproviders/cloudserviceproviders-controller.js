@@ -19,32 +19,37 @@ agoraAppCloudServiceProvidersController.controller(
   }
 ]);
 
-function getUsers(val, UsersList) {
-  return UsersList.query({term: val}).$promise.then(function(users) {
-    return users.map(function(user) {
-      var displayName = user.username
-        + " (" + user.firstName + " " + user.surname
-        + " " + user.email + ")";
-      user.displayName = displayName;
-      return user;
-    });
-  });
-};
+function displayName(user) {
+  return user.username
+    + " (" + user.firstName + " " + user.surname
+    + " " + user.email + ")";
+}
+  
+agoraAppCloudServiceProvidersController.controller(
+  'CloudServiceProviderUserCtrl',
+  ['$scope', 'UsersList',
+   function($scope, UsersList) {
+
+     $scope.getUsers = function(val) {
+       return UsersList.query({term: val}).$promise.then(function(users) {
+         return users.map(function(user) {
+           user.displayName = displayName(user); 
+           return user;
+         });
+       });
+     };
+
+     $scope.selectUser = function($item, $model, $label) {
+       $scope.cloudServiceProviderDetails._user = $item._id;
+     };
+     
+}]);
   
 agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProviderNewCtrl',
   ['$scope', '$rootScope', '$window',
-   'CloudServiceProviderDetails', 'UsersList',
-   function($scope, $rootScope, $window,
-     CloudServiceProviderDetails, UsersList) {
-
-   $scope.getUsers = function(val) {
-     return getUsers(val, UsersList);
-   };
- 
-   $scope.selectUser = function($item, $model, $label) {
-     $scope.cloudServiceProviderDetails._user = $item._id;
-   };
+   'CloudServiceProviderDetails',
+   function($scope, $rootScope, $window, CloudServiceProviderDetails) {
    
    $scope.update = function(cloudServiceProviderDetails) {
      $scope.master = angular.copy(cloudServiceProviderDetails);
@@ -77,9 +82,9 @@ agoraAppCloudServiceProvidersController.controller(
 agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProviderCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window',
-   'CloudServiceProviderDetails', 'UsersList', 'Utils',
+   'CloudServiceProviderDetails', 'Utils',
   function($scope, $rootScope, $routeParams, $window,
-    CloudServiceProviderDetails, UsersList, Utils) {
+    CloudServiceProviderDetails, Utils) {
 
     if (Utils.isAdmin($scope)) {
       $scope.canEdit = true;
@@ -95,20 +100,9 @@ agoraAppCloudServiceProvidersController.controller(
     $scope.cloudServiceProviderDetails.$promise.then(function() {
       $scope.master = angular.copy($scope.cloudServiceProviderDetails);
       $scope.cloudServiceProviderUser =
-        $scope.cloudServiceProviderDetails._user.username
-        + " (" + $scope.cloudServiceProviderDetails._user.firstName
-        + " " + $scope.cloudServiceProviderDetails._user.surname
-        + " " + $scope.cloudServiceProviderDetails._user.email + ")";
+        displayName($scope.cloudServiceProviderDetails._user);
     });
     
-    $scope.getUsers = function(val) {
-     return getUsers(val, UsersList);
-    };
-
-    $scope.selectUser = function($item, $model, $label) {
-     $scope.cloudServiceProviderDetails._user = $item._id;
-   };
-
     $scope.update = function(cloudServiceProviderDetails) {
       $scope.master = angular.copy(cloudServiceProviderDetails);
       CloudServiceProviderDetails.update({
