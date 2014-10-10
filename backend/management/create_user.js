@@ -38,10 +38,6 @@ var prompts = [
   {
     name: 'group',
     message: 'Enter group:'
-  },
-  {
-    name: 'cloudproviderid',
-    message: 'Enter cloud provider ID:'
   }
 ];
 
