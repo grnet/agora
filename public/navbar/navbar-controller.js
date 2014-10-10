@@ -9,7 +9,7 @@ agoraAppNavBarController.controller('NavBarCtrl',
 
     $scope.navClass = function(target) {
       var basePath = $location.path().substring(1).split("/", 1).pop();
-      if (basePath === '') {
+      if (basePath === '' || basePath === 'login') {
         $scope.navBarShow = false;
         return '';
       } else {
