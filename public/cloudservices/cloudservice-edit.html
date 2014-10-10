@@ -17,31 +17,39 @@
 
   <div class="col-md-9">
     <!--Body content-->
-      
-    <h2>{{cloudServiceDetails.name}}
+
+    <form novalidate>
+
+      <h2>{{cloudServiceDetails.name}}
         <button type="button" class="btn btn-link"
                 ng-click="nameEdit = !nameEdit">
           <span class="glyphicon glyphicon-pencil"></span>
         </button>          
-    </h2>
-    <h2 ng-show="nameEdit">
-      <input type="text" ng-model="cloudServiceDetails.name">
-    </h2>
-    
-    <div class="well">
-      {{cloudServiceDetails.description}}
-      <button type="button" class="btn btn-link"
-              ng-click="descriptionEdit = !descriptionEdit">
-        <span class="glyphicon glyphicon-pencil"></span>
-      </button>          
-      
-      <input ng-show="descriptionEdit" class="form-control"
-             type="text" ng-model="cloudServiceDetails.description">      
-    </div>
-    
-    <br/>
+      </h2>
+      <h2 ng-show="nameEdit">
+        <input type="text" ng-model="cloudServiceDetails.name">
+      </h2>
 
-    <form novalidate>
+      <div class="well">
+        {{cloudServiceDetails.description}}
+        <button type="button" class="btn btn-link"
+                ng-click="descriptionEdit = !descriptionEdit">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>          
+      
+        <input ng-show="descriptionEdit" class="form-control"
+               type="text" ng-model="cloudServiceDetails.description">      
+      </div>
+
+      <div>
+        <select ng-model="cloudServiceDetails.processingStatus"
+                ng-options="processingStatus.value as processingStatus.label
+                            for processingStatus in processingStatuses">
+        </select>
+      </div>
+     
+      <br/>
+
       <div ng-repeat="rating in cloudServiceDetails.ratings
                       | filter:query
                       | orderBy:orderProp" ng-class-even="'row'">
@@ -65,8 +73,8 @@
                                      'label-success': (rating.mark == 2)}">
               &nbsp;</span>
             <select ng-model="rating.mark"
-                    ng-options="colour.value as colour.name for colour
-                                in colours">
+                    ng-options="colour.value as colour.label
+                                for colour in colours">
             </select>
             <span ng-controller="CommentModalCtrl">
               <span popover-placement="top"

@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/agora.css?3">
+  <link rel="stylesheet" href="css/agora.css?4">
 
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -65,14 +65,14 @@
 
   <div class="container">
 
-    <div class="row">
+    <div class="row navbar" >
       <div ng-include src="'navbar/navbar.html'">
       </div>
       <div ng-include src="'users/user.html'">
       </div>
     </div>
 
-    <div class="row" ng-show="error || message">
+    <div class="row messages" ng-show="error || message" >
       
       <div class="col-lg-6 col-lg-offset-4">
         

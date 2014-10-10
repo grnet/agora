@@ -45,7 +45,7 @@ agoraAppCloudServicesController.controller(
      'description': null,
      '_cloudServiceProvider': null
    };
-     
+
    $scope.update = function() {
      $scope.master = angular.copy($scope.cloudServiceDetails);
      CloudServiceDetails.save({},
@@ -127,9 +127,15 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
       
     $scope.colours = [
-      { name: 'Red', value: 0 },
-      { name: 'Amber', value: 1 },
-      { name: 'Green', value: 2 }
+      { label: 'Red', value: 0 },
+      { label: 'Amber', value: 1 },
+      { label: 'Green', value: 2 }
+    ];
+
+    $scope.processingStatuses = [
+      { label: 'draft', value: 0 },
+      { label: 'submitted', value: 1 },
+      { label: 'published', value: 2 }
     ];
 
     $scope.nameEdit = false;
@@ -141,8 +147,13 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       $scope.master = angular.copy($scope.cloudServiceDetails);
       var isAdmin = $rootScope.user.groups.indexOf('admin') != -1;
       var provider = $scope.cloudServiceDetails._cloudServiceProvider;
-      if (isAdmin || provider._user.equals($rootScope.user._id)) {
+      if (isAdmin) {
         $scope.canEdit = true;
+      } else if (provider._user == $rootScope.user._id) {
+        $scope.processingStatuses.pop();
+        if ($scope.cloudServiceDetails.processingStatus == 0) {
+          $scope.canEdit = true;
+        }
       }
     });
     

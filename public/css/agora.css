@@ -42,6 +42,15 @@
     margin-top: 20px;
 }
 
+.messages {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 10px;
+}
+
 .form-control { margin-bottom: 10px; }
 
 .form-signin {

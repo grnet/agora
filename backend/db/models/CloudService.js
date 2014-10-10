@@ -89,8 +89,8 @@ var CloudServiceSchema = new Schema({
     type: Date,
     required: true
   },
-  status: {
-    type: String,
+  processingStatus: {
+    type: Number,
     required: true
   },
   ratings: [{

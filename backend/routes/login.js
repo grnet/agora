@@ -24,6 +24,7 @@ router.post('/', function(req, res, next) {
     return(res.json({
         token : token,
         expires: expires,
+        _id: user._id,
         username: user.username,
         firstName: user.firstName,
         surname: user.surname,

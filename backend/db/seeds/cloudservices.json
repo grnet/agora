@@ -3,21 +3,21 @@
     "name": "Okeanos",
     "description": "The GRNET Cloud Service",
     "cloudServiceProviderName": "GRNET",
-    "status": "draft",
+    "processingStatus": 0,
     "ratings": []
   },
   {
     "name": "BOX",
     "description": "box.com Online Storage Service",
     "cloudServiceProviderName": "Box",
-    "status": "draft",    
+    "processingStatus": 0,    
     "ratings": []
   },
   {
     "name": "Google",
     "description": "Google Apps",
     "cloudServiceProviderName": "Google",
-    "status": "draft",    
+    "processingStatus": 0,    
     "ratings": []
   }
 ]
