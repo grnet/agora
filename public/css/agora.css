@@ -38,6 +38,10 @@
     margin: 40px 20px 10px 0;
 }
 
+.splash-screen {
+    margin-top: 20px;
+}
+
 .form-control { margin-bottom: 10px; }
 
 .form-signin {

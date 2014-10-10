@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/agora.css?2">
+  <link rel="stylesheet" href="css/agora.css?3">
 
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -27,6 +27,7 @@
   <script src="/utils-service.js"></script>  
   <script src="/main/main-controller.js"></script>
   <script src="/error/error-interceptor.js"></script>
+  <script src="/navbar/navbar-controller.js"></script>
   <script src="/users/users-controller.js"></script>
   <script src="/users/users-service.js"></script>      
   <script src="/cloudserviceproviders/cloudserviceproviders-controller.js"></script>
@@ -63,8 +64,12 @@
 </div>
 
   <div class="container">
-    
-    <div ng-include src="'users/user.html'">
+
+    <div class="row">
+      <div ng-include src="'navbar/navbar.html'">
+      </div>
+      <div ng-include src="'users/user.html'">
+      </div>
     </div>
 
     <div class="row" ng-show="error || message">
