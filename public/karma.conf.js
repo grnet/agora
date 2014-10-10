@@ -16,7 +16,8 @@ module.exports = function(config){
       'error/*.js',      
       'login/*.js',
       'main/*.js',
-      'users/*.js'
+      'users/*.js',
+      'navbar/*.js'
     ],
 
     autowatch : true,
