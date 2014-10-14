@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="customCountryTemplate.html">
   <a>
-      <img ng-src="/images/flags/{{match.model.isoCode}}.svg" width="16">
+      <img ng-src="/images/flags/{{match.model.isoCode}}.svg" width="16"> --
       <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
   </a>
 </script>
@@ -17,7 +17,7 @@
           Provider name</label>
         <input type="text" class="form-control"
                id="cloudServiceProviderName"
-               ng-model="cloudServiceProviderDetails.name"/>
+               ng-model="cspDetails.name"/>
       </div>
 
       <div class="form-group">
@@ -25,19 +25,22 @@
           Provider description</label>
         <textarea id="cloudServiceProviderDescription"
                   class="form-control"
-                  ng-model="cloudServiceProviderDetails.description"
+                  ng-model="cspDetails.description"
                   rows="3"></textarea>
       </div>
 
       <div class="form-group" ng-controller="CountrySelectCtrl">
         <label for="cloudServiceProviderCountry">
           Provider country</label>
+        <img ng-if="cspDetails.countryCode"
+             ng-src="/images/flags/{{cspDetails.countryCode}}.svg"
+             width="16">
         <input type="text" class="form-control"
                id="cloudServiceProviderCountry"
-               ng-model="cloudServiceProviderDetails.cloudServiceProviderCountry"
+               ng-model="cspDetails.cloudServiceProviderCountry"
                placeholder="A Country"
                typeahead-editable="false"
-               typeahead-on-select="selectUser($item, $model, $label)"
+               typeahead-on-select="selectCountry($item, $model, $label)"
                typeahead="loadedCountry.name
                           for loadedCountry in getCountries($viewValue)"
                typeahead-template-url="customCountryTemplate.html"
@@ -51,7 +54,7 @@
         <label for="cloudServiceProviderUser">User</label>
         <input type="text" class="form-control"
                id="cloudServiceProviderUser"
-               ng-model="cloudServiceProviderDetails.cloudServiceProviderUser"
+               ng-model="cspDetails.cloudServiceProviderUser"
                placeholder="A User"
                typeahead-editable="false"
                typeahead-on-select="selectUser($item, $model, $label)"

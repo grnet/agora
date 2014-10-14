@@ -39,7 +39,7 @@ agoraAppCloudServiceProvidersController.controller(
      };
 
      $scope.selectUser = function($item, $model, $label) {
-       $scope.cloudServiceProviderDetails._user = $item._id;
+       $scope.cspDetails._user = $item._id;
      };
      
 }]);
@@ -52,15 +52,13 @@ agoraAppCloudServiceProvidersController.controller(
      $scope.getCountries = function(val) {
        return CountriesList.query({term: val}).$promise
          .then(function(countries) {
-           return countries.map(function(country) {
-             country.isoCode = country.isoCode.toLowerCase();
-             return country;
-           });
+           return countries;
          });
      };
 
      $scope.selectCountry = function($item, $model, $label) {
-       $scope.cloudServiceProviderDetails._country = $item._id;
+       $scope.cspDetails._country = $item._id;
+       $scope.cspDetails.countryCode = $item.isoCode;
      };
      
 }]);
@@ -71,19 +69,19 @@ agoraAppCloudServiceProvidersController.controller(
    'CloudServiceProviderDetails',
    function($scope, $rootScope, $window, CloudServiceProviderDetails) {
 
-   $scope.cloudServiceProviderDetails = {
+   $scope.cspDetails = {
      'name': null,
      'description': null,
-     'country': null,
+     '_country': null,
      '_user': null
    };
    
    $scope.update = function() {
-     $scope.master = angular.copy($scope.cloudServiceProviderDetails);
+     $scope.master = angular.copy($scope.cspDetails);
      CloudServiceProviderDetails.save({
-       cloudServiceProviderId: $scope.cloudServiceProviderDetails._id
+       cloudServiceProviderId: $scope.cspDetails._id
        },
-       $scope.cloudServiceProviderDetails,
+       $scope.cspDetails,
          function(value, headers) {
            $window.scrollTo(0, 0);
            $rootScope.message = "Provider saved.";
@@ -96,11 +94,11 @@ agoraAppCloudServiceProvidersController.controller(
    };
 
     $scope.reset = function() {
-      $scope.cloudServiceProviderDetails = angular.copy($scope.master);
+      $scope.cspDetails = angular.copy($scope.master);
     };
     
     $scope.isUnchanged = function() {
-      return angular.equals($scope.cloudServiceProviderDetails, $scope.master);
+      return angular.equals($scope.cspDetails, $scope.master);
     };
 
 }]);
@@ -119,23 +117,26 @@ agoraAppCloudServiceProvidersController.controller(
       $scope.canEdit = false;
     }
     
-    $scope.cloudServiceProviderDetails =
+    $scope.cspDetails =
       CloudServiceProviderDetails.get({
           cloudServiceProviderId: $routeParams.id
       });
     
-    $scope.cloudServiceProviderDetails.$promise.then(function() {
-      $scope.cloudServiceProviderDetails.cloudServiceProviderUser =
-        displayName($scope.cloudServiceProviderDetails._user);
-      $scope.master = angular.copy($scope.cloudServiceProviderDetails);
+    $scope.cspDetails.$promise.then(function() {
+      $scope.cspDetails.cloudServiceProviderUser =
+        displayName($scope.cspDetails._user);
+      $scope.cspDetails.cloudServiceProviderCountry =
+        $scope.cspDetails._country;
+      $scope.cspDetails.countryCode = $scope.cspDetails._country.isoCode;
+      $scope.master = angular.copy($scope.cspDetails);
     });
     
     $scope.update = function() {
-      $scope.master = angular.copy($scope.cloudServiceProviderDetails);
+      $scope.master = angular.copy($scope.cspDetails);
       CloudServiceProviderDetails.update({
-          cloudServiceProviderId: $scope.cloudServiceProviderDetails._id
+          cloudServiceProviderId: $scope.cspDetails._id
         },
-        $scope.cloudServiceProviderDetails,
+        $scope.cspDetails,
         function(value, headers) {
           $window.scrollTo(0, 0);
           $rootScope.message = "Provider updated.";
@@ -148,11 +149,11 @@ agoraAppCloudServiceProvidersController.controller(
     };
 
     $scope.reset = function() {
-      $scope.cloudServiceProviderDetails = angular.copy($scope.master);
+      $scope.cspDetails = angular.copy($scope.master);
     };
     
     $scope.isUnchanged = function() {
-      return angular.equals($scope.cloudServiceProviderDetails, $scope.master);
+      return angular.equals($scope.cspDetails, $scope.master);
     };
 
     
