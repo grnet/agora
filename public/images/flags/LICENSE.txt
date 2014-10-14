@@ -1,0 +1,6 @@
+Initial set provided through a Creative Commons License by:
+
+http://www.bartneck.de/2012/11/20/flags-of-all-countries-in-vector-format/
+
+Flag names have been changed to correspond to ISO-3166-1 alpha-2 codes.
+
