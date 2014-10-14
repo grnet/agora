@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
   
-var cloudServiceProviderSchema = new mongoose.Schema({
+var cloudServiceProviderSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -11,8 +11,9 @@ var cloudServiceProviderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  country: {
-    type: String,
+  _country: {
+    type: Schema.Types.ObjectId,
+    ref: 'Country',
     required: true
   },
   _user: {

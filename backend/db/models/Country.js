@@ -10,10 +10,6 @@ var countrySchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  },
-  modified: {
-    type: Date,
-    default: Date.now
   }
 });
 

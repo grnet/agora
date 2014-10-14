@@ -1,5 +1,6 @@
 var User = require('../db/models/User.js');
 var jwt = require('jwt-simple');
+var ErrorMessage = require('./errormessage');
 
 module.exports = function(req, res, next) {
 
@@ -11,22 +12,14 @@ module.exports = function(req, res, next) {
       var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
  
       if (decoded.exp <= Date.now()) {
-        res.status(401).send({
-            error: {
-              message: 'Access token has expired, please signout ' + 
-                'and login again.',
-              name: 'jwtauthError'
-            }
-        });
+        var msg = 'Access token has expired, please signout ' + 
+          'and login again.';
+        res.status(401).send(new ErrorMessage(msg, 'tokenExpired'));
       } else {
         User.findOne({ _id: decoded.iss }, function(err, user) {
           if (err || !user) {
-            res.status(401).send({
-                error: {
-                  message: 'User not found.',
-                  name: 'jwtauthError'
-                }
-            });
+            res.status(401).send(new ErrorMessage('User not found.',
+              'userNotFound'));
           } else {
             req.user = user;
             next();
@@ -34,19 +27,11 @@ module.exports = function(req, res, next) {
         });
       }
     } catch (err) {
-      res.status(401).send({
-          error: {
-            message: 'Invalid token.',
-            name: 'jwtauthError'
-          }
-      });
+      res.status(401).send(new ErrorMessage('Invalid token.', 'invalidToken'));
     }
   } else {
-    res.status(401).send({
-        error: {
-          message: 'No access token, please login.'},
-          name: 'jwtauthError'
-    });
+    res.status(401).send(new ErrorMessage('No access token, please login.',
+      'noAccessToken'));
   }
 };
 

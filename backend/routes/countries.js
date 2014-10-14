@@ -1,12 +1,17 @@
 var express = require('express');
 var router = express.Router();
-
-router.get('/api/countries', function (req, res){
-  return Country.find(function (err, countries) {
+var Country = require('../db/models/Country');
+var ErrorMessage = require('../lib/errormessage');
+  
+router.get('/', function (req, res){
+  var term = new RegExp(req.query.term, "i");
+  return Country.find({ name: term }, function (err, countries) {
     if (!err) {
-      return res.send(countries);
+      res.send(countries);
     } else {
-      return console.log(err);
+      res.status(404).send(new ErrorMessage('Error querying countries.',
+        'countryQuery'));
+      console.log(err);
     }
   });
 });

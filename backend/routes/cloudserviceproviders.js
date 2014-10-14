@@ -15,7 +15,7 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
   CloudServiceProvider
     .findOne({_id: req.params.id})
-    .populate('_user')  
+    .populate('_user _country')  
     .exec(function (err, cloudServiceProvider) {
       if (!err && cloudServiceProvider) {
         res.send(cloudServiceProvider);

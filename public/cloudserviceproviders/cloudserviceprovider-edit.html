@@ -1,3 +1,10 @@
+<script type="text/ng-template" id="customCountryTemplate.html">
+  <a>
+      <img ng-src="/images/flags/{{match.model.isoCode}}.svg" width="16">
+      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+  </a>
+</script>
+
 <div class="container-fluid">
 
   <div class="col-md-9 col-md-offset-3 cloud-service">
@@ -22,11 +29,22 @@
                   rows="3"></textarea>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-controller="CountrySelectCtrl">
         <label for="cloudServiceProviderCountry">
           Provider country</label>
-        <input type="text" class="form-control" id="cloudServiceProviderCountry"
-               ng-model="cloudServiceProviderDetails.country"/>
+        <input type="text" class="form-control"
+               id="cloudServiceProviderCountry"
+               ng-model="cloudServiceProviderDetails.cloudServiceProviderCountry"
+               placeholder="A Country"
+               typeahead-editable="false"
+               typeahead-on-select="selectUser($item, $model, $label)"
+               typeahead="loadedCountry.name
+                          for loadedCountry in getCountries($viewValue)"
+               typeahead-template-url="customCountryTemplate.html"
+               typeahead-loading="loadingCountries" class="form-control">
+        <i ng-show="loadingCountries"
+           class="glyphicon glyphicon-refresh"></i>
+        
       </div>
 
       <div class="form-group" ng-controller="UserSelectCtrl">

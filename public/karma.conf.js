@@ -17,6 +17,7 @@ module.exports = function(config){
       'login/*.js',
       'main/*.js',
       'users/*.js',
+      'countries/*.js',      
       'navbar/*.js'
     ],
 

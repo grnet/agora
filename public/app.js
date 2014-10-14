@@ -9,6 +9,7 @@ var agoraApp = angular.module('agoraApp', [
   'agoraAppNavBarController',    
   'agoraAppUsersController',
   'agoraAppUsersService',
+  'agoraAppCountriesService',
   'agoraAppCloudServicesController',
   'agoraAppCloudServicesService',  
   'agoraAppCloudServiceProvidersController',

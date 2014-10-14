@@ -8,6 +8,7 @@ var conf = require('../../config');
 var User = require('../models/User');
 var CloudServiceProvider = require('../models/CloudServiceProvider');
 var CloudService = require('../models/CloudService');
+var Country = require('../models/Country');  
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);  
@@ -29,67 +30,63 @@ function saveObject(obj, callback) {
   });
 }
 
-function createObject(objectData, SeedModel, ReferencedModel, referenceId,
-  lookUpAttr, referenceAttr, callback) {
+function resolveRef(objectData, refData, callback) {
+  var lookUpAttr = refData.lookUpAttr;
+  var referenceId = refData.referenceId;
+  var referenceAttr = refData.referenceAttr;
+  var ReferencedModel = refData.ReferencedModel;
+  var query = {};
   var newObj = null;
-  var criterion = {};
-  criterion[lookUpAttr] = objectData[referenceAttr];
-  ReferencedModel.findOne(criterion,
+  query[lookUpAttr] = objectData[referenceAttr];
+  ReferencedModel.findOne(query,
     function(err, referencedObj) {
+      var msg = '';
       if (err) {
         console.log(err);
+        callback(err);
+      } else if (!referencedObj) {
+        msg = 'Object ' + ReferencedModel.modelName
+          + ' ' + objectData[referenceAttr] + ' not found'; 
+        console.log(msg);       
+        callback(msg);
       } else {
         delete objectData[referenceAttr];
         objectData[referenceId] = referencedObj._id;
-        newObj = new SeedModel(objectData);
-        newObj.save(function (err, savedObj) {
-          if (err) {
-            console.log('Error creating ' + savedObj.modelName
-              + ': ' + err);
-          } else {
-            console.log('Saved ' + savedObj.constructor.modelName 
-              + ': ' + savedObj.name);
-          }
-          if (callback) {
-            callback();
-          }
-        });
+        callback(null);
       }
     });
 }
 
-function createObjects(data, SeedModel, ReferencedModel, referenceId,
-  lookUpAttr, referenceAttr, callback) {
-  var objectData = null;
+function createObject(SeedModel, refs, objectData, callback) {
   var newObj = null;
-  var criterion = {};  
-  if (data.length > 0) {
-    objectData = data.shift();
-    criterion[lookUpAttr] = objectData[referenceAttr];
-    ReferencedModel.findOne(criterion,
-      function(err, referencedObj) {
+  async.each(refs, resolveRef.bind(null, objectData), function(err) {
+    if (err) {
+      console.log('Failed to resolve references');
+    } else {
+      newObj = new SeedModel(objectData);
+      newObj.save(function (err, savedObj) {
         if (err) {
           console.log(err);
+          callback(err);
         } else {
-          delete objectData[referenceAttr];
-          objectData[referenceId] = referencedObj._id;
-          newObj = new SeedModel(objectData);
-          newObj.save(function (err, savedObj) {
-            if (err) {
-              console.log(err);
-              callback(err, false);
-            } else {
-              console.log('Saved ' + savedObj.constructor.modelName 
-                + ': ' + savedObj.name);
-              createObjects(data, SeedModel, ReferencedModel, referenceId,
-                lookUpAttr, referenceAttr, callback);
-            }
-          });          
+          console.log('Saved ' + savedObj.constructor.modelName 
+            + ': ' + savedObj.name);
+          callback(null);
         }
-    });
-  } else {
-    callback(null, true);
-  }
+      });          
+    }
+  });
+} 
+  
+function createObjects(data, SeedModel, refs, callback) {
+  async.each(data, createObject.bind(null, SeedModel, refs), function(err) {
+    if (err) {
+      console.log('Failed to create objects');
+      callback(err);
+    } else {
+      callback(null);
+    }
+  });
 }
 
 /**
@@ -109,21 +106,18 @@ function createObjects(data, SeedModel, ReferencedModel, referenceId,
  * the lookUpAttr since it is not really part of the schema of class A.
  *
  * @param {string} filename JSON file containing the model data.
- * @param {SeedModel} SeedModel the Mongoose schema for the model data. 
- * @param {ReferencedModel} ReferencedModel the Mongoose schema for the 
- * referenced model data.
- * @param {Schema.Types.ObjectId} referenceId the id, acting as foreign key,
+ * @param {SeedModel} SeedModel the Mongoose schema for the model data.
+ * @param {refs} Array an array with objects containing the following fields:
+ * ReferencedModel, the Mongoose schema for the referenced model data.
+ * referenceId, of type Schema.Types.ObjectId, the id, acting as foreign key,
  * for the referenced model data from the model data.
- * @param {string} lookUpAttr the attribute in the model data that will be
+ * lookUpAttr, the attribute name in the model data that will be
  * used to lookup the referenceId of the referenced data.
- * @param {string} referenceAttr the attribute in the referenced data that
+ * referenceAttr the attribute name in the referenced data that
  * must match the lookUpAttr.
  * @param {Function} callback a callback.
- * @param {ReferencedModel} 
- * 
  */
-function seedModelData(filename, SeedModel, ReferencedModel,
-  referenceId, lookUpAttr, referenceAttr, callback) {
+function seedModelData(filename, SeedModel, refs, callback) {
   var data = null;
   var seedData = null;
   async.series([
@@ -141,8 +135,7 @@ function seedModelData(filename, SeedModel, ReferencedModel,
     },
     function(callback) {
       console.log('CreateObjects');      
-      createObjects(seedData, SeedModel, ReferencedModel, referenceId,
-        lookUpAttr, referenceAttr, function(err, data) {
+      createObjects(seedData, SeedModel, refs, function(err, data) {
           callback(err, 'CreateObjects');
       });
     }],
@@ -155,14 +148,30 @@ function seedModelData(filename, SeedModel, ReferencedModel,
   
 async.series([
   function(callback){
-    seedModelData('cloudserviceproviders.json', CloudServiceProvider, User,
-      '_user', 'username', 'username', function() {
+    var refs = [{
+      ReferencedModel: User,
+      referenceId: '_user',
+      lookUpAttr: 'username',
+      referenceAttr: 'username'
+    }, {
+      ReferencedModel: Country,
+      referenceId: '_country',
+      lookUpAttr: 'name',
+      referenceAttr: 'country'      
+    }];
+    seedModelData('cloudserviceproviders.json', CloudServiceProvider, refs,
+      function() {
         callback(null, 'CloudServiceProviders');
     });
   },
   function(callback){
-    seedModelData('cloudservices.json', CloudService, CloudServiceProvider,
-      '_cloudServiceProvider', 'name', 'cloudServiceProviderName',
+    var refs = [{
+      ReferencedModel: CloudServiceProvider,
+      referenceId: '_cloudServiceProvider',
+      lookUpAttr: 'name',
+      referenceAttr: 'cloudServiceProviderName'
+    }];
+    seedModelData('cloudservices.json', CloudService, refs,
       function() {
         callback(null, 'CloudServices');
       });

@@ -43,7 +43,28 @@ agoraAppCloudServiceProvidersController.controller(
      };
      
 }]);
-  
+
+agoraAppCloudServiceProvidersController.controller(
+  'CountrySelectCtrl',
+  ['$scope', 'CountriesList',
+   function($scope, CountriesList) {
+
+     $scope.getCountries = function(val) {
+       return CountriesList.query({term: val}).$promise
+         .then(function(countries) {
+           return countries.map(function(country) {
+             country.isoCode = country.isoCode.toLowerCase();
+             return country;
+           });
+         });
+     };
+
+     $scope.selectCountry = function($item, $model, $label) {
+       $scope.cloudServiceProviderDetails._country = $item._id;
+     };
+     
+}]);
+    
 agoraAppCloudServiceProvidersController.controller(
   'CloudServiceProviderNewCtrl',
   ['$scope', '$rootScope', '$window',
