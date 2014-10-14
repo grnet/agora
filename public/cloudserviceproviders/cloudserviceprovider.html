@@ -19,8 +19,9 @@
       <dt>Description</dt>
       <dd> {{ cspDetails.description }}</dd>
       <dt>Country</dt>
-      <dd> <img ng-src="/images/flags/{{cspDetails._country.isoCode}}.svg"
-        width="16"> {{ cspDetails._country.name }} </dd>
+      <dd> <img ng-if="cspDetails._country.isoCode"
+                ng-src="/images/flags/{{cspDetails._country.isoCode}}.svg"
+                height="12"> {{ cspDetails._country.name }} </dd>
     </dl>
 
   </div>
