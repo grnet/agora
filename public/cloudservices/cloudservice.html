@@ -9,7 +9,7 @@
       Sort by:
       <select id="select" class="form-control" ng-model="orderProp">
         <option value="_criterion.name">Alphabetical</option>
-        <option value="-mark">Rating</option>
+        <option value="value">Rating</option>
         <option value="">Initial</option>
       </select>
 
@@ -40,11 +40,11 @@
                       | filter:query
                       | orderBy:orderProp" ng-class-even="'row'">
         
-        <div class="criterion col-md-4"
-             ng-class="{'criterion-red': (rating.mark == 0),
-                       'criterion-amber': (rating.mark == 1) ,
-                       'criterion-green': (rating.mark == 2)}">
-          <div class="criterion-name">
+        <div class="rating col-md-4"
+             ng-class="{'rating-red': (rating.value == 2),
+                       'rating-amber': (rating.value == 1) ,
+                       'rating-green': (rating.value == 0)}">
+          <div class="rating-name">
             {{ rating._criterion.label }}
             <span popover-placement="left" 
                   popover="{{rating._criterion.description}}">
@@ -55,9 +55,9 @@
           </div>
           <p>Rating:
             <span class="label"
-                  ng-class="{'label-danger': (rating.mark == 0),
-                            'label-warning': (rating.mark == 1) ,
-                            'label-success': (rating.mark == 2)}">
+                  ng-class="{'circle-red': (rating.value == 2),
+                            'circle-amber': (rating.value == 1) ,
+                            'circle-green': (rating.value == 0)}">
               &nbsp;</span>
             <span ng-show="{{rating.comment}}"
                   ng-controller="CommentModalCtrl">
@@ -67,23 +67,19 @@
               </span>
             </span>            
           </p>
-          <p ng-show="criterion.tags">Tags:
-            {{ rating._criterion.tags }}</p>
         </div>
         
-        <div class="criterion"
-             ng-class="{'criterion-red': (rating.mark == 1),
-                       'criterion-amber': (rating.mark == 2) ,
-                       'criterion-green': (rating.mark == 3)}"
+        <div class="rating"
+             ng-class="{'rating-red': (rating.value == 2),
+                       'rating-amber': (rating.value == 1) ,
+                       'rating-green': (rating.value == 0)}"
              ng-repeat="rating in ratings">
-          <div class="criterion-title">{{ rating._criterion.label }}</div>
+          <div class="rating-title">{{ rating._criterion.label }}</div>
           <p>Rating: <span class="label"
-                           ng-class="{'label-danger': (rating.mark == 1),
-                                     'label-warning': (rating.mark == 2) ,
-                                     'label-success': (rating.mark == 3)}">
+                           ng-class="{'circle-red': (rating.value == 2),
+                                     'circle-amber': (rating.value == 1) ,
+                                     'circle-green': (rating.value == 0)}">
               &nbsp;</span></p>
-            <p ng-show="rating._criterion.tags">
-              Tags: {{ rating._criterion.tags }}</p>
         </div>
       </div>
     </div>

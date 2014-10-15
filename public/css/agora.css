@@ -120,7 +120,7 @@
 }
 
 
-.criterion {
+.rating {
     margin: 0 10px 30px 15px;
     padding: 10px 10px;
     float:left;
@@ -129,21 +129,25 @@
     -webkit-border-radius: 4px;
     border-radius: 4px;
 }
-.criterion-red {
+
+.rating-red {
     border: 2px solid #e01e11;
 }
-.criterion-amber {
+
+.rating-amber {
     border: 1px solid #ffb52d;
 }
-.criterion-green {
+
+.rating-green {
     border: 1px solid #60ca72;
 }
-.criterion-name {
+
+.rating-name {
     font-size: 18px;
     margin-bottom: 10px;
     font-weight: 400;
 }
-.criterion-name .popover-content {
+.rating-name .popover-content {
     font-size: 14px;
 }
 
@@ -165,6 +169,30 @@ form .form-group #cloudServiceProviderUser {
 
 .user-box {
     margin-bottom: 20px;
+}
+
+.circle-red {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #e01e11;
+    display: inline-block;
+}
+
+.circle-amber {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffb52d;
+    display: inline-block;
+}
+
+.circle-green {
+    width:16px;
+    height:16px;
+    border-radius: 50%;
+    background: #60ca72;
+    display: inline-block;    
 }
 
 /* for angular-ui  */

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../db/models/User');
-
+var ErrorMessage = require('../lib/errormessage');
+  
 router.get('/', function (req, res) {
   var term = new RegExp(req.query.term, "i");
   return User.find({ $or: [
@@ -16,6 +17,8 @@ router.get('/', function (req, res) {
         res.send(users);
       } else {
         console.log(err);
+        res.status(404).send(new ErrorMessage('Could not read users.',
+          'noReadUsers'));        
       }
     });
 });

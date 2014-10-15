@@ -50,7 +50,7 @@ function rateService(service, cbk) {
         } else {
           service.ratings.push({
             _criterion: criterion._id,
-            mark: 1
+            value: 1
           });
           callback();
         }
@@ -99,7 +99,7 @@ var CloudServiceSchema = new Schema({
       ref: 'Criterion',
       required: true
     },
-    mark: {
+    value: {
       type: Number,
       required: true
     },

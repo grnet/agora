@@ -4,8 +4,8 @@ var agoraAppCloudServicesController =
   angular.module('agoraAppCloudServicesController', []);
 
 agoraAppCloudServicesController.controller('CloudServicesListCtrl',
-  ['$scope', 'CloudServicesList', 'Utils',
-  function($scope, CloudServicesList, Utils) {
+  ['$scope', 'CloudServicesList', 'CriteriaList', 'Utils',
+  function($scope, CloudServicesList, CriteriaList, Utils) {
 
     if (Utils.isAdmin($scope)) {
       $scope.canAdd = true;
@@ -14,6 +14,13 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
     }
     
     $scope.cloudServices = CloudServicesList.query();
+    $scope.criteria = {};
+    CriteriaList.query()
+      .$promise.then(function(criteria) {
+        criteria.forEach(function(criterion) {
+          $scope.criteria[criterion._id] = criterion.label;
+        });
+    });
   }
 ]);
 
@@ -127,9 +134,9 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
       
     $scope.colours = [
-      { label: 'Red', value: 0 },
+      { label: 'Green', value: 0 },
       { label: 'Amber', value: 1 },
-      { label: 'Green', value: 2 }
+      { label: 'Red', value: 2 }
     ];
 
     $scope.processingStatuses = [

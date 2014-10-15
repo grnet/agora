@@ -14,7 +14,7 @@ var countries = require('./routes/countries');
 var cloudServiceProviders = require('./routes/cloudserviceproviders');
 var cloudServices = require('./routes/cloudservices');
 var users = require('./routes/users');
-var users = require('./routes/countries');    
+var criteria = require('./routes/criteria');
 var jwt = require('jwt-simple');
 var login = require('./routes/login');
 var jwtauth = require('./lib/jwtauth');
@@ -70,12 +70,14 @@ app.all('/api/cloudserviceproviders/*', jwtauth);
 app.all('/api/users', jwtauth);
 app.all('/api/countries', jwtauth);
 app.all('/api/countries/*', jwtauth);    
-  
-app.use('/api/countries', countries);
+app.all('/api/criteria', jwtauth);
+app.all('/api/criteria/*', jwtauth);    
+    
 app.use('/api/cloudserviceproviders', cloudServiceProviders); 
 app.use('/api/cloudservices', cloudServices);
 app.use('/api/users', users);
-app.use('/api/countries', countries);    
+app.use('/api/countries', countries);
+app.use('/api/criteria', criteria);      
   
 // development error handler
 // will print stacktrace

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var Schema = require('mongoose').Schema;
 var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
-
+var ErrorMessage = require('../lib/errormessage');
+  
 var processingStatusLabels = [
   'draft',
   'submitted',
@@ -19,10 +21,10 @@ router.get('/:id', function (req, res) {
       if (!err && cloudService) {
         /* If 'published' or admin user, grant access */
         isAdmin = req.user.groups.indexOf('admin') != -1;
-        if (cloudService.processingStatus == 'published' || isAdmin) {
+        if (cloudService.processingStatus == 2 || isAdmin) {
           if (!isAdmin) {
             cloudService.ratings.forEach(function(rating) {
-              if (rating.comment && rating.mark == 2) {
+              if (rating.comment && rating.value != 1) {
                 rating.comment = "";
               }
             });
@@ -32,35 +34,59 @@ router.get('/:id', function (req, res) {
             && (provider._user.equals(req.user._id))) {
             res.send(cloudService);
           } else {
-            res.status(404).send({
-                error: {
-                  message: 'Access Denied',
-                  name: 'cloudservices'
-                }
-            });
+            res.status(404).send(new ErrorMessage('Access denied',
+              'noAccess'));
           }        
+      } else if (!err){
+        console.log(err);
+        res.status(404).send(new ErrorMessage('Could not read cloud service.',
+          'noReadCloudService'));
       } else {
-        res.status(404).send({
-            error: {
-              message: 'No Cloud Service Found',
-              name: 'cloudservices'
-            }
-        });
+        res.status(404).send(new ErrorMessage('Could not find cloud service.',
+          'noCloudService'));        
       }
   });
 });
-    
+
 router.get('/', function (req, res) {
-  return CloudService.find(function (err, cloudServices) {
-    if (!err) {
-      cloudServices.forEach(function(cloudService) {
-          cloudService.ratings = [];
+  var isAdmin = req.user.groups.indexOf('admin') != -1;
+  if (isAdmin) {
+    CloudService.find(function(err, cloudServices) {
+      if (!err) {
+        res.send(cloudServices);
+      } else {
+        console.log(err);
+        res.status(404).send(new ErrorMessage('Could not read cloud services',
+          'noReadCloudServices'));
+        }
+    });
+  } else {
+    CloudServiceProvider.find({ _user: req.user._id })
+      .select('_id')
+      .exec(function(err, cloudServiceProviderIds) {
+        if (err) {
+          console.log(err);
+          res.status(404).send(
+            new ErrorMessage('Could not read cloud service providers',
+              'noReadCloudServiceProviders'));
+        } else {
+          CloudService.find({$or: [
+            { processingStatus: 2 },
+            { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
+            ]})
+            .exec(function(err, cloudServices) {
+              if (!err) {
+                res.send(cloudServices);
+              } else {
+                console.log(err);
+                  res.status(404).send(
+                    new ErrorMessage('Could not read cloud services',
+                    'noReadCloudServices'));
+              }
+            });
+        }
       });
-      return res.send(cloudServices);
-    } else {
-      return console.log(err);
     }
-  });
 });  
     
 router.post('/', function (req, res){
@@ -115,7 +141,7 @@ router.put('/:id', function (req, res){
         cloudService.description = req.body.description;
         var ratings = req.body.ratings;
         ratings.forEach(function(rating, index, array) {
-          cloudService.ratings[index].mark = rating.mark;
+          cloudService.ratings[index].value = rating.value;
           cloudService.ratings[index].comment = rating.comment;
         });
         cloudService.processingStatus = req.body.processingStatus;
