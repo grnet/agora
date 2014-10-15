@@ -18,7 +18,9 @@ describe('Agora controllers', function() {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('api/cloudservices').
         respond([{name: 'GRNET'}, {name: 'GEANT'}]);
-
+      $httpBackend.expectGET('api/criteria').
+        respond([{name: 'aCriterion'}, {name: 'anotherCriterion'}]);
+      
       scope = $rootScope.$new();
       ctrl = $controller('CloudServicesListCtrl', {$scope: scope});
     }));
