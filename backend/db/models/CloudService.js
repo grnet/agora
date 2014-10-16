@@ -93,6 +93,10 @@ var CloudServiceSchema = new Schema({
     type: Number,
     required: true
   },
+  countries: [ {
+    type: Schema.Types.ObjectId,
+    ref: 'Country'
+  }],
   ratings: [{
     _criterion: {
       type: Schema.Types.ObjectId,

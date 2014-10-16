@@ -3,6 +3,27 @@
 var agoraAppCloudServicesController =
   angular.module('agoraAppCloudServicesController', []);
 
+agoraAppCloudServicesController.controller(
+  'AddCountryCtrl',
+  ['$scope', 'CountriesList',
+   function($scope, CountriesList) {
+
+     $scope.getCountries = function(val) {
+       return CountriesList.query({term: val}).$promise
+         .then(function(countries) {
+           return countries;
+         });
+     };
+
+     $scope.addCountry = function($item, $model, $label) {
+       if ($scope.cloudServiceDetails.countries.indexOf($item._id) == -1) {
+         $scope.cloudServiceDetails.countries.push($item);
+         $scope.cloudServiceDetails.cloudServiceCountry = '';
+       }
+     };
+     
+}]);
+  
 agoraAppCloudServicesController.controller('CloudServicesListCtrl',
   ['$scope', 'CloudServicesList', 'CriteriaList', 'Utils',
   function($scope, CloudServicesList, CriteriaList, Utils) {
@@ -149,8 +170,12 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
     $scope.descriptionEdit = false;
 
     $scope.canEdit = false;
-
+    $scope.enableAddCountry = false;
+    
     $scope.cloudServiceDetails.$promise.then(function() {
+      if (!$scope.cloudServiceDetails.countries) {
+        $scope.cloudServiceDetails.countries = [];
+      }
       $scope.master = angular.copy($scope.cloudServiceDetails);
       var isAdmin = $rootScope.user.groups.indexOf('admin') != -1;
       var provider = $scope.cloudServiceDetails._cloudServiceProvider;
@@ -189,6 +214,16 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
     
     $scope.isUnchanged = function(cloudServiceDetails) {
       return angular.equals(cloudServiceDetails, $scope.master);
+    };
+
+    $scope.removeCountry = function(country) {
+      var i = 0;
+      for (i = 0; i < $scope.cloudServiceDetails.countries.length; i++) {
+        if ($scope.cloudServiceDetails.countries[i]._id == country._id) {
+          $scope.cloudServiceDetails.countries.splice(i, 1);
+          return;
+        }
+      }
     };
     
   }

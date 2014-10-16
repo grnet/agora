@@ -14,7 +14,7 @@ var processingStatusLabels = [
 router.get('/:id', function (req, res) {
   CloudService
     .findOne({_id: req.params.id})
-    .populate('_cloudServiceProvider ratings._criterion')
+    .populate('_cloudServiceProvider ratings._criterion countries')
     .exec(function (err, cloudService) {
       var isAdmin = false;
       var provider = null;
@@ -51,15 +51,18 @@ router.get('/:id', function (req, res) {
 router.get('/', function (req, res) {
   var isAdmin = req.user.groups.indexOf('admin') != -1;
   if (isAdmin) {
-    CloudService.find(function(err, cloudServices) {
-      if (!err) {
-        res.send(cloudServices);
-      } else {
-        console.log(err);
-        res.status(404).send(new ErrorMessage('Could not read cloud services',
-          'noReadCloudServices'));
+    CloudService.find()
+      .populate('countries')
+      .exec(function(err, cloudServices) {
+        if (!err) {
+          res.send(cloudServices);
+        } else {
+          console.log(err);
+            res.status(404).send(
+              new ErrorMessage('Could not read cloud services.',
+              'noReadCloudServices'));
         }
-    });
+      });
   } else {
     CloudServiceProvider.find({ _user: req.user._id })
       .select('_id')
@@ -67,21 +70,22 @@ router.get('/', function (req, res) {
         if (err) {
           console.log(err);
           res.status(404).send(
-            new ErrorMessage('Could not read cloud service providers',
+            new ErrorMessage('Could not read cloud services.',
               'noReadCloudServiceProviders'));
         } else {
           CloudService.find({$or: [
-            { processingStatus: 2 },
-            { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
+              { processingStatus: 2 },
+              { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
             ]})
+            .populate('countries')
             .exec(function(err, cloudServices) {
               if (!err) {
                 res.send(cloudServices);
               } else {
                 console.log(err);
                   res.status(404).send(
-                    new ErrorMessage('Could not read cloud services',
-                    'noReadCloudServices'));
+                    new ErrorMessage('Could not read cloud services.',
+                      'noReadCloudServices'));
               }
             });
         }
@@ -100,8 +104,10 @@ router.post('/', function (req, res){
     if (!err) {
       res.send(cloudService);
     } else {
-      res.status(500).send({error: err});
       console.log(err);
+      res.status(500).send(
+        new ErrorMessage('Could not create cloud service',
+          'noCreateCloudService'));
     }
   });
 });
@@ -144,26 +150,26 @@ router.put('/:id', function (req, res){
           cloudService.ratings[index].value = rating.value;
           cloudService.ratings[index].comment = rating.comment;
         });
+        var countries = req.body.countries;
+        cloudService.countries = [];
+        countries.forEach(function(country) {
+          cloudService.countries.push(country._id);
+        });
         cloudService.processingStatus = req.body.processingStatus;
         cloudService.save(function(err) {
           if (!err) {
             res.send(cloudService);
           } else {
-            res.status(500).send({
-                error: {
-                  message: err,
-                  name: 'cloudservices'
-                }
-            });
-          }
+            res.status(500).send(
+              new ErrorMessage('Could not save cloud service',
+                'noSaveCloudService'));
+          };
         });
       } else {
-        res.status(401).send({
-                error: {
-                  message: err,
-                  name: 'cloudservices'
-                }
-        });
+        console.log(err);
+        res.status(401).send(
+          new ErrorMessage('Could not edit cloud service.',
+            'noEditCloudService'));
       }
   });
 });

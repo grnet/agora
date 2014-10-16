@@ -19,7 +19,14 @@
       <!--Body content-->
 
       <div class="row">
-        <h2 class="col-md-8">{{cloudServiceDetails.name}}</h2>
+        <h2 class="col-md-8">{{cloudServiceDetails.name}}
+          <span ng-repeat="country in cloudServiceDetails.countries">
+              <img tooltip-placement="top"
+                   tooltip="{{country.name}}"
+                   ng-src="/images/flags/{{country.isoCode}}.svg"
+                   height="12"> 
+          </span>
+        </h2>
         <div ng-show="canEdit"
              class="col-md-4">
           <h2>

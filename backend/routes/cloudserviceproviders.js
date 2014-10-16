@@ -66,14 +66,15 @@ router.put('/:id', function (req, res) {
           } else {
             console.log(err);
             res.status(500).send(
-              new ErrorMessage('Could not save cloud service provider',
+              new ErrorMessage('Could not save cloud service provider.',
                 'noSaveCloudServiceProvider'));
           }
         });
       } else {
         console.log(err);
         res.status(401).send(
-          new ErrorMessage(err, 'noEditCloudServiceProvider'));
+          new ErrorMessage('Could not edit cloud service provider.',
+            'noEditCloudServiceProvider'));
       }
   });
 });

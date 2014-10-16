@@ -30,10 +30,19 @@
       </div>
       
       <div class="services list-group">
-        <div class="list-group-item" ng-repeat="cloudService in cloudServices | filter:query | orderBy:orderProp">
+        <div class="list-group-item"
+             ng-repeat="cloudService in cloudServices
+                        | filter:query | orderBy:orderProp">
             <h4 class="list-group-item-heading">
               <a href="#/cloudservices/{{cloudService._id}}">
-                {{cloudService.name}}</a></h4>
+                {{cloudService.name}}</a>
+              <span ng-repeat="country in cloudService.countries">
+                <img tooltip-placement="top"
+                     tooltip="{{country.name}}"
+                     ng-src="/images/flags/{{country.isoCode}}.svg"
+                     height="12">
+              </span>              
+            </h4>            
             <p class="list-group-item-text">{{cloudService.description}}</p>
             <span ng-repeat="rating in cloudService.ratings">
               <a href="#" tooltip-placement="top"

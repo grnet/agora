@@ -1,3 +1,10 @@
+<script type="text/ng-template" id="customCountryTemplate.html">
+  <a>
+      <img ng-src="/images/flags/{{match.model.isoCode}}.svg" width="16"> --
+      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+  </a>
+</script>
+
 <div class="container-fluid">
 
   <div class="col-md-3">
@@ -41,10 +48,49 @@
                type="text" ng-model="cloudServiceDetails.description">      
       </div>
 
-      <div>
-        <select ng-model="cloudServiceDetails.processingStatus"
-                ng-options="processingStatus.value as processingStatus.label
-                            for processingStatus in processingStatuses">
+
+      <div ng-repeat="country in cloudServiceDetails.countries">
+        <img tooltip-placement="top"
+             tooltip="{{country.name}}"
+             ng-src="/images/flags/{{country.isoCode}}.svg"
+             height="12">
+        <span tooltip-placement="top" ng-click="removeCountry(country)"
+           tooltip="Remove {{country.name}}">                      
+          <span class="glyphicon glyphicon-remove-sign
+          remove-icon"></span>
+        </span>
+      </div>
+
+      <div ng-click="enableAddCountry = !enableAddCountry">
+        <span class="glyphicon glyphicon-plus-sign add-icon"/>
+        <label for="cloudServiceProviderCountry">Add country</label>
+      </div>
+      <div ng-show="enableAddCountry" 
+           class="form-group" ng-controller="AddCountryCtrl">
+        <img ng-if="cloudServiceDetails.countryCode"
+             ng-src="/images/flags/{{cloudServiceDetails.countryCode}}.svg"
+             height="12">
+        <input type="text" class="form-control"
+               id="cloudServiceCountry"
+               ng-model="cloudServiceDetails.cloudServiceCountry"
+               placeholder="A Country"
+               typeahead-editable="false"
+               typeahead-on-select="addCountry($item, $model, $label)"
+               typeahead="loadedCountry.name
+                          for loadedCountry in getCountries($viewValue)"
+               typeahead-template-url="customCountryTemplate.html"
+               typeahead-loading="loadingCountries" class="form-control">
+        <i ng-show="loadingCountries"
+           class="glyphicon glyphicon-refresh"></i>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="selectProcessingStatus">Processing status</label>
+        <select id="selectProcessingStatus"
+           ng-model="cloudServiceDetails.processingStatus"
+           ng-options="processingStatus.value as processingStatus.label
+                       for processingStatus in processingStatuses">
         </select>
       </div>
      

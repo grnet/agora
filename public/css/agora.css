@@ -201,3 +201,14 @@ form .form-group #cloudServiceProviderUser {
 .dimmed {
     opacity: .25;
 }
+
+.remove-icon {
+    color: #e01e11;
+    margin-left: 6px;
+}
+
+.add-icon {
+    color: Green;
+}
+
+
