@@ -73,10 +73,12 @@ router.get('/', function (req, res) {
             new ErrorMessage('Could not read cloud services.',
               'noReadCloudServiceProviders'));
         } else {
-          CloudService.find({$or: [
-              { processingStatus: 2 },
-              { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
-            ]})
+            CloudService.find(
+                {$or: [
+                    { processingStatus: 2 },
+                    { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
+                ]}
+            )
             .populate('countries')
             .exec(function(err, cloudServices) {
               if (!err) {

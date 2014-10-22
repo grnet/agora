@@ -45,20 +45,31 @@
 
       <div ng-repeat="rating in cloudServiceDetails.ratings
                       | filter:query
-                      | orderBy:orderProp" ng-class-even="'row'">
+                      | orderBy:orderProp" class="row">
         
-        <div class="rating col-md-4"
-             ng-class="{'rating-red': (rating.value == 2),
-                       'rating-amber': (rating.value == 1) ,
-                       'rating-green': (rating.value == 0)}">
+        <div 
+           id="{{getCriterionName(rating._criterion, $last)}}"
+           class="rating col-md-4"
+           ng-class="{'rating-red': (rating.value == 2),
+                     'rating-amber': (rating.value == 1) ,
+                     'rating-green': (rating.value == 0)}">
           <div class="rating-name">
             {{ rating._criterion.label }}
-            <span popover-placement="left" 
-                  popover="{{rating._criterion.description}}">
-              <button type="button" class="btn btn-link">
-                <span class="glyphicon glyphicon-info-sign"></span>
-              </button>
-            </span>
+            <span ng-click="toggleRating(rating)"> 
+                <span class="glyphicon criterion-description-toggle"
+                      ng-class="{
+                                'glyphicon-collapse-down':
+                                !showRatings[rating._criterion.name],
+                                'glyphicon-collapse-up':
+                                showRatings[rating._criterion.name]
+                                }">
+                </span>
+              <div collapse="!showRatings[rating._criterion.name]">
+                <div class = "well">
+                     {{ rating._criterion.description }}
+                </div>
+              </div>
+            </span>          
           </div>
           <p>Rating:
             <span class="label"

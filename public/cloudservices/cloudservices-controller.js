@@ -39,9 +39,12 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
     CriteriaList.query()
       .$promise.then(function(criteria) {
         criteria.forEach(function(criterion) {
-          $scope.criteria[criterion._id] = criterion.label;
+          $scope.criteria[criterion._id] = {
+            label: criterion.label,
+            name: criterion.name
+          };
         });
-    });
+      });
   }
 ]);
 
@@ -62,17 +65,18 @@ agoraAppCloudServicesController.controller(
      };
      
 }]);
-  
+
+var cloudServiceDetailsCtrl = 
 agoraAppCloudServicesController.controller(
   'CloudServiceNewCtrl',
   ['$scope', '$rootScope', '$window', 'CloudServiceDetails',
    function($scope, $rootScope, $window, CloudServiceDetails) {
 
-   $scope.cloudServiceDetails = {
-     'name': null,
-     'description': null,
-     '_cloudServiceProvider': null
-   };
+    $scope.cloudServiceDetails = {
+      'name': null,
+      'description': null,
+      '_cloudServiceProvider': null
+    };
 
    $scope.update = function() {
      $scope.master = angular.copy($scope.cloudServiceDetails);
@@ -148,9 +152,10 @@ agoraAppCloudServicesController.controller('CommentModalInstanceCtrl',
 }]);
   
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
-  ['$scope', '$rootScope', '$routeParams', '$window', 
-   'CloudServiceDetails',
-  function($scope, $rootScope, $routeParams, $window, CloudServiceDetails) {
+  ['$scope', '$rootScope', '$routeParams', '$window', '$location',
+  '$anchorScroll', 'CloudServiceDetails',
+  function($scope, $rootScope, $routeParams, $window, $location,
+    $anchorScroll, CloudServiceDetails) {
     $scope.cloudServiceDetails =
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
       
@@ -166,6 +171,14 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       { label: 'published', value: 2 }
     ];
 
+    $scope.$evalAsync(function() {
+      if ($location.hash()) {
+        $anchorScroll();
+      }
+    });
+      
+    $scope.showRatings = {};
+    
     $scope.nameEdit = false;
     $scope.descriptionEdit = false;
 
@@ -176,6 +189,9 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       if (!$scope.cloudServiceDetails.countries) {
         $scope.cloudServiceDetails.countries = [];
       }
+      $scope.cloudServiceDetails.ratings.forEach(function(rating) {
+        $scope.showRatings[rating._criterion.name] = false;
+      });
       $scope.master = angular.copy($scope.cloudServiceDetails);
       var isAdmin = $rootScope.user.groups.indexOf('admin') != -1;
       var provider = $scope.cloudServiceDetails._cloudServiceProvider;
@@ -188,6 +204,11 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         }
       }
     });
+
+    $scope.toggleRating = function(rating) {
+      $scope.showRatings[rating._criterion.name] =
+        !$scope.showRatings[rating._criterion.name];
+    };
     
     $scope.update = function(cloudServiceDetails) {
       $scope.nameEdit = false;
@@ -225,8 +246,12 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         }
       }
     };
-    
+
+    $scope.getCriterionName = function(criterion, last) {
+      if (last) {
+          $anchorScroll();
+      }
+      return criterion.name;
+    };    
   }
 ]);
-  
-  

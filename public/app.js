@@ -71,3 +71,4 @@ agoraApp.config(['$routeProvider',
         redirectTo: '/'
       });
 }]);
+
