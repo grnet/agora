@@ -10,9 +10,8 @@ router.get('/', function (req, res) {
       if (!err) {
         res.send(criteria);
       } else {
-        console.log(err);
         res.status(404).send(new ErrorMessage('Could not read criteria.',
-          'noReadCriteria'));
+          'noReadCriteria'), 'error', err);
       }
     });
 });

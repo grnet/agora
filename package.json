@@ -43,7 +43,7 @@
 
     "debug": "node debug backend/app.js",
 
-    "pretest": "npm install && node_modules/grunt-cli/bin/grunt db:import",
+    "pretest": "npm install",
     "test": "karma start public/karma.conf.js",
     "test-single-run": "karma start public/karma.conf.js --single-run",
 

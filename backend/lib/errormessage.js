@@ -1,6 +1,12 @@
-function ErrorMessage(message, name) {
+var logger = require('winston');
+
+function ErrorMessage(message, name, logLevel, err) {
   this.message = message;
   this.name = name;
+
+  if (logLevel !== undefined) {
+    logger.log(logLevel, err);
+  }    
 };
 
 ErrorMessage.prototype = {

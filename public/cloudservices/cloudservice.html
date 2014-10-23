@@ -37,7 +37,8 @@
         </div>
       </div>            
       
-      <div class="well" ng-show="cloudServiceDetails.description">
+      <div class="well"
+           ng-show="cloudServiceDetails.description">
         {{cloudServiceDetails.description}}
       </div>
 
@@ -55,8 +56,11 @@
                      'rating-green': (rating.value == 0)}">
           <div class="rating-name">
             {{ rating._criterion.label }}
-            <span ng-click="toggleRating(rating)"> 
+            <span ng-click="toggleCriterion(rating)"> 
                 <span class="glyphicon criterion-description-toggle"
+                      tooltip="{{ !showRatings[rating._criterion.name]
+                               ? 'Show description'
+                               : 'Hide description'}} "
                       ng-class="{
                                 'glyphicon-collapse-down':
                                 !showRatings[rating._criterion.name],
@@ -65,7 +69,7 @@
                                 }">
                 </span>
               <div collapse="!showRatings[rating._criterion.name]">
-                <div class = "well">
+                <div class = "well criterion-description">
                      {{ rating._criterion.description }}
                 </div>
               </div>

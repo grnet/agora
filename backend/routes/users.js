@@ -16,9 +16,8 @@ router.get('/', function (req, res) {
       if (!err) {
         res.send(users);
       } else {
-        console.log(err);
         res.status(404).send(new ErrorMessage('Could not read users.',
-          'noReadUsers'));        
+          'noReadUsers', 'error', err));
       }
     });
 });

@@ -4,7 +4,7 @@ var Schema = require('mongoose').Schema;
 var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
 var ErrorMessage = require('../lib/errormessage');
-  
+
 var processingStatusLabels = [
   'draft',
   'submitted',
@@ -35,15 +35,14 @@ router.get('/:id', function (req, res) {
             res.send(cloudService);
           } else {
             res.status(404).send(new ErrorMessage('Access denied',
-              'noAccess'));
+              'noAccess', 'error', err));
           }        
       } else if (!err){
-        console.log(err);
         res.status(404).send(new ErrorMessage('Could not read cloud service.',
-          'noReadCloudService'));
+          'noReadCloudService', 'error', err));
       } else {
         res.status(404).send(new ErrorMessage('Could not find cloud service.',
-          'noCloudService'));        
+          'noCloudService'), 'error', err);        
       }
   });
 });
@@ -57,21 +56,19 @@ router.get('/', function (req, res) {
         if (!err) {
           res.send(cloudServices);
         } else {
-          console.log(err);
-            res.status(404).send(
-              new ErrorMessage('Could not read cloud services.',
-              'noReadCloudServices'));
+          res.status(404).send(
+            new ErrorMessage('Could not read cloud services.',
+              'noReadCloudServices', 'error', err));
         }
       });
   } else {
     CloudServiceProvider.find({ _user: req.user._id })
       .select('_id')
       .exec(function(err, cloudServiceProviderIds) {
-        if (err) {
-          console.log(err);
+        if (err) {          
           res.status(404).send(
             new ErrorMessage('Could not read cloud services.',
-              'noReadCloudServiceProviders'));
+              'noReadCloudServiceProviders', 'error', err));
         } else {
             CloudService.find(
                 {$or: [
@@ -84,10 +81,9 @@ router.get('/', function (req, res) {
               if (!err) {
                 res.send(cloudServices);
               } else {
-                console.log(err);
                   res.status(404).send(
                     new ErrorMessage('Could not read cloud services.',
-                      'noReadCloudServices'));
+                      'noReadCloudServices', 'error', err));
               }
             });
         }
@@ -106,10 +102,9 @@ router.post('/', function (req, res){
     if (!err) {
       res.send(cloudService);
     } else {
-      console.log(err);
       res.status(500).send(
         new ErrorMessage('Could not create cloud service',
-          'noCreateCloudService'));
+          'noCreateCloudService'), 'error', err);
     }
   });
 });
@@ -164,14 +159,13 @@ router.put('/:id', function (req, res){
           } else {
             res.status(500).send(
               new ErrorMessage('Could not save cloud service',
-                'noSaveCloudService'));
+                'noSaveCloudService', 'error', err));
           };
         });
       } else {
-        console.log(err);
         res.status(401).send(
           new ErrorMessage('Could not edit cloud service.',
-            'noEditCloudService'));
+            'noEditCloudService'), 'error', err);
       }
   });
 });

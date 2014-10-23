@@ -17,8 +17,8 @@ agoraAppErrorInterceptor.factory('errorInterceptor',
       return response;
     },
     responseError: function(response) {
-      if (response.data.error) {
-        $rootScope.error = response.data.error.message;
+      if (response.data) {
+        $rootScope.error = response.data.message;
       }
       return $q.reject(response);
     }

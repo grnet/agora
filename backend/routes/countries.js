@@ -10,8 +10,7 @@ router.get('/', function (req, res){
       res.send(countries);
     } else {
       res.status(404).send(new ErrorMessage('Error querying countries.',
-        'countryQuery'));
-      console.log(err);
+        'countryQuery'), 'error', err);
     }
   });
 });

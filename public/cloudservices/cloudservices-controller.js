@@ -177,8 +177,10 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       }
     });
       
-    $scope.showRatings = {};
-    
+    $scope.showDescriptions = {};
+
+    $scope.isExpanded = false;
+
     $scope.nameEdit = false;
     $scope.descriptionEdit = false;
 
@@ -190,7 +192,7 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         $scope.cloudServiceDetails.countries = [];
       }
       $scope.cloudServiceDetails.ratings.forEach(function(rating) {
-        $scope.showRatings[rating._criterion.name] = false;
+        $scope.showDescriptions[rating._criterion.name] = false;
       });
       $scope.master = angular.copy($scope.cloudServiceDetails);
       var isAdmin = $rootScope.user.groups.indexOf('admin') != -1;
@@ -205,9 +207,29 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       }
     });
 
-    $scope.toggleRating = function(rating) {
-      $scope.showRatings[rating._criterion.name] =
-        !$scope.showRatings[rating._criterion.name];
+    $scope.toggleCriterion = function(rating) {
+      $scope.showDescriptions[rating._criterion.name] =
+        !$scope.showDescriptions[rating._criterion.name];
+    };
+
+    $scope.toggleExpand = function() {
+      var key = null;
+      $scope.isExpanded = !$scope.isExpanded;
+      if ($scope.isExpanded) {
+        for (key in $scope.showDescriptions) {
+          if (!$scope.showDescriptions.hasOwnProperty(key)) {
+            continue;
+          }
+          $scope.showDescriptions[key] = true;
+        };
+      } else {
+        for (key in $scope.showDescriptions) {
+          if (!$scope.showDescriptions.hasOwnProperty(key)) {
+            continue;
+          }
+          $scope.showDescriptions[key] = false;
+        };
+      }
     };
     
     $scope.update = function(cloudServiceDetails) {

@@ -12,8 +12,7 @@ router.get('/', function (req, res) {
     } else {
     res.status(404).send(
       new ErrorMessage('Could not read cloud service providers.',
-        'noReadCloudServiceProviders'));
-      console.log(err);
+        'noReadCloudServiceProviders'), 'error', err);
     }
   });
 });
@@ -29,8 +28,7 @@ router.get('/:id', function (req, res) {
       } else {
         res.status(404).send(
           new ErrorMessage('Could not read cloud service provider.',
-          'noReadCloudServiceProvider'));
-        console.log(err);
+          'noReadCloudServiceProvider'), 'error', err);
       }
   });
 });
@@ -59,22 +57,20 @@ router.put('/:id', function (req, res) {
         cloudServiceProvider.name = req.body.name;
         cloudServiceProvider.description = req.body.description;
         cloudServiceProvider._country = req.body._country;
-        cloudServiceProvider._user = req.body._user._id;
+        cloudServiceProvider._user = req.body._user;
         cloudServiceProvider.save(function(err) {
           if (!err) {
             res.send(cloudServiceProvider);
           } else {
-            console.log(err);
             res.status(500).send(
               new ErrorMessage('Could not save cloud service provider.',
-                'noSaveCloudServiceProvider'));
+                'noSaveCloudServiceProvider'), 'error', err);
           }
         });
       } else {
-        console.log(err);
         res.status(401).send(
           new ErrorMessage('Could not edit cloud service provider.',
-            'noEditCloudServiceProvider'));
+            'noEditCloudServiceProvider'), 'error', err);
       }
   });
 });
@@ -94,16 +90,15 @@ router.post('/', function (req, res) {
       if (!err) {
         res.send(cloudServiceProvider);
       } else {
-        console.log(err);
         res.status(500).send(
           new ErrorMessage('Could not create cloud service provider.'),
-            'noCreateCloudServiceProvider');
+            'noCreateCloudServiceProvider', 'error', err);
       }
     });
   } else {
       res.status(401).send(
         new ErrorMessage('User not allowed to add provider',
-          'noAddCloudServiceProvider'));
+          'noAddCloudServiceProvider'), 'error', err);
   }
 });
   

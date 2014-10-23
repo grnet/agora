@@ -26,99 +26,123 @@
     <!--Body content-->
 
     <form novalidate>
-
-      <h2>{{cloudServiceDetails.name}}
-        <button type="button" class="btn btn-link"
-                ng-click="nameEdit = !nameEdit">
-          <span class="glyphicon glyphicon-pencil"></span>
-        </button>          
-      </h2>
-      <h2 ng-show="nameEdit">
-        <input type="text" ng-model="cloudServiceDetails.name">
-      </h2>
-
-      <div class="well">
-        {{cloudServiceDetails.description}}
-        <button type="button" class="btn btn-link"
-                ng-click="descriptionEdit = !descriptionEdit">
-          <span class="glyphicon glyphicon-pencil"></span>
-        </button>          
       
-        <input ng-show="descriptionEdit" class="form-control"
-               type="text" ng-model="cloudServiceDetails.description">      
+      <div class="row">
+        <h2>{{cloudServiceDetails.name}}
+          <button type="button" class="btn btn-link"
+                  ng-click="nameEdit = !nameEdit">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>          
+        </h2>
       </div>
 
-
-      <div ng-repeat="country in cloudServiceDetails.countries">
-        <img tooltip-placement="top"
-             tooltip="{{country.name}}"
-             ng-src="/images/flags/{{country.isoCode}}.svg"
-             height="12">
-        <span tooltip-placement="top" ng-click="removeCountry(country)"
-           tooltip="Remove {{country.name}}">                      
-          <span class="glyphicon glyphicon-remove-sign
-          remove-icon"></span>
-        </span>
+      <div class="row">
+        <h2 ng-show="nameEdit">
+          <input type="text" ng-model="cloudServiceDetails.name">
+        </h2>
       </div>
 
-      <div ng-click="enableAddCountry = !enableAddCountry">
-        <span class="glyphicon glyphicon-plus-sign add-icon"/>
-        <label for="cloudServiceProviderCountry">Add country</label>
-      </div>
-      <div ng-show="enableAddCountry" 
-           class="form-group" ng-controller="AddCountryCtrl">
-        <img ng-if="cloudServiceDetails.countryCode"
-             ng-src="/images/flags/{{cloudServiceDetails.countryCode}}.svg"
-             height="12">
-        <input type="text" class="form-control"
-               id="cloudServiceCountry"
-               ng-model="cloudServiceDetails.cloudServiceCountry"
-               placeholder="A Country"
-               typeahead-editable="false"
-               typeahead-on-select="addCountry($item, $model, $label)"
-               typeahead="loadedCountry.name
-                          for loadedCountry in getCountries($viewValue)"
-               typeahead-template-url="customCountryTemplate.html"
-               typeahead-loading="loadingCountries" class="form-control">
-        <i ng-show="loadingCountries"
-           class="glyphicon glyphicon-refresh"></i>
-      </div>
-
+      <div class="row">
+        <div class="well">
+          {{cloudServiceDetails.description}}
+          <button type="button" class="btn btn-link"
+                  ng-click="descriptionEdit = !descriptionEdit">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
       
-      <div class="form-group">
-        <label for="selectProcessingStatus">Processing status</label>
-        <select id="selectProcessingStatus"
-           ng-model="cloudServiceDetails.processingStatus"
-           ng-options="processingStatus.value as processingStatus.label
-                       for processingStatus in processingStatuses">
-        </select>
+          <input ng-show="descriptionEdit" class="form-control"
+                 type="text" ng-model="cloudServiceDetails.description">      
+        </div>
       </div>
-     
+
+      <div class="row">
+        <div class="col-md-9">
+          <div ng-repeat="country in cloudServiceDetails.countries">
+            <img tooltip-placement="top"
+                 tooltip="{{country.name}}"
+                 ng-src="/images/flags/{{country.isoCode}}.svg"
+                 height="12">
+            <span tooltip-placement="top" ng-click="removeCountry(country)"
+                  tooltip="Remove {{country.name}}">                      
+              <span class="glyphicon glyphicon-remove-sign
+                           remove-icon"></span>
+            </span>
+          </div>
+          <div ng-click="enableAddCountry = !enableAddCountry">
+            <span class="glyphicon glyphicon-plus-sign add-icon"/>
+            <label for="cloudServiceProviderCountry">Add country</label>
+          </div>
+          
+          <div ng-show="enableAddCountry" 
+               class="form-group" ng-controller="AddCountryCtrl">
+            <img ng-if="cloudServiceDetails.countryCode"
+                 ng-src="/images/flags/{{cloudServiceDetails.countryCode}}.svg"
+                 height="12">
+            <input type="text" class="form-control"
+                   id="cloudServiceCountry"
+                   ng-model="cloudServiceDetails.cloudServiceCountry"
+                   placeholder="A Country"
+                   typeahead-editable="false"
+                   typeahead-on-select="addCountry($item, $model, $label)"
+                   typeahead="loadedCountry.name
+                              for loadedCountry in getCountries($viewValue)"
+                   typeahead-template-url="customCountryTemplate.html"
+                   typeahead-loading="loadingCountries" class="form-control">
+            <i ng-show="loadingCountries"
+               class="glyphicon glyphicon-refresh"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-9">
+          <label for="selectProcessingStatus">Processing status</label>
+          <select id="selectProcessingStatus"
+                  ng-model="cloudServiceDetails.processingStatus"
+                  ng-options="processingStatus.value
+                              as processingStatus.label
+                              for processingStatus in processingStatuses">
+          </select>
+          <span ng-click="toggleExpand()"> 
+            <span class="glyphicon glyphicon-collapse-down
+                         service-expand-collapse-all"
+                  ng-class="{
+                            'glyphicon-collapse-up': isExpanded,
+                            'glyphicon-collapse-down': !isExpanded
+                            }"
+                  tooltip="Expand all"
+                  tooltip-placement="top">
+            </span>
+          </span>
+        </div>
+      </div>
+      
       <br/>
 
       <div ng-repeat="rating in cloudServiceDetails.ratings
                       | filter:query
                       | orderBy:orderProp">
         
-        <div class="rating col-md-8"
+        <div class="rating row"
              ng-class="{'rating-red': (rating.value == 2),
                        'rating-amber': (rating.value == 1) ,
                        'rating-green': (rating.value == 0)}">
           <div class="rating-name">
             {{ rating._criterion.label }}
-            <span ng-click="toggleRating(rating)"> 
-              <button type="button" class="btn btn-link">
-                <span class="glyphicon"
-                      ng-class="{
-                                'glyphicon-collapse-down':
-                                !showRatings[rating._criterion.name],
-                                'glyphicon-collapse-up':
-                                showRatings[rating._criterion.name]
-                                }">
-                </span>
-              </button>
-              <div collapse="!showRatings[rating._criterion.name]">
-                <div class = "well">
+            <span ng-click="toggleCriterion(rating)"> 
+              <span class="glyphicon criterion-description-toggle"
+                    tooltip="{{ !showDescriptions[rating._criterion.name]
+                             ? 'Show description'
+                             : 'Hide description'}}"
+                    ng-class="{
+                              'glyphicon-collapse-down':
+                              !showDescriptions[rating._criterion.name],
+                              'glyphicon-collapse-up':
+                              showDescriptions[rating._criterion.name]
+                              }">
+              </span>
+              <div collapse="!showDescriptions[rating._criterion.name]">
+                <div class = "well criterion-description">
                      {{ rating._criterion.description }}
                 </div>
               </div>
@@ -158,7 +182,7 @@
                   ng-click="update(cloudServiceDetails)">Save</button>
         </div>
       </div>
-    </form>    
+    </form>
   </div>
 
 </div>

@@ -19,7 +19,7 @@ module.exports = function(req, res, next) {
         User.findOne({ _id: decoded.iss }, function(err, user) {
           if (err || !user) {
             res.status(401).send(new ErrorMessage('User not found.',
-              'userNotFound'));
+              'userNotFound'), 'error', err || "No user found.");
           } else {
             req.user = user;
             next();
@@ -27,7 +27,8 @@ module.exports = function(req, res, next) {
         });
       }
     } catch (err) {
-      res.status(401).send(new ErrorMessage('Invalid token.', 'invalidToken'));
+      res.status(401).send(new ErrorMessage('Invalid token.',
+        'invalidToken'), 'error', err);
     }
   } else {
     res.status(401).send(new ErrorMessage('No access token, please login.',
