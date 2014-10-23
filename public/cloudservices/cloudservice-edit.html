@@ -103,18 +103,16 @@
                               as processingStatus.label
                               for processingStatus in processingStatuses">
           </select>
-          <span ng-click="toggleExpand()"> 
-            <span class="glyphicon glyphicon-collapse-down
-                         service-expand-collapse-all"
+          <button type="button"
+                  class="btn btn-default btn-large edit-toggle-expand"
+                  ng-click="toggleExpand()"> 
+            <span class="glyphicon toggle-expand-icon"
                   ng-class="{
                             'glyphicon-collapse-up': isExpanded,
                             'glyphicon-collapse-down': !isExpanded
-                            }"
-                  tooltip="Expand all"
-                  tooltip-placement="top">
-            </span>
-          </span>
-        </div>
+                            }"></span>{{ isExpanded? 'Hide' : 'Show' }} Details
+          </button>
+                  </div>
       </div>
       
       <br/>

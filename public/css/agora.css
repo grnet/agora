@@ -219,7 +219,11 @@ form .form-group #cloudServiceProviderUser {
     font-size: 14px;
 }
 
-.service-expand-collapse-all {
-    font-size: 18px;
+.edit-toggle-expand {
     margin-left: 30px;
+}
+
+.toggle-expand-icon {
+    font-size: 16px;
+    margin-right: 4px;
 }

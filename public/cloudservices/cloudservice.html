@@ -28,22 +28,39 @@
           </span>
         </h2>
         <div ng-show="canEdit"
-             class="col-md-4">
+               class="col-md-4">
           <h2>
             <a class="btn btn-info"
-             ng-href="#/cloudservices/{{cloudServiceDetails._id}}/edit">
+               ng-href="#/cloudservices/{{cloudServiceDetails._id}}/edit">
               Edit Service</a>
           </h2>
         </div>
       </div>            
-      
-      <div class="well"
-           ng-show="cloudServiceDetails.description">
-        {{cloudServiceDetails.description}}
+
+      <div class="row">
+        <div class="well"
+             ng-show="cloudServiceDetails.description">
+          {{cloudServiceDetails.description}}
+        </div>
       </div>
 
       <br/>
 
+      <div class="row">
+        <div class="col-md-9">
+          <button type="button" class="btn btn-default"
+                  ng-click="toggleExpand()"> 
+            <span class="glyphicon toggle-expand-icon"
+                  ng-class="{
+                            'glyphicon-collapse-up': isExpanded,
+                            'glyphicon-collapse-down': !isExpanded
+                            }"></span>{{ isExpanded? 'Hide' : 'Show' }} Details
+          </button>
+        </div>
+      </div>
+
+      <br/>
+      
       <div ng-repeat="rating in cloudServiceDetails.ratings
                       | filter:query
                       | orderBy:orderProp" class="row">
@@ -58,17 +75,17 @@
             {{ rating._criterion.label }}
             <span ng-click="toggleCriterion(rating)"> 
                 <span class="glyphicon criterion-description-toggle"
-                      tooltip="{{ !showRatings[rating._criterion.name]
+                      tooltip="{{ !showDescriptions[rating._criterion.name]
                                ? 'Show description'
                                : 'Hide description'}} "
                       ng-class="{
                                 'glyphicon-collapse-down':
-                                !showRatings[rating._criterion.name],
+                                !showDescriptions[rating._criterion.name],
                                 'glyphicon-collapse-up':
-                                showRatings[rating._criterion.name]
+                                showDescriptions[rating._criterion.name]
                                 }">
                 </span>
-              <div collapse="!showRatings[rating._criterion.name]">
+              <div collapse="!showDescriptions[rating._criterion.name]">
                 <div class = "well criterion-description">
                      {{ rating._criterion.description }}
                 </div>
