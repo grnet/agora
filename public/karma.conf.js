@@ -4,6 +4,8 @@ module.exports = function(config){
     basePath : '.',
 
     files : [
+      'bower_components/jquery/dist/jquery.min.js',
+      'http://cdn.discojuice.org/engine/discojuice-stable.min.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-resource/angular-resource.js',      
@@ -13,13 +15,13 @@ module.exports = function(config){
       'utils-service.js',
       'cloudserviceproviders/*.js',
       'cloudservices/*.js',
-      'error/*.js',      
+      'error/*.js',
       'login/*.js',
       'main/*.js',
       'users/*.js',
       'criteria/*.js',
       'countries/*.js',      
-      'navbar/*.js'
+      'navbar/*.js',
     ],
 
     autowatch : true,
