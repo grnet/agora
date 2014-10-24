@@ -1,44 +1,64 @@
 <div class="container-fluid" ng-controller="LoginCtrl">
+  
   <div class="row">
+    
     <div class="col-sm-6 col-md-4 col-md-offset-4">
-       <h1 class="text-center login-title">
-         Please Sign In
-       </h1>
        <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
-
-       <form class="form-signin" name="loginForm"
-             role="form" ng-submit="login(loginForm)">
-         <div ng-class="{'has-error': loginForm.username.$error.mongoose}">
-           <input type="text" class="form-control"
-                  ng-model="username"
-                  name="username"
-                  placeholder="Username"
-                  required
-                  autofocus>
-           <p class="help-block"
-              ng-show="loginForm.username.$error.mongoose">
-             {{ errors.username }}
-           </p>
-         </div>
-         <div ng-class="{'has-error': loginForm.password.$error.mongoose}">
-           <input type="password" class="form-control"
-                  ng-model="password"
-                  name="password"
-                  placeholder="Password" required>
-           <p class="help-block"
-              ng-show="loginForm.password.$error.mongoose">
-             {{ errors.password }}
-           </p>
-         </div>
-         <label class="checkbox">
-           <input type="checkbox" value="remember-me"> Remember me
-         </label>
-
-         <div class="form-group has-error">
-           <p class="help-block">{{ error.other }}</p>
-         </div>
-         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-       </form>
     </div>
   </div>
+  
+    <form class="form-signin" name="loginForm"
+          role="form" ng-submit="login(loginForm)">
+
+      <div class="form-signin-strategy">
+        <legend>Federated Sign In</legend>
+        <div class="text-center">
+          <button type="button" class="btn btn-primary btn-lg"
+                  id="edugain-login">
+            eduGain Sign in</button>
+        </div>
+      </div>
+
+      <br/>
+      
+      <div class="form-signin-strategy">
+        <legend>Catalogue Sign In</legend>
+        <div ng-class="{'has-error': loginForm.username.$error.mongoose}">
+          <input type="text" class="form-control"
+                 ng-model="username"
+                 name="username"
+                 placeholder="Username"
+                 required
+                 autofocus>
+          <p class="help-block"
+             ng-show="loginForm.username.$error.mongoose">
+            {{ errors.username }}
+          </p>
+        </div>
+        <div ng-class="{'has-error': loginForm.password.$error.mongoose}">
+          <input type="password" class="form-control"
+                 ng-model="password"
+                 name="password"
+                 placeholder="Password" required>
+          <p class="help-block"
+             ng-show="loginForm.password.$error.mongoose">
+            {{ errors.password }}
+          </p>
+        </div>        
+        <div class="form-group has-error">
+          <p class="help-block">{{ error.other }}</p>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-primary btn-lg sign-in" type="submit">
+            Sign in</button>
+        </div>
+      </div>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      
+    </form>
 </div>
