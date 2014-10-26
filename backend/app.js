@@ -20,6 +20,9 @@ var criteria = require('./routes/criteria');
 var jwt = require('jwt-simple');
 var login = require('./routes/login');
 var jwtauth = require('./lib/jwtauth');
+var util = require('util');
+var moment = require('moment');
+var jwt = require('jwt-simple');
 
 var app = express();
 
@@ -60,6 +63,34 @@ mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
 
 
 app.use('/api/login', login);
+
+require('./config/passport')(passport, conf);
+app.get('/saml/login', passport.authenticate('saml',
+  {
+    successRedirect : "/",
+    failureRedirect : "/#/login",
+  })
+);
+
+app.post('/saml/login/callback', function(req, res, next) {
+  passport.authenticate('saml',function(err, user, info) {
+
+    if (err) {
+      return(next(err));
+    }
+
+    if (!user) {
+      return(res.status(401).json(info));
+    }
+
+    var expires = moment().add('days', 7).valueOf();
+    var token = jwt.encode({
+        iss: user.id,
+        exp: expires
+    }, req.app.get('jwtTokenSecret'));
+    res.redirect('/');
+  })(req, res, next);
+});
     
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
