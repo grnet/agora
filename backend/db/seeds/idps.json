@@ -1,0 +1,10 @@
+[
+  {
+    "entityId": "https://gn-vho.grnet.gr/idp/shibboleth", 
+    "entryPoint": "https://gn-vho.grnet.gr/idp/profile/SAML2/Redirect/SSO"
+  },
+  {
+    "entityId": "https://openidp.feide.no/idp/simplesaml",
+    "entryPoint": "https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php"
+  }
+]

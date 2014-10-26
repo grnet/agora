@@ -8,7 +8,8 @@ var conf = require('../../config');
 var User = require('../models/User');
 var CloudServiceProvider = require('../models/CloudServiceProvider');
 var CloudService = require('../models/CloudService');
-var Country = require('../models/Country');  
+var Country = require('../models/Country');
+var Idp = require('../models/Idp');  
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);  
@@ -158,6 +159,11 @@ async.series([
       referenceId: '_country',
       lookUpAttr: 'name',
       referenceAttr: 'country'      
+    },{
+      ReferencedModel: Idp,
+      referenceId: '_idp',
+      lookUpAttr: 'entityId',
+      referenceAttr: 'entryPoint'      
     }];
     seedModelData('cloudserviceproviders.json', CloudServiceProvider, refs,
       function() {
