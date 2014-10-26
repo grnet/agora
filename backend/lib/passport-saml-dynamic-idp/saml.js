@@ -9,10 +9,10 @@ var xmlenc = require('xml-encryption');
 var xpath = xmlCrypto.xpath;
 var InMemoryCacheProvider = require('./inmemory-cache-provider.js').CacheProvider;
 var Q = require('q');
+var Idp = require('../../db/models/Idp')
 
 var SAML = function (options) {
   var self = this;
-
   this.options = this.initialize(options);
   this.cacheProvider = this.options.cacheProvider;
 };
@@ -157,7 +157,7 @@ SAML.prototype.generateLogoutRequest = function (req) {
       '@ID': id,
       '@Version': '2.0',
       '@IssueInstant': instant,
-      '@Destination': this.options.entryPoint,
+      '@Destination': self.options.entryPoint,
       'saml:Issuer' : {
         '@xmlns:saml': 'urn:oasis:names:tc:SAML:2.0:assertion',
         '#text': this.options.issuer
@@ -198,8 +198,19 @@ SAML.prototype.generateLogoutResponse = function (req, logoutRequest) {
   return xmlbuilder.create(request).end();
 };
 
-SAML.prototype.requestToUrl = function (request, response, operation, additionalParameters, callback) {
+SAML.prototype.requestToUrl = function (req, request, response, operation, additionalParameters, callback) {
   var self = this;
+  self.query = req.query
+
+  if (req.query.idp) {
+    var mquery = Idp.where({"entityId": req.query.idp});
+    mquery.findOne(function(err, idp) {
+      if (!err && idp) {
+        self.options.entryPoint = idp.entryPoint;
+      }
+    });
+  }
+
   if (self.options.skipRequestCompression)
     requestToUrlHelper(null, new Buffer(request || response, 'utf8'));
   else
@@ -235,7 +246,6 @@ SAML.prototype.requestToUrl = function (request, response, operation, additional
       samlMessage.Signature = self.signRequest(querystring.stringify(samlMessage));
     }
     target += querystring.stringify(samlMessage);
-
     callback(null, target);
   }
 };
@@ -246,20 +256,20 @@ SAML.prototype.getAuthorizeUrl = function (req, callback) {
     if (err)
       return callback(err);
     var RelayState = req.query && req.query.RelayState || req.body && req.body.RelayState;
-    self.requestToUrl(request, null, 'authorize', RelayState ? { RelayState: RelayState } : {}, callback);
+    self.requestToUrl(req, request, null, 'authorize', RelayState ? { RelayState: RelayState } : {}, callback);
   });
 };
 
 SAML.prototype.getLogoutUrl = function(req, callback) {
   var request = this.generateLogoutRequest(req);
   var RelayState = req.query && req.query.RelayState || req.body && req.body.RelayState;
-  this.requestToUrl(request, null, 'logout', RelayState ? { RelayState: RelayState } : {}, callback);
+  this.requestToUrl(req, request, null, 'logout', RelayState ? { RelayState: RelayState } : {}, callback);
 };
 
 SAML.prototype.getLogoutResponseUrl = function(req, callback) {
   var response = this.generateLogoutResponse(req, req.samlLogoutRequest);
   var RelayState = req.query && req.query.RelayState || req.body && req.body.RelayState;
-  this.requestToUrl(null, response, 'logout', RelayState ? { RelayState: RelayState } : {}, callback);
+  this.requestToUrl(req, null, response, 'logout', RelayState ? { RelayState: RelayState } : {}, callback);
 };
 
 SAML.prototype.certToPEM = function (cert) {
