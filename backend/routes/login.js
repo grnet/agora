@@ -40,4 +40,25 @@ router.post('/', function(req, res, next) {
  })(req, res, next);
 });
 
+router.post('/saml/callback',
+  passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
+  function(req, res) {
+    
+    var expires = moment().add('days', 7).valueOf();
+    var token = jwt.encode({
+        iss: req.user.id,
+        exp: expires
+    }, req.app.get('jwtTokenSecret'));
+
+    res.json({
+      token : token,
+      expires: expires,
+      _id: req.user.id,
+      username: req.user.email,
+      firstName: req.user.firstName,
+      surname: req.user.lastName,
+      groups: ['edugain']
+    });
+ }); 
+
 module.exports = router;

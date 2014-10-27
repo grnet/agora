@@ -65,15 +65,18 @@ mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
 
 app.use('/api/login', login);
 
+app.use('/api/login*', login);
+
 require('./config/passport')(passport, conf);
-app.get('/saml/login', passport.authenticate('saml',
+
+app.get('/api/login/saml', passport.authenticate('saml',
   {
     successRedirect : "/",
-    failureRedirect : "/#/login",
+    failureRedirect : "/#/login"
   })
 );
 
-app.use('/saml/login/callback', login);
+app.use('/api/login/saml', login);
     
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');

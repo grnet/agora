@@ -11,8 +11,8 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
     target: "#edugain-login",
     title: "GÉANT Cloud Service Catalogue",
     spentityid: "https://127.0.0.1:8081/saml2/entityid",
-    responseurl: "https://127.0.0.1:8081/saml/login/callback",
-    redirectURL: "https://127.0.0.1:8081/saml/login?idp=",
+    responseurl: "https://127.0.0.1:8081/api/login/callback",
+    redirectURL: "https://127.0.0.1:8081/api/login/saml?idp=",
     feeds: ["edugain", "kalmar", "feide"]
   });
 
@@ -25,11 +25,12 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
       'country':'_all_',
       'geo':null,
       'weight':-5,
-      'keywords': ['Guest', 'OpenIdP', 'Orphanage', 'Homeless', 'Create Account', 'Register']
+      'keywords': ['Guest', 'OpenIdP', 'Orphanage', 'Homeless',
+        'Create Account', 'Register']
     }
   ];
 
-  $("#edugain-login").DiscoJuice(djc)
+  $("#edugain-login").DiscoJuice(djc);
   
   $scope.login = function(form) {
     Login.login({username: $scope.username, password: $scope.password},
