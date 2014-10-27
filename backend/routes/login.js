@@ -3,8 +3,15 @@ var router = express.Router();
 var moment = require('moment');
 var passport = require('passport');
 var jwt = require('jwt-simple'); 
+var conf = require('../config');
 
 router.post('/', function(req, res, next) {
+  var passport_strategy = 'local';
+  if (conf.passport.saml.path
+      && req.baseUrl == conf.passport.saml.path) {
+    passport_strategy = 'saml';
+    require('../config/passport')(passport, conf);
+  }
   passport.authenticate('local', function(err, user, info) {
 
     if (err) {

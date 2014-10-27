@@ -73,7 +73,7 @@ app.get('/saml/login', passport.authenticate('saml',
   })
 );
 
-app.use('/saml/login/callback', login_saml);
+app.use('/saml/login/callback', login);
     
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
