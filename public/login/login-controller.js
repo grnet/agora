@@ -7,14 +7,29 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
   '$location', '$window', 'Login',
   function ($scope, $rootScope, $location, $window, Login) {
 
-  $window.DiscoJuice.Hosted.setup({
+  var djc = $window.DiscoJuice.Hosted.getConfig({
     target: "#edugain-login",
     title: "GÉANT Cloud Service Catalogue",
-    spentityid: "https://bridge.uninett.no/saml2/entityid",
-    responseurl: "http://bridge.uninett.no/response.html",
-    redirectURL: "http://bridge.uninett.no/login?idp=",
+    spentityid: "https://127.0.0.1:8081/saml2/entityid",
+    responseurl: "https://127.0.0.1:8081/saml/login/callback",
+    redirectURL: "https://127.0.0.1:8081/saml/login?idp=",
     feeds: ["edugain", "kalmar", "feide"]
   });
+
+  djc.inlinemetadata = [
+    {
+      'entityID': 'https://openidp.feide.no',
+      'title': 'OpenIdP',
+      'icon': 'openidp.png',
+      'descr':'If you do not have an institutional account, register here.',
+      'country':'_all_',
+      'geo':null,
+      'weight':-5,
+      'keywords': ['Guest', 'OpenIdP', 'Orphanage', 'Homeless', 'Create Account', 'Register']
+    }
+  ];
+
+  $("#edugain-login").DiscoJuice(djc)
   
   $scope.login = function(form) {
     Login.login({username: $scope.username, password: $scope.password},

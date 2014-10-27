@@ -23,7 +23,13 @@
     "bower": "*",
     "prompt": "*",
     "nopt": "*",
-    "async": "*"
+    "async": "*",
+    "q": "1.0.x",
+    "xml2js": "0.4.x",
+    "xml-crypto": "0.1.x",
+    "xmldom": "0.1.x",
+    "xmlbuilder": "~2.2",
+    "xml-encryption": "~0.7"
   },
   "devDependencies": {
     "js-yaml": "*",
