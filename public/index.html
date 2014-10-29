@@ -57,25 +57,37 @@
 <![endif]-->
 
 
-<div id="geant-header-wrapper">
-  <div id="geant-header" class="container">
-    <div id="geant-logo">
+<div class="geant-header-wrapper">
+  <div class="geant-header container">
+    <div class="geant-logo col-md-4">
       <a href="/">
         <img alt="Back to Home" src="/images/geant_logo.png">
       </a>
     </div>
-    <div class="title">GÉANT Cloud Catalogue</div>
+    <div class="col-md-8 title"><h1>GÉANT Cloud Catalogue</h1></div>
   </div>
 </div>
 
+<div class="navbar navbar-default" role="navigation">
   <div class="container">
-
-    <div class="row navbar" >
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-geant-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-geant-nav">
       <div ng-include src="'navbar/navbar.html'">
       </div>
       <div ng-include src="'users/user.html'">
       </div>
     </div>
+  </div>
+</div>
+
+  <div class="container">
 
     <div class="row messages" ng-show="error || message" >
       
