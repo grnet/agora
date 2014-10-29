@@ -5,7 +5,6 @@ var passport = require('passport');
 var jwt = require('jwt-simple'); 
 var conf = require('../config');
 var fs = require('fs');
-var ejs = require('ejs');
 var ErrorMessage = require('../lib/errormessage');
     
 router.post('/', function(req, res, next) {
