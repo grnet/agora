@@ -63,13 +63,3 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
       });
     };
 }]);
-
-
-agoraAppLoginController.controller('LoginSamlCtrl', ['$scope', '$rootScope',
-  '$location', '$window', 'Login',
-  function ($scope, $rootScope, $location, $window, Login) {
-
-    console.log("HERE");
-    //$window.DiscoJuice.callback();
-}]
-);
