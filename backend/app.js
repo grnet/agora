@@ -22,6 +22,7 @@ var login = require('./routes/login');
 var jwtauth = require('./lib/jwtauth');
 var util = require('util');
 var moment = require('moment');
+var saml_metadata = require('./routes/saml_metadata');
 
 var app = express();
 
@@ -75,6 +76,8 @@ app.get('/api/login/saml', passport.authenticate('saml',
 );
 
 app.use('/api/login/saml', login);
+
+app.use('/api/saml/metadata', saml_metadata);
     
 app.get('/api', function (req, res) {
   res.send('AGORA API is running');
