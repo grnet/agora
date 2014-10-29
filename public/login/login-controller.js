@@ -13,6 +13,12 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
     spentityid: "https://127.0.0.1:8081/saml2/entityid",
     responseurl: "https://127.0.0.1:8081/api/login/callback",
     redirectURL: "https://127.0.0.1:8081/api/login/saml?idp=",
+    //redirectURL: "/#/login/saml?idp=",
+    // callback: function (e, djc) {
+    //   var returnto = window.location.href;
+    //   window.location =
+    //     "http://127.0.0.1:8081/#/login?saml?idp=" + escape(e.entityID);
+    // },
     feeds: ["edugain", "kalmar", "feide"]
   });
 
@@ -58,3 +64,12 @@ agoraAppLoginController.controller('LoginCtrl', ['$scope', '$rootScope',
     };
 }]);
 
+
+agoraAppLoginController.controller('LoginSamlCtrl', ['$scope', '$rootScope',
+  '$location', '$window', 'Login',
+  function ($scope, $rootScope, $location, $window, Login) {
+
+    console.log("HERE");
+    //$window.DiscoJuice.callback();
+}]
+);

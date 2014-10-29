@@ -19,11 +19,9 @@ var users = require('./routes/users');
 var criteria = require('./routes/criteria');
 var jwt = require('jwt-simple');
 var login = require('./routes/login');
-var login_saml = require('./routes/login_saml');
 var jwtauth = require('./lib/jwtauth');
 var util = require('util');
 var moment = require('moment');
-var jwt = require('jwt-simple');
 
 var app = express();
 

@@ -42,7 +42,7 @@ router.get('/:id', function (req, res) {
           'noReadCloudService', 'error', err));
       } else {
         res.status(404).send(new ErrorMessage('Could not find cloud service.',
-          'noCloudService'), 'error', err);        
+          'noCloudService', 'error', err));        
       }
   });
 });
@@ -104,7 +104,7 @@ router.post('/', function (req, res){
     } else {
       res.status(500).send(
         new ErrorMessage('Could not create cloud service',
-          'noCreateCloudService'), 'error', err);
+          'noCreateCloudService', 'error', err));
     }
   });
 });
@@ -165,7 +165,7 @@ router.put('/:id', function (req, res){
       } else {
         res.status(401).send(
           new ErrorMessage('Could not edit cloud service.',
-            'noEditCloudService'), 'error', err);
+            'noEditCloudService', 'error', err));
       }
   });
 });

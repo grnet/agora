@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+  <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+  <title>IdP Discovery Response Receiver</title>
+
+  <script type="text/javascript">
+
+  function loginRedirect() {
+    var value = /* REPLACE tokenValue HERE */;
+    var token = value.token;
+    window.sessionStorage.setItem('user', JSON.stringify(value));
+    window.sessionStorage.setItem('token', token);
+    window.location.href = '/';
+  }
+  
+  </script>
+</head>
+
+<body onload="loginRedirect();">
+</body>
+</html>  

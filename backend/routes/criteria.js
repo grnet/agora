@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
         res.send(criteria);
       } else {
         res.status(404).send(new ErrorMessage('Could not read criteria.',
-          'noReadCriteria'), 'error', err);
+          'noReadCriteria', 'error', err));
       }
     });
 });

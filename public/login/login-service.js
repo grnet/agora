@@ -15,6 +15,17 @@ agoraAppLoginService.factory('Login', ['$resource',
   }
 ]);
 
+agoraAppLoginService.factory('SamlLogin', ['$resource',
+  function($resource, username, password) {
+    return $resource('api/login/callback', {}, {
+      login: {method: 'POST',
+      params: {
+        username: username, password: password
+      }
+    }});
+  }
+]);
+
 agoraAppLoginService.factory('Logout', ['$rootScope', '$window',
   function($rootScope, $window) {
     $window.sessionStorage.removeItem('user');

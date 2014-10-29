@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
     } else {
     res.status(404).send(
       new ErrorMessage('Could not read cloud service providers.',
-        'noReadCloudServiceProviders'), 'error', err);
+        'noReadCloudServiceProviders', 'error', err));
     }
   });
 });
@@ -28,7 +28,7 @@ router.get('/:id', function (req, res) {
       } else {
         res.status(404).send(
           new ErrorMessage('Could not read cloud service provider.',
-          'noReadCloudServiceProvider'), 'error', err);
+          'noReadCloudServiceProvider', 'error', err));
       }
   });
 });
@@ -64,13 +64,13 @@ router.put('/:id', function (req, res) {
           } else {
             res.status(500).send(
               new ErrorMessage('Could not save cloud service provider.',
-                'noSaveCloudServiceProvider'), 'error', err);
+                'noSaveCloudServiceProvider', 'error', err));
           }
         });
       } else {
         res.status(401).send(
           new ErrorMessage('Could not edit cloud service provider.',
-            'noEditCloudServiceProvider'), 'error', err);
+            'noEditCloudServiceProvider', 'error', err));
       }
   });
 });
@@ -91,14 +91,14 @@ router.post('/', function (req, res) {
         res.send(cloudServiceProvider);
       } else {
         res.status(500).send(
-          new ErrorMessage('Could not create cloud service provider.'),
-            'noCreateCloudServiceProvider', 'error', err);
+          new ErrorMessage('Could not create cloud service provider.',
+            'noCreateCloudServiceProvider', 'error', err));
       }
     });
   } else {
       res.status(401).send(
         new ErrorMessage('User not allowed to add provider',
-          'noAddCloudServiceProvider'), 'error', err);
+          'noAddCloudServiceProvider', 'error', err));
   }
 });
   
