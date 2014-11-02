@@ -738,10 +738,42 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
           '@isDefault': 'true',
           '@Binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
           '@Location': this.options.callbackUrl
+        },
+        'AttributeConsumingService' : {
+          '@index': '0',
+          '@isDefault': 'true',
+          'ServiceName': {
+            '@xml:lang': 'en',
+            '#text': this.options.serviceName
+          },
+          'ServiceDescription': {
+          '@xml:lang': 'en',
+          '#text': this.options.serviceDescription
+          }
         }
       },
     }
   };
+
+  var requestedAttributesArray = new Array;
+  if (this.options.requestedAttributes) {
+    this.options.requestedAttributes.forEach(function(attr) {
+      requestedAttributesArray.push({
+        'RequestedAttribute': {
+          '@FriendlyName': attr.FriendlyName,
+          '@Name': attr.Name,
+          '@NameFormat': attr.NameFormat,
+          '@isRequired': attr.isRequired
+        }
+      });
+    });
+  }
+
+  if (requestedAttributesArray.length > 0) {
+    metadata.EntityDescriptor
+            .SPSSODescriptor
+            .AttributeConsumingService['#list'] = requestedAttributesArray;
+  }
 
   return xmlbuilder.create(metadata).end({ pretty: true, indent: '  ', newline: '\n' });
 };
