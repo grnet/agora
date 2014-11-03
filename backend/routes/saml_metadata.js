@@ -12,7 +12,11 @@ router.get('/', function(req, res, next) {
     identifierFormat: 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
     serviceName: conf.passport.saml.serviceName,
     serviceDescription: conf.passport.saml.serviceDescription,
-    requestedAttributes: conf.passport.saml.requestedAttributes
+    requestedAttributes: conf.passport.saml.requestedAttributes,
+    decryptionCert: conf.passport.saml.decryptionCert,
+    decryptionPvk: conf.passport.saml.decryptionPvk,
+    privateCert: conf.passport.saml.privateCert,
+    publicCert: conf.passport.saml.publicCert
   };
   var strategy = new SamlStrategy( samlConfig, function() {} );
   res.set('Content-Type', 'text/xml');
