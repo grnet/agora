@@ -693,12 +693,12 @@ function processValidlySignedPostRequest(self, doc, callback) {
 
 SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
   var keyDescriptor = null;
+  var keyDescriptorArray = new Array;
   if (this.options.decryptionPvk) {
     if (!decryptionCert) {
       throw new Error(
         "Missing decryptionCert while generating metadata for decrypting service provider");
     }
-
     decryptionCert = decryptionCert.replace( /-+BEGIN CERTIFICATE-+\r?\n?/, '' );
     decryptionCert = decryptionCert.replace( /-+END CERTIFICATE-+\r?\n?/, '' );
 
@@ -719,6 +719,43 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
     };
   }
 
+  if (this.options.privateCert) {
+    if (!this.options.publicCert) {
+      throw new Error(
+        "Missing publicCert while generating metadata for decrypting service provider");
+    }
+    var publicCert = this.options.publicCert.replace( /-+BEGIN CERTIFICATE-+\r?\n?/, '' );
+    publicCert = publicCert.replace( /-+END CERTIFICATE-+\r?\n?/, '' );
+
+    var keyInfoSign = {
+      'ds:X509Data' : {
+        'ds:X509Certificate': {
+          '#text': publicCert
+        }
+      },
+    };
+
+    keyDescriptorArray.push({
+      'KeyDescriptor': {
+        '@use': 'sign',
+        'ds:KeyInfo': keyInfoSign
+      }
+    });
+
+    keyDescriptorArray.push({
+      'KeyDescriptor': {
+        '@use': 'encryption',
+        'ds:KeyInfo': keyDescriptor['ds:KeyInfo'],
+        '#list' : [
+          // this should be the set that the xmlenc library supports
+          { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes256-cbc' } },
+          { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes128-cbc' } },
+          { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc' } },
+        ]
+      }
+    });
+  }
+
   if (!this.options.callbackUrl) {
     throw new Error(
       "Unable to generate service provider metadata when callbackUrl option is not set");
@@ -731,7 +768,6 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
       '@entityID': this.options.issuer,
       'SPSSODescriptor' : {
         '@protocolSupportEnumeration': 'urn:oasis:names:tc:SAML:2.0:protocol',
-        'KeyDescriptor' : keyDescriptor,
         'NameIDFormat' : this.options.identifierFormat,
         'AssertionConsumerService' : {
           '@index': '1',
@@ -754,6 +790,14 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
       },
     }
   };
+
+  if (keyDescriptorArray.length > 0) {
+    metadata.EntityDescriptor
+            .SPSSODescriptor['#list'] = keyDescriptorArray;
+  } else {
+    metadata.EntityDescriptor
+            .SPSSODescriptor['KeyDescriptor'] = keyDescriptor;
+  }
 
   var requestedAttributesArray = new Array;
   if (this.options.requestedAttributes) {
