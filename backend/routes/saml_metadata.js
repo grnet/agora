@@ -10,6 +10,9 @@ router.get('/', function(req, res, next) {
     path: conf.passport.saml.path,
     callbackUrl: conf.passport.saml.callbackUrl,
     identifierFormat: 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+    serviceName: conf.passport.saml.serviceName,
+    serviceDescription: conf.passport.saml.serviceDescription,
+    requestedAttributes: conf.passport.saml.requestedAttributes
   };
   var strategy = new SamlStrategy( samlConfig, function() {} );
   res.set('Content-Type', 'text/xml');
