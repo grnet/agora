@@ -737,7 +737,7 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
 
     keyDescriptorArray.push({
       'KeyDescriptor': {
-        '@use': 'sign',
+        '@use': 'signing',
         'ds:KeyInfo': keyInfoSign
       }
     });
@@ -761,65 +761,55 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
       "Unable to generate service provider metadata when callbackUrl option is not set");
   }
 
-  var metadata = {
-    'EntityDescriptor' : {
-      '@xmlns': 'urn:oasis:names:tc:SAML:2.0:metadata',
-      '@xmlns:ds': 'http://www.w3.org/2000/09/xmldsig#',
-      '@entityID': this.options.issuer,
-      'SPSSODescriptor' : {
-        '@protocolSupportEnumeration': 'urn:oasis:names:tc:SAML:2.0:protocol',
-        'NameIDFormat' : this.options.identifierFormat,
-        'AssertionConsumerService' : {
-          '@index': '1',
-          '@isDefault': 'true',
-          '@Binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-          '@Location': this.options.callbackUrl
-        },
-        'AttributeConsumingService' : {
-          '@index': '0',
-          '@isDefault': 'true',
-          'ServiceName': {
-            '@xml:lang': 'en',
-            '#text': this.options.serviceName
-          },
-          'ServiceDescription': {
-          '@xml:lang': 'en',
-          '#text': this.options.serviceDescription
-          }
-        }
-      },
-    }
-  };
+  var SPSSODescriptor = xmlbuilder.create('EntityDescriptor',
+    {'version': '1.0', 'encoding': 'UTF-8'})
+    .att('xmlns', 'urn:oasis:names:tc:SAML:2.0:metadata')
+    .att('xmlns:ds', 'http://www.w3.org/2000/09/xmldsig#')
+    .att('entityID', this.options.issuer)
+    .ele('SPSSODescriptor')
+    .att('protocolSupportEnumeration', 'urn:oasis:names:tc:SAML:2.0:protocol');
 
   if (keyDescriptorArray.length > 0) {
-    metadata.EntityDescriptor
-            .SPSSODescriptor['#list'] = keyDescriptorArray;
-  } else {
-    metadata.EntityDescriptor
-            .SPSSODescriptor['KeyDescriptor'] = keyDescriptor;
+    SPSSODescriptor.ele(keyDescriptorArray);
+  } else if (keyDescriptor) {
+    SPSSODescriptor.ele(keyDescriptor);
   }
 
-  var requestedAttributesArray = new Array;
+  SPSSODescriptor.ele('NameIDFormat').text(this.options.identifierFormat);
+
+  SPSSODescriptor.ele('AssertionConsumerService')
+    .att('index', '1')
+    .att('isDefault', true)
+    .att('Binding', 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST')
+    .att('Location', this.options.callbackUrl);
+
+  var attributeConsumingService = SPSSODescriptor.ele('AttributeConsumingService')
+    .att('index', '0')
+    .att('isDefault', true);
+
+  if (this.options.serviceName) {
+    attributeConsumingService.ele('ServiceName')
+      .att('xml:lang', 'en')
+      .text(this.options.serviceName);
+  }
+
+  if (this.options.serviceDescription) {
+    attributeConsumingService.ele('ServiceDescription')
+      .att('xml:lang', 'en')
+      .text(this.options.serviceDescription);
+  }
+
   if (this.options.requestedAttributes) {
     this.options.requestedAttributes.forEach(function(attr) {
-      requestedAttributesArray.push({
-        'RequestedAttribute': {
-          '@FriendlyName': attr.FriendlyName,
-          '@Name': attr.Name,
-          '@NameFormat': attr.NameFormat,
-          '@isRequired': attr.isRequired
-        }
-      });
+      attributeConsumingService.ele('RequestedAttribute')
+        .att('FriendlyName', attr.FriendlyName)
+        .att('Name', attr.Name)
+        .att('NameFormat', attr.NameFormat)
+        .att('isRequred', attr.isRequired);
     });
   }
 
-  if (requestedAttributesArray.length > 0) {
-    metadata.EntityDescriptor
-            .SPSSODescriptor
-            .AttributeConsumingService['#list'] = requestedAttributesArray;
-  }
-
-  return xmlbuilder.create(metadata).end({ pretty: true, indent: '  ', newline: '\n' });
+  return SPSSODescriptor.end({ pretty: true, indent: '  ', newline: '\n' });
 };
 
 exports.SAML = SAML;
