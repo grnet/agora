@@ -29,11 +29,13 @@ var app = express();
 var logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)(),
-    new winston.transports.File({ filename: 'logs/all-logs.log' })
+    new winston.transports.File({ filename: path.join(__dirname,
+    'logs/all-logs.log')})
   ],
   exceptionHandlers: [
     new (winston.transports.Console)(),
-    new winston.transports.File({ filename: 'logs/exceptions.log' })
+    new winston.transports.File({ filename: path.join(__dirname,
+    'logs/exceptions.log')})
   ],
   exitOnError: false
 });
