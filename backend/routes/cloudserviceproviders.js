@@ -83,7 +83,7 @@ router.post('/', function (req, res) {
     var cloudServiceProvider = new CloudServiceProvider({
       name: req.body.name,
       description: req.body.description,
-      country: req.body.country,
+      _country: req.body._country,
       _user: req.body._user
     });
     cloudServiceProvider.save(function(err) {
