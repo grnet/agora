@@ -703,19 +703,21 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
     decryptionCert = decryptionCert.replace( /-+END CERTIFICATE-+\r?\n?/, '' );
 
     keyDescriptor = {
-      'ds:KeyInfo' : {
-        'ds:X509Data' : {
-          'ds:X509Certificate': {
-            '#text': decryptionCert
+      'KeyDescriptor': {
+        'ds:KeyInfo' : {
+          'ds:X509Data' : {
+            'ds:X509Certificate': {
+              '#text': decryptionCert
+            }
           }
-        }
-      },
-      '#list' : [
-        // this should be the set that the xmlenc library supports
-        { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes256-cbc' } },
-        { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes128-cbc' } },
-        { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc' } },
-      ]
+        },
+        '#list' : [
+          // this should be the set that the xmlenc library supports
+          { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes256-cbc' } },
+          { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes128-cbc' } },
+          { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc' } },
+        ]
+      }
     };
   }
 
@@ -745,7 +747,7 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
     keyDescriptorArray.push({
       'KeyDescriptor': {
         '@use': 'encryption',
-        'ds:KeyInfo': keyDescriptor['ds:KeyInfo'],
+        'ds:KeyInfo': keyDescriptor['KeyDescriptor']['ds:KeyInfo'],
         '#list' : [
           // this should be the set that the xmlenc library supports
           { 'EncryptionMethod': { '@Algorithm': 'http://www.w3.org/2001/04/xmlenc#aes256-cbc' } },
@@ -783,30 +785,32 @@ SAML.prototype.generateServiceProviderMetadata = function( decryptionCert ) {
     .att('Binding', 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST')
     .att('Location', this.options.callbackUrl);
 
-  var attributeConsumingService = SPSSODescriptor.ele('AttributeConsumingService')
-    .att('index', '0')
-    .att('isDefault', true);
+  if (this.options.serviceName || this.options.serviceDescription || this.options.requestedAttributes) {
+    var attributeConsumingService = SPSSODescriptor.ele('AttributeConsumingService')
+      .att('index', '0')
+      .att('isDefault', true);
 
-  if (this.options.serviceName) {
-    attributeConsumingService.ele('ServiceName')
-      .att('xml:lang', 'en')
-      .text(this.options.serviceName);
-  }
+    if (this.options.serviceName) {
+      attributeConsumingService.ele('ServiceName')
+        .att('xml:lang', 'en')
+        .text(this.options.serviceName);
+    }
 
-  if (this.options.serviceDescription) {
-    attributeConsumingService.ele('ServiceDescription')
-      .att('xml:lang', 'en')
-      .text(this.options.serviceDescription);
-  }
+    if (this.options.serviceDescription) {
+      attributeConsumingService.ele('ServiceDescription')
+        .att('xml:lang', 'en')
+        .text(this.options.serviceDescription);
+    }
 
-  if (this.options.requestedAttributes) {
-    this.options.requestedAttributes.forEach(function(attr) {
-      attributeConsumingService.ele('RequestedAttribute')
-        .att('FriendlyName', attr.FriendlyName)
-        .att('Name', attr.Name)
-        .att('NameFormat', attr.NameFormat)
-        .att('isRequred', attr.isRequired);
-    });
+    if (this.options.requestedAttributes) {
+      this.options.requestedAttributes.forEach(function(attr) {
+        attributeConsumingService.ele('RequestedAttribute')
+          .att('FriendlyName', attr.FriendlyName)
+          .att('Name', attr.Name)
+          .att('NameFormat', attr.NameFormat)
+          .att('isRequred', attr.isRequired);
+      });
+    }
   }
 
   return SPSSODescriptor.end({ pretty: true, indent: '  ', newline: '\n' });
