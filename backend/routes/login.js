@@ -6,6 +6,7 @@ var jwt = require('jwt-simple');
 var conf = require('../config');
 var fs = require('fs');
 var ErrorMessage = require('../lib/errormessage');
+var Idp = require('../db/models/Idp');
     
 router.post('/', function(req, res, next) {
   var passport_strategy = 'local';
@@ -40,6 +41,23 @@ router.post('/', function(req, res, next) {
         groups: user.groups
     }));
  })(req, res, next);
+});
+
+router.get('/saml', function (req, res, next) {
+  if (req.query.idp) {
+    var mquery = Idp.where({"entityId": req.query.idp});
+    mquery.findOne(function(err, idp) {
+      if (!err && idp) {
+        conf.passport.saml.entryPoint = idp.entryPoint;
+      }
+      require('../config/passport')(passport, conf);
+      passport.authenticate('saml',
+      {
+        successRedirect : "/",
+        failureRedirect : "/#/login"
+      })(req, res, next);
+    });
+  }
 });
 
 router.post('/saml/callback',
