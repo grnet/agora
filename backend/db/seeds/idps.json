@@ -4,7 +4,7 @@
     "entryPoint": "https://gn-vho.grnet.gr/idp/profile/SAML2/Redirect/SSO"
   },
   {
-    "entityId": "https://openidp.feide.no/idp/simplesaml",
+    "entityId": "https://openidp.feide.no",
     "entryPoint": "https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php"
   }
 ]
