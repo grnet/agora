@@ -1,4 +1,4 @@
-var SamlStrategy = require('../lib/passport-saml-dynamic-idp').Strategy;
+var SamlStrategy = require('passport-saml').Strategy;
 
 module.exports = function (passport, conf) {
 
