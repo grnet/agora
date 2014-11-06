@@ -70,13 +70,6 @@ app.use('/api/login*', login);
 
 require('./config/passport')(passport, conf);
 
-app.get('/api/login/saml', passport.authenticate('saml',
-  {
-    successRedirect : "/",
-    failureRedirect : "/#/login"
-  })
-);
-
 app.use('/api/login/saml', login);
 
 app.use('/api/saml/metadata', saml_metadata);
