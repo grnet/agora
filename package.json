@@ -13,6 +13,7 @@
     "mongoose": "3.8",
     "passport": "~0.2",
     "passport-local": "~1.0",
+    "passport-saml": "git+https://github.com/grnet/passport-saml.git#grnet",
     "moment": "~2.7",
     "jwt-simple": "~0.2",
     "connect-flash" : "~0.1.1",

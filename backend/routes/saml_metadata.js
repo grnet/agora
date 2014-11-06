@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var conf = require('../config');
-var SamlStrategy = require('../lib/passport-saml-dynamic-idp').Strategy;
+var SamlStrategy = require('passport-saml').Strategy;
 
     
 router.get('/', function(req, res, next) {
