@@ -26,12 +26,24 @@ module.exports = function (passport, conf) {
     disableRequestedAuthnContext: conf.passport.saml.disableRequestedAuthnContext
   },
   function(profile, done) {
+    id = profile.uid ||
+          profile.eduPersonTargetedID ||
+          profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.10'] ||
+          profile.eduPersonPrincipalName ||
+          profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
+    email = profile.email ||
+            profile.mail ||
+            profile['urn:oid:0.9.2342.19200300.100.1.3'];
+    displayName = profile.cn ||
+                  profile['urn:oid:2.5.4.3'];
+    firstName = profile.givenName || profile['urn:oid:2.5.4.42'];
+    lastName = profile.sn || profile['urn:oid:2.5.4.4'];
     return done(null, {
-      id : profile.uid,
-      email : profile.email,
-      displayName : profile.cn,
-      firstName : profile.givenName,
-      lastName : profile.sn
+      id : id,
+      email : email,
+      displayName : displayName,
+      firstName : firstName,
+      lastName : lastName
     });
   })
 );
