@@ -38,16 +38,32 @@
       </div>            
 
       <div class="row">
-        <div class="well"
-             ng-show="cloudServiceDetails.description">
-          {{cloudServiceDetails.description}}
+        <div class="well col-md-8">
+          <div ng-show="cloudServiceDetails.description">
+            {{cloudServiceDetails.description}}
+          </div>
+          <div ng-show="cloudServiceDetails.longDescription">
+            {{cloudServiceDetails.longDescription}}
+          </div>
         </div>
+
+        <div class="service-contact-details col-md-3">
+          <legend>Contact details</legend>
+          <div ng-show="cloudServiceDetails.contactPerson">
+            {{cloudServiceDetails.contactPerson}}
+          </div>
+          <div ng-show="cloudServiceDetails.telephone">
+            {{cloudServiceDetails.telephone}}
+          </div>
+          <div ng-show="cloudServiceDetails.contactEmail">
+            {{cloudServiceDetails.contactEmail}}
+          </div>                                                
+        </div>
+
       </div>
-
-      <br/>
-
+      
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-5">
           <button type="button" class="btn btn-default"
                   ng-click="toggleExpand()"> 
             <span class="glyphicon toggle-expand-icon"
@@ -58,7 +74,6 @@
           </button>
         </div>
       </div>
-
       <br/>
       
       <div ng-repeat="rating in cloudServiceDetails.ratings

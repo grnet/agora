@@ -75,6 +75,7 @@ agoraAppCloudServicesController.controller(
     $scope.cloudServiceDetails = {
       'name': null,
       'description': null,
+      'longDescription': null,
       '_cloudServiceProvider': null
     };
 
@@ -153,7 +154,8 @@ agoraAppCloudServicesController.controller('CommentModalInstanceCtrl',
   
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window', '$location',
-  '$anchorScroll', 'CloudServiceDetails',
+  '$anchorScroll',
+  'CloudServiceDetails',
   function($scope, $rootScope, $routeParams, $window, $location,
     $anchorScroll, CloudServiceDetails) {
     $scope.cloudServiceDetails =
@@ -180,9 +182,6 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
     $scope.showDescriptions = {};
 
     $scope.isExpanded = false;
-
-    $scope.nameEdit = false;
-    $scope.descriptionEdit = false;
 
     $scope.canEdit = false;
     $scope.enableAddCountry = false;
@@ -233,8 +232,6 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
     };
     
     $scope.update = function(cloudServiceDetails) {
-      $scope.nameEdit = false;
-      $scope.descriptionEdit = false;    
       $scope.master = angular.copy(cloudServiceDetails);
       CloudServiceDetails.update({
           cloudServiceId: cloudServiceDetails._id

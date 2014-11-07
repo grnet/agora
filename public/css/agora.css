@@ -157,11 +157,7 @@
     font-size: 18px;
 }
 
-form .form-group input {
-    width: 150px;
-}
-
-form .form-group textarea {
+form .form-group .narrow-input {
     width: 300px;
 }
 
@@ -228,4 +224,8 @@ form .form-group #cloudServiceProviderUser {
 .toggle-expand-icon {
     font-size: 16px;
     margin-right: 4px;
+}
+
+.ratings-dashboard {
+    margin-top: 10px;
 }

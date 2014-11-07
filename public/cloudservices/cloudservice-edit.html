@@ -25,33 +25,128 @@
   <div class="col-md-9">
     <!--Body content-->
 
-    <form novalidate>
+    <form name="cloudServiceForm" role="form" novalidate>
       
       <div class="row">
-        <h2>{{cloudServiceDetails.name}}
-          <button type="button" class="btn btn-link"
-                  ng-click="nameEdit = !nameEdit">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </button>          
-        </h2>
-      </div>
-
-      <div class="row">
-        <h2 ng-show="nameEdit">
-          <input type="text" ng-model="cloudServiceDetails.name">
-        </h2>
+        <div class="form-group-lg"
+             ng-class="{
+               'has-error': cloudServiceForm.serviceName.$error.maxlength
+               }">
+          <label for="serviceName">Name (max 50 chars)</label>
+          <input name="serviceName" class="form-control input-lg"
+                 ng-minlength="0"
+                 ng-maxlength="50"                   
+                 type="text" ng-model="cloudServiceDetails.name">
+          <span class="error"
+                ng-show="cloudServiceForm.serviceName.$error.maxlength">
+            Name too long.
+          </span>          
+        </div>
       </div>
 
       <div class="row">
         <div class="well">
-          {{cloudServiceDetails.description}}
-          <button type="button" class="btn btn-link"
-                  ng-click="descriptionEdit = !descriptionEdit">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </button>
-      
-          <input ng-show="descriptionEdit" class="form-control"
-                 type="text" ng-model="cloudServiceDetails.description">      
+          
+          <div class="form-group"
+             ng-class="{
+               'has-error': cloudServiceForm.description.$error.maxlength
+               }">               
+            <label for="description">Description (max 500 chars)
+            </label><br/>
+            <input class="form-control"
+                   type="text"
+                   name="description"
+                   ng-required="false"
+                   ng-minlength="0"
+                   ng-maxlength="500"                   
+                   ng-model="cloudServiceDetails.description">
+            <span class="error"
+                  ng-show="cloudServiceForm.description.$error.maxlength">
+              Description too long.
+            </span>
+          </div>
+
+          <div class="form-group"
+             ng-class="{
+               'has-error': cloudServiceForm.longDescription.$error.maxlength
+               }">
+            <label for="longDescription">
+              Long description (max 10,000 chars)
+            </label>
+            </button>          
+            <textarea class="form-control"
+                      name="longDescription"
+                      ng-required="false"
+                      ng-minlength="0"
+                      ng-maxlength="10000"
+                      ng-model="cloudServiceDetails.longDescription">
+            </textarea>
+            <span class="error"
+                  ng-show="cloudServiceForm.longDescription.$error.maxlength">
+              Description too long.
+            </span>
+          </div>
+
+          <div class="form-group"
+             ng-class="{
+               'has-error': cloudServiceForm.contactPerson.$error.maxlength
+               }">
+            <label for="contactPerson">
+              Contact person (max 30 chars)
+            </label>
+            </button>          
+            <input class="form-control narrow-input"
+                      name="contactPerson"
+                      ng-required="false"
+                      ng-minlength="0"
+                      ng-maxlength="30"
+                      ng-model="cloudServiceDetails.contactPerson">
+            <span class="error"
+                  ng-show="cloudServiceForm.contactPerson.$error.maxlength">
+              Person name too long.
+            </span>
+          </div>
+
+          <div class="form-group"
+             ng-class="{
+               'has-error': cloudServiceForm.telephone.$error.maxlength
+               }">
+            <label for="telephone">
+              Contact telephone (max 20 chars)
+            </label>
+            </button>          
+            <input class="form-control narrow-input"
+                      name="telephone"
+                      ng-required="false"
+                      ng-minlength="0"
+                      ng-maxlength="20"
+                      ng-model="cloudServiceDetails.telephone">
+            <span class="error"
+                  ng-show="cloudServiceForm.telephone.$error.maxlength">
+              Telephone too long.
+            </span>
+          </div>
+
+          <div class="form-group"
+             ng-class="{
+               'has-error': cloudServiceForm.contactEmail.$error.maxlength
+               }">
+            <label for="contactEmail">
+              Contact email (max 20 chars)
+            </label>
+            </button>          
+            <input class="form-control narrow-input"
+                      name="contactEmail"
+                      ng-required="false"
+                      ng-minlength="0"
+                      ng-maxlength="20"
+                      ng-model="cloudServiceDetails.contactEmail">
+            <span class="error"
+                  ng-show="cloudServiceForm.contactEmail.$error.maxlength">
+              Telephone too long.
+            </span>
+          </div>
+
         </div>
       </div>
 

@@ -95,6 +95,10 @@ router.post('/', function (req, res){
   var cloudService = new CloudService({
     name: req.body.name,
     description: req.body.description,
+    longDescription: req.body.longDescription,
+    contactPerson: req.body.contactPerson,
+    telephone: req.body.telephone,
+    contactEmail: req.body.contactEmail,
     processingStatus: 0,
     _cloudServiceProvider: req.body._cloudServiceProvider
   });
@@ -142,6 +146,11 @@ router.put('/:id', function (req, res){
       if (!err) {
         cloudService.name = req.body.name;
         cloudService.description = req.body.description;
+        cloudService.longDescription = req.body.longDescription;
+        cloudService.contactPerson = req.body.contactPerson;
+        cloudService.telephone = req.body.telephone;
+        cloudService.contactEmail = req.body.contactEmail;
+          
         var ratings = req.body.ratings;
         ratings.forEach(function(rating, index, array) {
           cloudService.ratings[index].value = rating.value;
@@ -158,7 +167,7 @@ router.put('/:id', function (req, res){
             res.send(cloudService);
           } else {
             res.status(500).send(
-              new ErrorMessage('Could not save cloud service',
+              new ErrorMessage('Could not save cloud service.',
                 'noSaveCloudService', 'error', err));
           };
         });

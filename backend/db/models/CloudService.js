@@ -76,6 +76,22 @@ var CloudServiceSchema = new Schema({
     type: String,
     required: true
   },
+  longDescription: {
+    type: String,
+    required: false
+  },
+  telephone: {
+    type: String,
+    required: false
+  },
+  contactPerson: {
+    type: String,
+    required: false
+  },
+  contactEmail: {
+    type: String,
+    required: false
+  },
   _cloudServiceProvider: {
     type: Schema.Types.ObjectId,
     ref: 'CloudServiceProvider',
@@ -113,6 +129,30 @@ var CloudServiceSchema = new Schema({
   }]
 });
 
+function lenVal(len) {
+  return function(val) {
+    return val.length <= len;
+  };
+}
+
+CloudServiceSchema.path('name').validate(lenVal(50),
+  'String too long.');
+
+CloudServiceSchema.path('description').validate(lenVal(500),
+  'String too long.');
+  
+CloudServiceSchema.path('longDescription').validate(lenVal(10000),
+  'String too long.');
+
+CloudServiceSchema.path('contactPerson').validate(lenVal(30),
+  'String too long.');
+
+CloudServiceSchema.path('telephone').validate(lenVal(20),
+  'String too long.');
+  
+CloudServiceSchema.path('contactEmail').validate(lenVal(20),
+  'String too long.');  
+  
 CloudServiceSchema.pre('validate', function(next) {
   var saveDate = new Date;
   if (!this.createdAt) {
