@@ -80,7 +80,7 @@ app.get('/api', function (req, res) {
 
 app.all('/api/cloudservices', jwtauth); 
 app.all('/api/cloudservices/*', jwtauth); 
-app.all('/api/cloudserviceproviders', jwtauth);
+//app.all('/api/cloudserviceproviders', jwtauth);
 app.all('/api/cloudserviceproviders/*', jwtauth);   
 app.all('/api/users', jwtauth);
 app.all('/api/countries', jwtauth);
