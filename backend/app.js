@@ -81,14 +81,14 @@ app.get('/api', function (req, res) {
 app.all('/api/cloudservices', jwtauth); 
 app.all('/api/cloudservices/*', jwtauth); 
 //app.all('/api/cloudserviceproviders', jwtauth);
-app.all('/api/cloudserviceproviders/*', jwtauth);   
+//app.all('/api/cloudserviceproviders/*', jwtauth);
 app.all('/api/users', jwtauth);
 app.all('/api/countries', jwtauth);
 app.all('/api/countries/*', jwtauth);    
 app.all('/api/criteria', jwtauth);
 app.all('/api/criteria/*', jwtauth);    
     
-app.use('/api/cloudserviceproviders', cloudServiceProviders); 
+app.use('/api/cloudserviceproviders', cloudServiceProviders);
 app.use('/api/cloudservices', cloudServices);
 app.use('/api/users', users);
 app.use('/api/countries', countries);

@@ -119,7 +119,7 @@ agoraAppCloudServiceProvidersController.controller(
     
     $scope.cspDetails =
       CloudServiceProviderDetails.get({
-          cloudServiceProviderId: $routeParams.id
+        cloudServiceProviderId: $routeParams.id
       });
     
     $scope.cspDetails.$promise.then(function() {
