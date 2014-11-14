@@ -35,7 +35,7 @@
         <img ng-if="cspDetails.countryCode"
              ng-src="/images/flags/{{cspDetails.countryCode}}.svg"
              height="12">
-        <input type="text" class="form-control"
+        <input type="text" class="form-control narrow-input"
                id="cloudServiceProviderCountry"
                ng-model="cspDetails.cloudServiceProviderCountry"
                placeholder="A Country"
@@ -52,7 +52,7 @@
 
       <div class="form-group" ng-controller="UserSelectCtrl">
         <label for="cloudServiceProviderUser">User</label>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control narrow-input"
                id="cloudServiceProviderUser"
                ng-model="cspDetails.cloudServiceProviderUser"
                placeholder="A User"
