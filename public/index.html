@@ -79,9 +79,9 @@
       </button>
     </div>
     <div class="collapse navbar-collapse" id="bs-geant-nav">
-      <div ng-include src="'navbar/navbar.html'">
+      <div id="main-menu" ng-include src="'navbar/navbar.html'">
       </div>
-      <div ng-include src="'users/user.html'">
+      <div id="user-menu" ng-include src="'users/user.html'">
       </div>
     </div>
   </div>
@@ -91,7 +91,7 @@
 
     <div class="row messages" ng-show="error || message" >
       
-      <div class="col-lg-6 col-lg-offset-4">
+      <div class="col-lg-12">
         
         <p id="message"
            class="alert alert-success"

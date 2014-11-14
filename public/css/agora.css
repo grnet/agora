@@ -1,3 +1,10 @@
+
+body {
+    color: #333;
+    font-family: 'Open Sans', "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+
 #footer {
     border-top: 1px solid #eaeaea;
     margin: 70px 0 20px 0;
@@ -15,7 +22,6 @@
 }
 
 .geant-logo {
-
 }
 
 .geant-header h1 {
@@ -35,8 +41,26 @@
 }
 
 .navbar {
-    margin-bottom: 10px;
-    border: none;
+    background: none repeat scroll 0 0 #eaeaea;
+    border: medium none;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eaeaea;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #f3f3f3;
+    color: #3c5a87;
+    font-weight: 400;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #555;
+    font-weight: 600;
+}
+
+.user-profile {
+    background: none repeat scroll 0 0 #f5f5f5;
+}
+#userMenu {
+    color: #3c5a87;
 }
 
 .form-control { margin-bottom: 10px; }
