@@ -40,7 +40,7 @@ function checkProviderEditPermissions(id, user, callback) {
         callback(err);
         return;
       }
-      var isAdmin = user.groups.indexOf('admin') != -1;
+      var isAdmin = user.groups && user.groups.indexOf('admin') != -1;
       if (isAdmin || cloudServiceProvider._user.equals(user._id)) {
         callback(null, cloudServiceProvider);
       } else {
@@ -78,7 +78,7 @@ router.put('/:id', function (req, res) {
 
 router.post('/', function (req, res) {
   var user = req.user;
-  var isAdmin = user.groups.indexOf('admin') != -1;
+  var isAdmin = user.groups && user.groups.indexOf('admin') != -1;
   if (isAdmin) {
     var cloudServiceProvider = new CloudServiceProvider({
       name: req.body.name,

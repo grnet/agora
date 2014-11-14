@@ -79,9 +79,15 @@ app.get('/api', function (req, res) {
 });
 
 app.all('/api/cloudservices', jwtauth); 
-app.all('/api/cloudservices/*', jwtauth); 
-//app.all('/api/cloudserviceproviders', jwtauth);
-//app.all('/api/cloudserviceproviders/*', jwtauth);
+app.all('/api/cloudservices/*', jwtauth);
+app.use('/api/cloudserviceproviders', function(req, res, next) {
+  if (req.method == 'GET') {
+    next();
+  } else {
+    jwtauth(req, res, next);
+  }
+});
+app.all('/api/cloudserviceproviders/.+/.+', jwtauth);
 app.all('/api/users', jwtauth);
 app.all('/api/countries', jwtauth);
 app.all('/api/countries/*', jwtauth);    
