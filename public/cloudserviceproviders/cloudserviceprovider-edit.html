@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="customCountryTemplate.html">
   <a>
-      <img ng-src="/images/flags/{{match.model.isoCode}}.svg" width="16"> --
+      <img ng-src="/images/flags/{{match.model.code}}.svg" width="16"> --
       <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
   </a>
 </script>
@@ -32,12 +32,12 @@
       <div class="form-group" ng-controller="CountrySelectCtrl">
         <label for="cloudServiceProviderCountry">
           Provider country</label>
-        <img ng-if="cspDetails.countryCode"
-             ng-src="/images/flags/{{cspDetails.countryCode}}.svg"
+        <img ng-if="cspDetails._country.code"
+             ng-src="/images/flags/{{cspDetails._country.code}}.svg"
              height="12">
         <input type="text" class="form-control narrow-input"
                id="cloudServiceProviderCountry"
-               ng-model="cspDetails.cloudServiceProviderCountry"
+               ng-model="cspDetails._country"
                placeholder="A Country"
                typeahead-editable="false"
                typeahead-on-select="selectCountry($item, $model, $label)"
@@ -54,11 +54,12 @@
         <label for="cloudServiceProviderUser">User</label>
         <input type="text" class="form-control narrow-input"
                id="cloudServiceProviderUser"
-               ng-model="cspDetails.cloudServiceProviderUser"
+               ng-model="cspDetails._user"
                placeholder="A User"
                typeahead-editable="false"
+               typeahead-input-formatter="displayName($model)"
                typeahead-on-select="selectUser($item, $model, $label)"
-               typeahead="loadedUser.displayName
+               typeahead="displayName(loadedUser)
                           for loadedUser in getUsers($viewValue)"
                typeahead-loading="loadingUsers" class="form-control">
         <i ng-show="loadingUsers"

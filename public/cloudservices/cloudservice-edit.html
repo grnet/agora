@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="customCountryTemplate.html">
   <a>
-      <img ng-src="/images/flags/{{match.model.isoCode}}.svg" width="16"> --
+      <img ng-src="/images/flags/{{match.model.code}}.svg" width="16"> --
       <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
   </a>
 </script>
@@ -155,7 +155,7 @@
           <div ng-repeat="country in cloudServiceDetails.countries">
             <img tooltip-placement="top"
                  tooltip="{{country.name}}"
-                 ng-src="/images/flags/{{country.isoCode}}.svg"
+                 ng-src="/images/flags/{{country.code}}.svg"
                  height="12">
             <span tooltip-placement="top" ng-click="removeCountry(country)"
                   tooltip="Remove {{country.name}}">                      

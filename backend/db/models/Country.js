@@ -6,7 +6,7 @@ var countrySchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  isoCode: {
+  code: {
     type: String,
     required: true,
     unique: true

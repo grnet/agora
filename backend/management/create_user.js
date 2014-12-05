@@ -152,32 +152,32 @@ if (parsed.inputfile) {
 
   prompt.get(actualPrompts, function(err, results) {
 
-  id = parsed.id || results.id;
-  username = parsed.username || results.username;
-  password = parsed.password || results.password;
-  firstName = parsed.firstname || results.firstname;
-  surname = parsed.surname || results.surname;
-  email = parsed.email || results.email;
-  group = parsed.group || results.group;
-  if (group == '') {
-    group = null;
-  } 
+    id = parsed.id || results.id;
+    username = parsed.username || results.username;
+    password = parsed.password || results.password;
+    firstName = parsed.firstname || results.firstname;
+    surname = parsed.surname || results.surname;
+    email = parsed.email || results.email;
+    group = parsed.group || results.group;
+    if (group == '') {
+      group = null;
+    } 
   
   
-  user = new User({
-    id: id,
-    username: username,
-    password: password,
-    firstName: firstName,
-    surname: surname,
-    email: email
-  });
-  if (group) {
-    user.groups = [ group ];
-  }
+    user = new User({
+      id: id,
+      username: username,
+      password: password,
+      firstName: firstName,
+      surname: surname,
+      email: email
+    });
+    if (group) {
+      user.groups = [ group ];
+    }
 
-  saveUser(user, function() {
-    process.exit();
+    saveUser(user, function() {
+      process.exit();
     });
   });
 };

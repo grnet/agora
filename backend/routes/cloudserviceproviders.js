@@ -5,7 +5,7 @@ var ErrorMessage = require('../lib/errormessage');
 
 router.get('/', function (req, res) {
   return CloudServiceProvider.find()
-    .populate('_country', 'isoCode')
+    .populate('_country', 'code')
     .exec(function (err, cloudServiceProviders) {
     if (!err) {
       res.send(cloudServiceProviders);
@@ -56,8 +56,8 @@ router.put('/:id', function (req, res) {
       if (!err) {
         cloudServiceProvider.name = req.body.name;
         cloudServiceProvider.description = req.body.description;
-        cloudServiceProvider._country = req.body._country;
-        cloudServiceProvider._user = req.body._user;
+        cloudServiceProvider._country = req.body._country._id;
+        cloudServiceProvider._user = req.body._user._id;
         cloudServiceProvider.save(function(err) {
           if (!err) {
             res.send(cloudServiceProvider);
@@ -83,8 +83,8 @@ router.post('/', function (req, res) {
     var cloudServiceProvider = new CloudServiceProvider({
       name: req.body.name,
       description: req.body.description,
-      _country: req.body._country,
-      _user: req.body._user
+      _country: req.body._country._id,
+      _user: req.body._user._id
     });
     cloudServiceProvider.save(function(err) {
       if (!err) {

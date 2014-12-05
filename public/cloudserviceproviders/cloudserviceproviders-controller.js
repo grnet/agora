@@ -18,28 +18,30 @@ agoraAppCloudServiceProvidersController.controller(
   }
 ]);
 
-function displayName(user) {
-  return user.username
-    + " (" + user.firstName + " " + user.surname
-    + " " + user.email + ")";
-}
   
 agoraAppCloudServiceProvidersController.controller(
   'UserSelectCtrl',
   ['$scope', 'UsersList',
    function($scope, UsersList) {
 
+     $scope.displayName = function(user) {
+       if (!user) {
+         return "";
+       } else {
+         return user.username
+           + " (" + user.firstName + " " + user.surname
+           + " " + user.email + ")";
+       }
+     };
+     
      $scope.getUsers = function(val) {
        return UsersList.query({term: val}).$promise.then(function(users) {
-         return users.map(function(user) {
-           user.displayName = displayName(user); 
-           return user;
-         });
+         return users;
        });
      };
 
      $scope.selectUser = function($item, $model, $label) {
-       $scope.cspDetails._user = $item._id;
+       $scope.cspDetails._user = $item;
      };
      
 }]);
@@ -57,8 +59,7 @@ agoraAppCloudServiceProvidersController.controller(
      };
 
      $scope.selectCountry = function($item, $model, $label) {
-       $scope.cspDetails._country = $item._id;
-       $scope.cspDetails.countryCode = $item.isoCode;
+       $scope.cspDetails._country = $item;
      };
      
 }]);
@@ -123,16 +124,12 @@ agoraAppCloudServiceProvidersController.controller(
       });
     
     $scope.cspDetails.$promise.then(function() {
-      $scope.cspDetails.cloudServiceProviderUser =
-        displayName($scope.cspDetails._user);
-      $scope.cspDetails.cloudServiceProviderCountry =
-        $scope.cspDetails._country;
-      $scope.cspDetails.countryCode = $scope.cspDetails._country.isoCode;
       $scope.master = angular.copy($scope.cspDetails);
     });
     
     $scope.update = function() {
       $scope.master = angular.copy($scope.cspDetails);
+        
       CloudServiceProviderDetails.update({
           cloudServiceProviderId: $scope.cspDetails._id
         },
