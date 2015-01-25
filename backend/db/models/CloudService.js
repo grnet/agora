@@ -80,6 +80,10 @@ var CloudServiceSchema = new Schema({
     type: String,
     required: false
   },
+  logo: {
+    type: String,
+    required: false
+  },
   telephone: {
     type: String,
     required: false

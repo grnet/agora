@@ -19,6 +19,11 @@
       <!--Body content-->
 
       <div class="row">
+        <div ng-if="cloudServiceDetails.logo" class="cloud-service-logo">
+            <img ng-src="{{ cloudServiceDetails.logo }}"
+                 alt="Logo"
+                 height="36"/>
+          </div>                  
         <h2 class="col-md-8">{{cloudServiceDetails.name}}
           <span ng-repeat="country in cloudServiceDetails.countries">
               <img tooltip-placement="top"

@@ -96,6 +96,7 @@ router.post('/', function (req, res){
     name: req.body.name,
     description: req.body.description,
     longDescription: req.body.longDescription,
+    logo: req.body.logo,
     contactPerson: req.body.contactPerson,
     telephone: req.body.telephone,
     contactEmail: req.body.contactEmail,
@@ -146,6 +147,7 @@ router.put('/:id', function (req, res){
       if (!err) {
         cloudService.name = req.body.name;
         cloudService.description = req.body.description;
+        cloudService.logo = req.body.logo;
         cloudService.longDescription = req.body.longDescription;
         cloudService.contactPerson = req.body.contactPerson;
         cloudService.telephone = req.body.telephone;

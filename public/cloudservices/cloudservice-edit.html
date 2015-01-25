@@ -93,15 +93,18 @@
             <label for="logo">
               Logo
             </label>
-            <div ng-controller="UploadCtrl">
-              <div ng-if="content" class="cloud-service-logo">
-                <img ng-src="{{ content }}"
+              <div ng-if="cloudServiceDetails.logo" class="cloud-service-logo">
+                <img ng-src="{{ cloudServiceDetails.logo }}"
                      alt="Logo"
                      height="36"/>
-              </div>              
-              <input type="file"
-                     agora-upload-file="showContent($fileContent)"/>
-            </div>
+              </div>
+            <!-- <div ng-controller="UploadImageCtrl"> -->
+              <agora-upload-image image="cloudServiceDetails.logo"
+                                  ng-transclude>
+                <input type="file"
+                       class="btn btn-file"/>
+              </agora-upload-image>
+            <!-- </div> -->
             <span class="error"
                   ng-show="cloudServiceForm.longDescription.$error.maxlength">
               Description too long.

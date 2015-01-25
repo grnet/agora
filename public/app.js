@@ -16,7 +16,8 @@ var agoraApp = angular.module('agoraApp', [
   'agoraAppCloudServiceProvidersController',
   'agoraAppCloudServiceProvidersService',
   'agoraAppLoginController',
-  'agoraAppLoginService',  
+  'agoraAppLoginService',
+  'agoraAppUploadImageDirective'
 ]);
 
 agoraApp.config(['$routeProvider',

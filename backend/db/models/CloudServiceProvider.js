@@ -11,6 +11,10 @@ var cloudServiceProviderSchema = new Schema({
     type: String,
     required: true
   },
+  logo: {
+    type: Buffer,
+    required: false
+  },
   _country: {
     type: Schema.Types.ObjectId,
     ref: 'Country',

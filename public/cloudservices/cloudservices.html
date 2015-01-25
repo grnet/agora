@@ -33,6 +33,11 @@
         <div class="list-group-item"
              ng-repeat="cloudService in cloudServices
                         | filter:query | orderBy:orderProp">
+          <div ng-if="cloudService.logo" class="cloud-service-logo">
+            <img ng-src="{{ cloudService.logo }}"
+                 alt="Logo"
+                 height="36"/>
+          </div>          
           <h4 class="list-group-item-heading">
             <a ng-href="#/cloudservices/{{cloudService._id}}">
               {{cloudService.name}}</a>
