@@ -29,12 +29,12 @@ var app = express();
 var logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)(),
-    new winston.transports.File({ filename: path.join(__dirname,
+    new (winston.transports.File)({ filename: path.join(__dirname,
     'logs/all-logs.log')})
   ],
   exceptionHandlers: [
     new (winston.transports.Console)(),
-    new winston.transports.File({ filename: path.join(__dirname,
+    new (winston.transports.File)({ filename: path.join(__dirname,
     'logs/exceptions.log')})
   ],
   exitOnError: false
@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 var publicDir = path.join(__dirname, '..', 'public');
 app.use(express.static(publicDir));
-
+  
 // required for passport
 app.use(session({secret: 'geantcloudmarketplacegeantcloudmarketplace' }));
 app.use(passport.initialize());
@@ -123,10 +123,10 @@ app.use(function(err, req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
-  console.error(err.stack);
+  logger.error(err.stack);
   next(err);
 });
-
+  
 if (conf.ssl) {
   var server = https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
   console.log('Express server listening on port %d in %s mode (https)',
