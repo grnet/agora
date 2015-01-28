@@ -3,6 +3,8 @@ var logger = require('winston');
 function ErrorMessage(message, name, logLevel, err) {
   this.message = message;
   this.name = name;
+  this.logLevel = logLevel;
+  this.err = err;
 
   if (logLevel !== undefined) {
     logger.log(logLevel, err);
