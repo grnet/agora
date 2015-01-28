@@ -35,11 +35,19 @@
                           | filter:query
                           | orderBy:orderProp">
             <h4 class="list-group-item-heading">
-              <a ng-href="#/cloudserviceproviders/{{provider._id}}">
+              <span ng-if="provider.logo" class="csp-logo">
+                <img ng-src="{{ provider.logo }}"
+                     alt="Logo"
+                     height="36"/>
+              </span>                  
+              <a class="csp-list-name"
+                 ng-href="#/cloudserviceproviders/{{provider._id}}">
                 {{provider.name}}
-                <img height="12"
-                     ng-src="/images/flags/{{provider._country.code}}.svg"
-              </a></h4>
+              </a>
+              <img height="12"
+                   ng-src="/images/flags/{{provider._country.code}}.svg"
+                     />
+            </h4>
             <p class="list-group-item-text">{{provider.description}}</p>
             <p class="list-group-item-text">{{provider.country}}</p>
           </div>

@@ -12,7 +12,7 @@ var cloudServiceProviderSchema = new Schema({
     required: true
   },
   logo: {
-    type: Buffer,
+    type: String,
     required: false
   },
   _country: {

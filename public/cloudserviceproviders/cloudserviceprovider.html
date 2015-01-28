@@ -13,17 +13,29 @@
       </div>
     </div>
 
-    <dl class="dl-horizontal cloudservice">
-      <dt>Name</dt>
-      <dd>{{ cspDetails.name }}</dd>
-      <dt>Description</dt>
-      <dd> {{ cspDetails.description }}</dd>
-      <dt>Country</dt>
-      <dd> <img ng-if="cspDetails._country.code"
-                ng-src="/images/flags/{{cspDetails._country.code}}.svg"
-                height="12"> {{ cspDetails._country.name }} </dd>
-    </dl>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2">
+        <div ng-if="cspDetails.logo" class="csp-logo">
+          <img ng-src="{{ cspDetails.logo }}"
+               alt="Logo"
+               height="42"/>
+        </div>
+      </div>
+    </div>
 
+    <div class="row">
+      <dl class="dl-horizontal cloudservice">
+        <dt>Name</dt>
+        <dd>{{ cspDetails.name }}</dd>
+        <dt>Description</dt>
+        <dd> {{ cspDetails.description }}</dd>
+        <dt>Country</dt>
+        <dd> <img ng-if="cspDetails._country.code"
+                  ng-src="/images/flags/{{cspDetails._country.code}}.svg"
+                  height="12"> {{ cspDetails._country.name }} </dd>
+      </dl>
+    </div>
+      
   </div>
   
 </div>
