@@ -135,7 +135,12 @@ var CloudServiceSchema = new Schema({
 
 function lenVal(len) {
   return function(val) {
-    return val.length <= len;
+    if (val) {
+      return val.length <= len;
+    }
+    else {
+      return true;
+    };
   };
 }
 
