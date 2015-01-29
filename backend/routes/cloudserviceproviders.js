@@ -1,14 +1,47 @@
 var express = require('express');
 var router = express.Router();
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');
+var CloudService = require('../db/models/CloudService');
 var ErrorMessage = require('../lib/errormessage');
-
+var async = require('async');
+  
 router.get('/', function (req, res) {
+  var errors = [];
+  var user = req.user;
   return CloudServiceProvider.find()
     .populate('_country', 'code')
     .exec(function (err, cloudServiceProviders) {
     if (!err) {
-      res.send(cloudServiceProviders);
+      var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
+      if (isAdmin) {
+        res.send(cloudServiceProviders);
+      } else {
+        async.filter(cloudServiceProviders,
+          function(item, callback) {
+            CloudService.findOne({
+              _cloudServiceProvider: item._id
+            }).exec(function(err, cloudService) {
+              if (!err && cloudService) {
+                callback(true);
+              } else {
+                if (err) {
+                  errors.push(err);
+                }
+                callback(false);
+              }
+            });
+          },
+          function(filtered) {
+            if (errors.length > 0) {
+              res.status(404).send(
+                new ErrorMessage('Could not read cloud services.',
+                  'noReadCloudServices', 'error', errors));
+            } else {
+              res.send(filtered);
+            }
+          }
+        );
+      }
     } else {
     res.status(404).send(
       new ErrorMessage('Could not read cloud service providers.',

@@ -99,7 +99,8 @@ var CloudServiceSchema = new Schema({
   _cloudServiceProvider: {
     type: Schema.Types.ObjectId,
     ref: 'CloudServiceProvider',
-    required: true
+    required: true,
+    index: true
   },
   createdAt: {
     type: Date,

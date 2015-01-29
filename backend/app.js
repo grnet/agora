@@ -17,7 +17,6 @@ var cloudServiceProviders = require('./routes/cloudserviceproviders');
 var cloudServices = require('./routes/cloudservices');
 var users = require('./routes/users');
 var criteria = require('./routes/criteria');
-var jwt = require('jwt-simple');
 var login = require('./routes/login');
 var jwtauth = require('./lib/jwtauth');
 var util = require('util');
@@ -75,24 +74,26 @@ app.use('/api/login/saml', login);
 app.use('/api/saml/metadata', saml_metadata);
     
 app.get('/api', function (req, res) {
-  res.send('AGORA API is running');
+  res.send('Agora API is running');
 });
 
-app.all('/api/cloudservices', jwtauth); 
-app.all('/api/cloudservices/*', jwtauth);
+app.all('/api/cloudservices', jwtauth.authMid); 
+app.all('/api/cloudservices/*', jwtauth.authMid);
 app.use('/api/cloudserviceproviders', function(req, res, next) {
   if (req.method == 'GET') {
-    next();
+    jwtauth.doAuth(req, function (err) {
+      next();
+    });
   } else {
-    jwtauth(req, res, next);
+    jwtauth.authMid(req, res, next);
   }
 });
-app.all('/api/cloudserviceproviders/.+/.+', jwtauth);
-app.all('/api/users', jwtauth);
-app.all('/api/countries', jwtauth);
-app.all('/api/countries/*', jwtauth);    
-app.all('/api/criteria', jwtauth);
-app.all('/api/criteria/*', jwtauth);    
+app.all('/api/cloudserviceproviders/.+/.+', jwtauth.authMid);
+app.all('/api/users', jwtauth.authMid);
+app.all('/api/countries', jwtauth.authMid);
+app.all('/api/countries/*', jwtauth.authMid);    
+app.all('/api/criteria', jwtauth.authMid);
+app.all('/api/criteria/*', jwtauth.authMid);    
     
 app.use('/api/cloudserviceproviders', cloudServiceProviders);
 app.use('/api/cloudservices', cloudServices);
@@ -133,7 +134,7 @@ if (conf.ssl) {
     conf.nodejs_port, app.get('env'));
   });
 } else {
-  var server = http.createServer(app).listen(conf.nodejs_port, function(){
+  server = http.createServer(app).listen(conf.nodejs_port, function(){
   console.log('Express server listening on port %d in %s mode (http)',
     conf.nodejs_port, app.get('env'));
   });
