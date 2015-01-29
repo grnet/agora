@@ -28,6 +28,7 @@
     "angular-route": "~1.2",
     "angular-mocks": "~1.2",
     "angular-cookies": "~1.2.0",
-    "angular-http-auth": "*"
+    "angular-http-auth": "*",
+    "angulartics": "*"
   }
 }
