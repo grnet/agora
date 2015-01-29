@@ -11,6 +11,9 @@ module.exports = function(config){
       'bower_components/angular-resource/angular-resource.js',      
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/angulartics/dist/angulartics.min.js',
+      'bower_components/angulartics/dist/angulartics-ga.min.js',
+
       'app.js',
       'utils-service.js',
       'cloudserviceproviders/*.js',

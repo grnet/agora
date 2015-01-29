@@ -16,6 +16,7 @@ describe('Agora controllers', function() {
 
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
+      $httpBackend.whenGET(/main/).respond(200, '');      
       $httpBackend.expectPOST('api/login', {username: 'foo', password: 'bar'}).
         respond(function() {
           return (
