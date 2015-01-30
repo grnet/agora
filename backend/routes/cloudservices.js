@@ -48,8 +48,22 @@ router.get('/:id', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-  var isAdmin = req.user.groups.indexOf('admin') != -1;
-  if (isAdmin) {
+  var user = req.user;  
+  var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
+  if (!user) {
+    CloudService.find()
+      .select('-ratings')
+      .populate('countries')
+      .exec(function(err, cloudServices) {
+        if (!err) {
+          res.send(cloudServices);
+        } else {
+          res.status(404).send(
+            new ErrorMessage('Could not read cloud services.',
+              'noReadCloudServices', 'error', err));
+        }
+      });    
+  } else if (isAdmin) {
     CloudService.find()
       .populate('countries')
       .exec(function(err, cloudServices) {

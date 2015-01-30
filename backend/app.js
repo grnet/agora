@@ -77,7 +77,16 @@ app.get('/api', function (req, res) {
   res.send('Agora API is running');
 });
 
-app.all('/api/cloudservices', jwtauth.authMid); 
+app.all('/api/cloudservices', function(req, res, next) {
+  if (req.method == 'GET') {
+    jwtauth.doAuth(req, function (err) {
+      next();
+    });
+  } else {
+    jwtauth.authMid(req, res, next);
+  }
+});    
+  
 app.all('/api/cloudservices/*', jwtauth.authMid);
 app.use('/api/cloudserviceproviders', function(req, res, next) {
   if (req.method == 'GET') {
@@ -90,10 +99,6 @@ app.use('/api/cloudserviceproviders', function(req, res, next) {
 });
 app.all('/api/cloudserviceproviders/.+/.+', jwtauth.authMid);
 app.all('/api/users', jwtauth.authMid);
-app.all('/api/countries', jwtauth.authMid);
-app.all('/api/countries/*', jwtauth.authMid);    
-app.all('/api/criteria', jwtauth.authMid);
-app.all('/api/criteria/*', jwtauth.authMid);    
     
 app.use('/api/cloudserviceproviders', cloudServiceProviders);
 app.use('/api/cloudservices', cloudServices);
