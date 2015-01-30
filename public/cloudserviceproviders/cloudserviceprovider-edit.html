@@ -19,12 +19,22 @@
                id="cloudServiceProviderName"
                ng-model="cspDetails.name"/>
       </div>
+      
+      <div class="form-group">
+        <label for="cloudServiceProviderRegisteredName">
+          Provider registered name</label>
+        <input type="text" class="form-control"
+               id="cloudServiceProviderRegisteredName"
+               ng-model="cspDetails.registeredName"/>
+      </div>
 
       <div class="form-group"
         <label for="logo">
           Logo
         </label>
-        <div ng-if="cspDetails.logo" class="cloud-service-provider-logo">
+        <div id="logo"
+           ng-if="cspDetails.logo"
+             class="cloud-service-provider-logo">
           <img ng-src="{{ cspDetails.logo }}"
                alt="Logo"
                height="36"/>

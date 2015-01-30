@@ -88,6 +88,7 @@ router.put('/:id', function (req, res) {
     function (err, cloudServiceProvider) {
       if (!err) {
         cloudServiceProvider.name = req.body.name;
+        cloudServiceProvider.registeredName = req.body.registeredName;
         cloudServiceProvider.description = req.body.description;
         cloudServiceProvider.logo = req.body.logo;
         cloudServiceProvider._country = req.body._country._id;

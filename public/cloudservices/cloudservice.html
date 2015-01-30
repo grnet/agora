@@ -54,6 +54,9 @@
 
         <div class="service-contact-details col-md-3">
           <legend>Contact details</legend>
+          <div ng-show="cloudServiceDetails._cloudServiceProvider.registeredName">
+            {{cloudServiceDetails._cloudServiceProvider.registeredName}}
+          </div>          
           <div ng-show="cloudServiceDetails.contactPerson">
             {{cloudServiceDetails.contactPerson}}
           </div>
