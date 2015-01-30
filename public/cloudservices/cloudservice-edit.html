@@ -152,7 +152,7 @@
                'has-error': cloudServiceForm.contactEmail.$error.maxlength
                }">
             <label for="contactEmail">
-              Contact email (max 20 chars)
+              Contact email (max 40 chars)
             </label>
             <input class="form-control narrow-input"
                       name="contactEmail"
@@ -162,7 +162,7 @@
                       ng-model="cloudServiceDetails.contactEmail">
             <span class="error"
                   ng-show="cloudServiceForm.contactEmail.$error.maxlength">
-              Telephone too long.
+              E-mail too long.
             </span>
           </div>
 

@@ -160,7 +160,7 @@ CloudServiceSchema.path('contactPerson').validate(lenVal(30),
 CloudServiceSchema.path('telephone').validate(lenVal(20),
   'String too long.');
   
-CloudServiceSchema.path('contactEmail').validate(lenVal(20),
+CloudServiceSchema.path('contactEmail').validate(lenVal(40),
   'String too long.');  
   
 CloudServiceSchema.pre('validate', function(next) {
