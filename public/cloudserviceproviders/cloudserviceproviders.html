@@ -29,28 +29,37 @@
         </div>
       </div>
       
-      <div class="providers list-group">
-          <div class="list-group-item"
-               ng-repeat="provider in cloudServiceProviders
-                          | filter:query
-                          | orderBy:orderProp">
-            <h4 class="list-group-item-heading">
+      <div class="list-group">
+        <div class="list-group-item"
+             ng-repeat="provider in cloudServiceProviders
+                        | filter:query
+                        | orderBy:orderProp">
+          <div class="row">
+          <h4 class="list-group-item-heading">
+            <div class="col-md-2">
               <span ng-if="provider.logo" class="csp-logo">
                 <img ng-src="{{ provider.logo }}"
                      alt="Logo"
                      height="36"/>
-              </span>                  
+              </span>
+            </div>
+            <div class="col-md-10">
               <a class="csp-list-name"
                  ng-href="#/cloudserviceproviders/{{provider._id}}">
                 {{provider.name}}
               </a>
               <img height="12"
                    ng-src="/images/flags/{{provider._country.code}}.svg"
-                     />
-            </h4>
-            <p class="list-group-item-text">{{provider.description}}</p>
-            <p class="list-group-item-text">{{provider.country}}</p>
+                   />
+            </div>
+          </h4>
           </div>
+          <div class="row">
+            <div class="col-md-offset-2 col-md-10">
+              <p class="list-group-item-text">{{provider.description}}</p>
+            </div>
+          </div>
+        </div>
       </div>
       
     </div>
