@@ -6,7 +6,7 @@ var jwt = require('jwt-simple');
 var conf = require('../config');
 var fs = require('fs');
 var ErrorMessage = require('../lib/errormessage');
-var Idp = require('../db/models/Idp');
+var EntityDescriptor = require('../db/models/EntityDescriptor');
     
 router.post('/', function(req, res, next) {
   var passport_strategy = 'local';
@@ -45,10 +45,10 @@ router.post('/', function(req, res, next) {
 
 router.get('/saml', function (req, res, next) {
   if (req.query.idp) {
-    var mquery = Idp.where({"entityId": req.query.idp});
+    var mquery = EntityDescriptor.where({"entityID": req.query.idp});
     mquery.findOne(function(err, idp) {
       if (!err && idp) {
-        conf.passport.saml.entryPoint = idp.entryPoint;
+        conf.passport.saml.entryPoint = idp.location;
       }
       require('../config/passport')(passport, conf);
       passport.authenticate('saml',
