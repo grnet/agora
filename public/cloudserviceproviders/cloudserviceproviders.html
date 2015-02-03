@@ -5,15 +5,15 @@
       <!--Sidebar content-->
 
       <h4>Search:</h4>
-      <input class="form-control input-sm" ng-model="query"></p>
+      <input class="form-control input-sm" ng-model="query"><p/>
       <h4>Sort by:</h4>
       <select id="select" class="form-control" ng-model="orderProp">
         <option value="name">Alphabetical</option>
         <option value="country">Country</option>
         <option value="">Initial</option>
       </select>
-
     </div>
+    
     <div class="col-md-9">
       <!--Body content-->
 
@@ -25,44 +25,39 @@
             <a class="btn btn-info"
                ng-href="#/cloudserviceproviders/new">
               Add Provider</a>
-        </h2>
+          </h2>
         </div>
       </div>
-      
+
       <div class="list-group">
         <div class="list-group-item"
              ng-repeat="provider in cloudServiceProviders
                         | filter:query
                         | orderBy:orderProp">
           <div class="row">
-          <h4 class="list-group-item-heading">
-            <div class="col-md-2">
-              <span ng-if="provider.logo" class="csp-logo">
-                <img ng-src="{{ provider.logo }}"
-                     alt="Logo"
-                     height="36"/>
-              </span>
+            <div class="col-md-3">              
+                <div ng-if="provider.logo" class="csp-logo">
+                  <img ng-src="{{ provider.logo }}"
+                       alt="Logo"
+                       height="36px"/>
+                </div>
             </div>
-            <div class="col-md-10">
-              <a class="csp-list-name"
-                 ng-href="#/cloudserviceproviders/{{provider._id}}">
-                {{provider.name}}
-              </a>
-              <img height="12"
-                   ng-src="/images/flags/{{provider._country.code}}.svg"
-                   />
-            </div>
-          </h4>
-          </div>
-          <div class="row">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-9">
+              <h4 class="list-group-item-heading">
+                <a
+                   ng-href="#/cloudserviceproviders/{{provider._id}}">
+                  {{provider.name}}
+                </a>
+                <img height="12"
+                     ng-src="/images/flags/{{provider._country.code}}.svg"
+                     />
+              </h4>
               <p class="list-group-item-text">{{provider.description}}</p>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> <!-- row -->
+        </div> <!-- list-group-item -->
+      </div> <!-- list-group -->
       
     </div>
   </div>
 </div>
-
