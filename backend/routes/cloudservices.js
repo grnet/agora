@@ -51,7 +51,7 @@ router.get('/', function (req, res) {
   var user = req.user;  
   var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
   if (!user) {
-    CloudService.find()
+    CloudService.find({ processingStatus: 2})
       .select('-ratings')
       .populate('countries')
       .exec(function(err, cloudServices) {
