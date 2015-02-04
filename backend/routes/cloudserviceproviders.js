@@ -18,18 +18,24 @@ router.get('/', function (req, res) {
       } else {
         async.filter(cloudServiceProviders,
           function(item, callback) {
-            CloudService.findOne({
-              _cloudServiceProvider: item._id
-            }).exec(function(err, cloudService) {
-              if (!err && cloudService) {
-                callback(true);
-              } else {
-                if (err) {
-                  errors.push(err);
+            if (user && item._user.equals(user._id)) {
+              callback(true);
+            } else {
+              CloudService.findOne({
+                  _cloudServiceProvider: item._id,
+                  processingStatus: 2
+                  }
+              ).exec(function(err, cloudService) {
+                if (!err && cloudService) {
+                  callback(true);
+                } else {
+                  if (err) {
+                    errors.push(err);
+                  }
+                  callback(false);
                 }
-                callback(false);
-              }
-            });
+              });
+            }
           },
           function(filtered) {
             if (errors.length > 0) {
