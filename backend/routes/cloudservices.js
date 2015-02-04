@@ -4,7 +4,8 @@ var Schema = require('mongoose').Schema;
 var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
 var ErrorMessage = require('../lib/errormessage');
-
+var logger = require('winston');
+  
 var processingStatusLabels = [
   'draft',
   'submitted',
@@ -51,6 +52,7 @@ router.get('/', function (req, res) {
   var user = req.user;  
   var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
   if (!user) {
+    logger.info(user);
     CloudService.find({ processingStatus: 2})
       .select('-ratings')
       .populate('countries')
