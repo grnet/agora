@@ -52,7 +52,7 @@ router.get('/', function (req, res) {
   var user = req.user;  
   var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
   if (!user) {
-    logger.info(user);
+    logger.info('info', user);
     CloudService.find({ processingStatus: 2})
       .select('-ratings')
       .populate('countries')
