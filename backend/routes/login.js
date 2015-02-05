@@ -68,7 +68,7 @@ router.post('/saml/callback',
     var loginRedirectFile = fs.readFile(__dirname + '/../views/login_saml.html',
       'utf-8', 
       function(err, data) {
-        
+
         if (err) {
           res.status(500).send(
             new ErrorMessage('Internal server error', 'noreadloginsaml',

@@ -7,18 +7,22 @@ exports.doAuth = function(req, callback) {
   var token = (req.body && req.body.access_token) ||
     (req.query && req.query.access_token) ||
     req.headers['x-access-token'];
-  if (req.user) {
-    delete  req.user;
-  }
+
   if (token) {
     try {
       var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
- 
+      
       if (decoded.exp <= Date.now()) {
         var msg = 'Access token has expired, please signout ' + 
           'and login again.';
         callbk(new ErrorMessage(msg, 'tokenExpired'));
-      } else if (!decoded.edugain) {
+      } else if (decoded.edugain) {
+        req.user = {
+          _id: null,
+          groups: ['edugain']
+        };
+        callbk(null);
+      } else {
         User.findOne({ _id: decoded.iss }, function(err, user) {
           if (err || !user) {
             callbk(new ErrorMessage('User not found.',
