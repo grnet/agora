@@ -135,13 +135,13 @@ app.use(function(err, req, res, next) {
 });
   
 if (conf.ssl) {
-  var server = https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
-  console.log('Express server listening on port %d in %s mode (https)',
+  https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
+  logger.log('info', 'Express server listening on port %d in %s mode (https)',
     conf.nodejs_port, app.get('env'));
   });
 } else {
-  server = http.createServer(app).listen(conf.nodejs_port, function(){
-  console.log('Express server listening on port %d in %s mode (http)',
+  http.createServer(app).listen(conf.nodejs_port, function(){
+  logger.log('info', 'Express server listening on port %d in %s mode (http)',
     conf.nodejs_port, app.get('env'));
   });
 }
