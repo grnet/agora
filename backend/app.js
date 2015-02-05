@@ -136,7 +136,7 @@ app.use(function(err, req, res, next) {
   
 if (conf.ssl) {
   var server = https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
-  console.log('Express server listening on port %d in %s mode (tls)',
+  console.log('Express server listening on port %d in %s mode (https)',
     conf.nodejs_port, app.get('env'));
   });
 } else {
