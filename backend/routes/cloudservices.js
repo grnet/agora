@@ -50,7 +50,6 @@ router.get('/:id', function (req, res) {
 
 router.get('/', function (req, res) {
   var user = req.user;
-  logger.log('info', 'user', user);
   var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
   if (!user) {
     CloudService.find({ processingStatus: 2})
