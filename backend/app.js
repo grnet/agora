@@ -52,9 +52,7 @@ var publicDir = path.join(__dirname, '..', 'public');
 app.use(express.static(publicDir));
   
 // required for passport
-app.use(session({secret: 'geantcloudmarketplacegeantcloudmarketplace' }));
 app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 
 // setting the jwt secret

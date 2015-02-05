@@ -1,6 +1,7 @@
 var User = require('../db/models/User.js');
 var jwt = require('jwt-simple');
 var ErrorMessage = require('./errormessage');
+var logger = require('winston');
 
 exports.doAuth = function(req, callback) {
   var callbk = callback || function() {};
