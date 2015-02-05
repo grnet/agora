@@ -1,5 +1,6 @@
 var express = require('express');
 var http = require('http');
+var https = require('https');
 var session = require('express-session');
 var path = require('path');
 var winston = require('winston');
@@ -134,7 +135,7 @@ app.use(function(err, req, res, next) {
 });
   
 if (conf.ssl) {
-  var server = tls.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
+  var server = https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
   console.log('Express server listening on port %d in %s mode (tls)',
     conf.nodejs_port, app.get('env'));
   });
