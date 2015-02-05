@@ -7,6 +7,9 @@ exports.doAuth = function(req, callback) {
   var token = (req.body && req.body.access_token) ||
     (req.query && req.query.access_token) ||
     req.headers['x-access-token'];
+  if (req.user) {
+    delete  req.user;
+  }
   if (token) {
     try {
       var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
