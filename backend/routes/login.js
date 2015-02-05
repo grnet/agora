@@ -78,7 +78,8 @@ router.post('/saml/callback',
           var expires = moment().add('days', 7).valueOf();
           var token = jwt.encode({
               iss: req.user.id,
-              exp: expires
+              exp: expires,
+              edugain: true
           }, req.app.get('jwtTokenSecret'));
         
           var tokenValue = {

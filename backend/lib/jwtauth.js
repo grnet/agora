@@ -18,10 +18,10 @@ exports.doAuth = function(req, callback) {
         var msg = 'Access token has expired, please signout ' + 
           'and login again.';
         callbk(new ErrorMessage(msg, 'tokenExpired'));
-      } else {
+      } else if (!decoded.edugain) {
         User.findOne({ _id: decoded.iss }, function(err, user) {
           if (err || !user) {
-            calback(new ErrorMessage('User not found.',
+            callbk(new ErrorMessage('User not found.',
               'userNotFound', 'error', err || "No user found."));
           } else {
             req.user = user;
