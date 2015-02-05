@@ -1,6 +1,5 @@
 var express = require('express');
 var http = require('http');
-var https = require('https');
 var session = require('express-session');
 var path = require('path');
 var winston = require('winston');
@@ -22,7 +21,8 @@ var jwtauth = require('./lib/jwtauth');
 var util = require('util');
 var moment = require('moment');
 var saml_metadata = require('./routes/saml_metadata');
-
+var tls = require('tls');
+  
 var app = express();
 
 var logger = new (winston.Logger)({
@@ -134,8 +134,8 @@ app.use(function(err, req, res, next) {
 });
   
 if (conf.ssl) {
-  var server = https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
-  console.log('Express server listening on port %d in %s mode (https)',
+  var server = tls.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
+  console.log('Express server listening on port %d in %s mode (tls)',
     conf.nodejs_port, app.get('env'));
   });
 } else {
