@@ -1,7 +1,6 @@
 var express = require('express');
 var http = require('http');
 var https = require('https');
-var session = require('express-session');
 var path = require('path');
 var winston = require('winston');
 var mongoose = require('mongoose');
@@ -56,7 +55,7 @@ app.use(passport.initialize());
 app.use(flash());
 
 // setting the jwt secret
-app.set('jwtTokenSecret', 'geantcloudmarketplacegeantcloudmarketplace');
+app.set('jwtTokenSecret', conf.jwt_token_secret);
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
