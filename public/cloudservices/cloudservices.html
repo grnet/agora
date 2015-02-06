@@ -34,9 +34,18 @@
              ng-repeat="cloudService in cloudServices
                         | filter:query | orderBy:orderProp">
           <div ng-if="cloudService.logo" class="cloud-service-logo">
-            <img ng-src="{{ cloudService.logo }}"
-                 alt="Logo"
-                 height="36"/>
+            <span ng-if="loggedIn && cloudService.ratings">
+              <a ng-href="#/cloudservices/{{cloudService._id}}">
+                <img ng-src="{{ cloudService.logo }}"
+                     alt="Logo"
+                     height="36"/>
+              </a>
+            </span>
+            <span ng-if="!loggedIn || !cloudService.ratings">
+              <img ng-src="{{ cloudService.logo }}"
+                   alt="Logo"
+                   height="36"/>
+            </span>                              
           </div>          
           <h4 class="list-group-item-heading">
             <span ng-if="loggedIn && cloudService.ratings">
