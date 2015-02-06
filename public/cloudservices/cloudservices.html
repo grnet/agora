@@ -39,8 +39,13 @@
                  height="36"/>
           </div>          
           <h4 class="list-group-item-heading">
-            <a ng-href="#/cloudservices/{{cloudService._id}}">
-              {{cloudService.name}}</a>
+            <span ng-if="loggedIn">
+              <a ng-href="#/cloudservices/{{cloudService._id}}">
+                {{cloudService.name}}</a>
+            </span>
+            <span ng-if="!loggedIn">
+              {{ cloudService.name }}
+            </span>
             <span ng-repeat="country in cloudService.countries">
               <img tooltip-placement="top"
                    tooltip="{{country.name}}"

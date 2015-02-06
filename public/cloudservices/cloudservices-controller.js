@@ -33,7 +33,9 @@ agoraAppCloudServicesController.controller('CloudServicesListCtrl',
     } else {
       $scope.canAdd = false;
     }
-    
+
+    $scope.loggedIn = Utils.loggedIn($scope);
+
     $scope.cloudServices = CloudServicesList.query();
     $scope.criteria = {};
     CriteriaList.query()
@@ -155,9 +157,9 @@ agoraAppCloudServicesController.controller('CommentModalInstanceCtrl',
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window', '$location',
   '$anchorScroll',
-  'CloudServiceDetails',
+  'CloudServiceDetails', 'Utils',
   function($scope, $rootScope, $routeParams, $window, $location,
-    $anchorScroll, CloudServiceDetails) {
+    $anchorScroll, CloudServiceDetails, Utils) {
     $scope.cloudServiceDetails =
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
       
@@ -194,7 +196,7 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         $scope.showDescriptions[rating._criterion.name] = false;
       });
       $scope.master = angular.copy($scope.cloudServiceDetails);
-      var isAdmin = $rootScope.user.groups.indexOf('admin') != -1;
+      var isAdmin = Utils.isAdmin($scope);
       var provider = $scope.cloudServiceDetails._cloudServiceProvider;
       if (isAdmin) {
         $scope.canEdit = true;
