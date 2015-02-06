@@ -89,26 +89,27 @@ router.get('/', function (req, res) {
     CloudServiceProvider.find({ _user: req.user._id })
       .select('_id')
       .exec(function(err, cloudServiceProviderIds) {
-        var query = { _id: null };
         if (err) {          
           res.status(404).send(
             new ErrorMessage('Could not read cloud service providers.',
               'noReadCloudServiceProviders', 'error', err));
         } else {
-          if (isEduGain) {
-            query = {
-              $or: [
-                { processingStatus: 2 },
-                { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
-              ]};            
-          } else {
-            query = {
-              _cloudServiceProvider: { $in: cloudServiceProviderIds }
-            };
-          }
-          CloudService.find(query)
+          CloudService.find({
+            $or: [
+              { processingStatus: 2 },
+              { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
+            ]})
             .populate('countries')
             .exec(function(err, cloudServices) {
+              if (!isEduGain) {
+                cloudServices.forEach(function(csItem) {
+                  cloudServiceProviderIds.forEach(function(cspIdItem) {
+                    if (!csItem._cloudServiceProvider.equals(cspIdItem._id)) {
+                      csItem.ratings = null;
+                    }
+                  });
+                });
+              }
               if (!err) {
                 res.send(cloudServices);
               } else {

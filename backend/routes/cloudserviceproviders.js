@@ -22,10 +22,9 @@ router.get('/', function (req, res) {
               callback(true);
             } else {
               CloudService.findOne({
-                  _cloudServiceProvider: item._id,
-                  processingStatus: 2
-                  }
-              ).exec(function(err, cloudService) {
+                _cloudServiceProvider: item._id,
+                processingStatus: 2
+              }).exec(function(err, cloudService) {
                 if (!err && cloudService) {
                   callback(true);
                 } else {
