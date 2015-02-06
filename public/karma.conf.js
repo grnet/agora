@@ -15,7 +15,6 @@ module.exports = function(config){
       'bower_components/angulartics/dist/angulartics-ga.min.js',
 
       'app.js',
-      'utils-service.js',
       'cloudserviceproviders/*.js',
       'cloudservices/*.js',
       'components/**/*.js',
