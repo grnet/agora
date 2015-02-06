@@ -50,7 +50,16 @@ router.get('/:id', function (req, res) {
 
 router.get('/', function (req, res) {
   var user = req.user;
-  var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
+  var isAdmin = false;
+  var isEduGain = false;
+  if (user && user.groups) {
+      if (user.groups.indexOf('admin') != -1) {
+        isAdmin = true;
+      }
+      if (user.groups.indexOf('edugain') != -1) {
+        isEduGain = true;
+      }
+  }
   if (!user) {
     CloudService.find({ processingStatus: 2})
       .select('-ratings')
@@ -80,17 +89,24 @@ router.get('/', function (req, res) {
     CloudServiceProvider.find({ _user: req.user._id })
       .select('_id')
       .exec(function(err, cloudServiceProviderIds) {
+        var query = { _id: null };
         if (err) {          
           res.status(404).send(
-            new ErrorMessage('Could not read cloud services.',
+            new ErrorMessage('Could not read cloud service providers.',
               'noReadCloudServiceProviders', 'error', err));
         } else {
-            CloudService.find(
-                {$or: [
-                    { processingStatus: 2 },
-                    { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
-                ]}
-            )
+          if (isEduGain) {
+            query = {
+              $or: [
+                { processingStatus: 2 },
+                { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
+              ]};            
+          } else {
+            query = {
+              _cloudServiceProvider: { $in: cloudServiceProviderIds }
+            };
+          }
+          CloudService.find(query)
             .populate('countries')
             .exec(function(err, cloudServices) {
               if (!err) {
@@ -103,7 +119,7 @@ router.get('/', function (req, res) {
             });
         }
       });
-    }
+    } 
 });  
     
 router.post('/', function (req, res){
