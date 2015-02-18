@@ -258,3 +258,7 @@ form .form-group .narrow-input {
     margin-bottom: 12px;
 }
 
+.cloud-service-long-description {
+    height: 5em;
+    overflow: auto;
+}
