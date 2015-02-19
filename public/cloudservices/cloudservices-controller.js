@@ -27,15 +27,16 @@ agoraAppCloudServicesController.controller(
 agoraAppCloudServicesController.controller('CloudServicesListCtrl',
   ['$scope', 'CloudServicesList', 'CriteriaList', 'Utils',
   function($scope, CloudServicesList, CriteriaList, Utils) {
-
+   
     if (Utils.isAdmin($scope)) {
       $scope.canAdd = true;
     } else {
       $scope.canAdd = false;
     }
-
     $scope.loggedIn = Utils.loggedIn($scope);
 
+
+    
     $scope.cloudServices = CloudServicesList.query();
     $scope.criteria = {};
     CriteriaList.query()
@@ -162,7 +163,9 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
     $anchorScroll, CloudServiceDetails, Utils) {
     $scope.cloudServiceDetails =
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
-      
+
+    $scope.orderProp = "order";
+    
     $scope.colours = [
       { label: 'Green', value: 0 },
       { label: 'Amber', value: 1 },
@@ -192,7 +195,8 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
       if (!$scope.cloudServiceDetails.countries) {
         $scope.cloudServiceDetails.countries = [];
       }
-      $scope.cloudServiceDetails.ratings.forEach(function(rating) {
+      $scope.cloudServiceDetails.ratings.forEach(function(rating, index) {
+        rating.order = index;
         $scope.showDescriptions[rating._criterion.name] = false;
       });
       $scope.master = angular.copy($scope.cloudServiceDetails);
