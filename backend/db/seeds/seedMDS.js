@@ -26,7 +26,8 @@ saxStream.on("error", function (e) {
 var entityID = null;
 var entityDescriptors = {};
 var readCertificate = false;
-
+var feedRead = false;
+  
 var startDateTime = Date.now();
   
 saxStream.on("opentag", function (node) {
@@ -60,31 +61,37 @@ saxStream.on("closetag", function(tagName) {
   if (!entityID) {
     return;
   }
-  
+
+  var currentEntityID = new String(entityID);
+      
   var collected = null; 
   var toSave = null;
-  if (entityID && tagName == 'ds:X509Certificate') {
-    collected = entityDescriptors[entityID].collected;
+  if (currentEntityID && tagName == 'ds:X509Certificate') {
+    collected = entityDescriptors[currentEntityID].collected;
     collected.certificate =
       collected.certificate.replace(/^(\s+).+(\s+)$/, '');
     readCertificate = false;
   }
 
-  var tags = entityDescriptors[entityID].tags;
+  var tags = entityDescriptors[currentEntityID].tags;
   var i = tags.indexOf(tagName);
   if (i != -1) {
     tags.splice(i, 1);
     if (tags.length == 0) {
       if (!collected) {
-        collected = entityDescriptors[entityID].collected;
+        collected = entityDescriptors[currentEntityID].collected;
       }
       console.log(collected.entityID);
       if (!collected.location) {
-        delete entityDescriptors[entityID];
+        delete entityDescriptors[currentEntityID];
         entityID = null;
+        if (feedRead && Object.keys(entityDescriptors).length == 0) {
+          console.log("Feed processed");              
+          process.exit();
+        }        
         return;
       }
-      EntityDescriptor.findOne({ 'entityID': entityID },
+      EntityDescriptor.findOne({ 'entityID': currentEntityID },
         function(err, results) {
           if (results) {
             results.location = collected.location;
@@ -98,8 +105,14 @@ saxStream.on("closetag", function(tagName) {
               console.log(err);
               console.log(toSave);
             }
-            delete entityDescriptors[entityID];
+            console.log("+" + Object.keys(entityDescriptors).length);
+            delete entityDescriptors[currentEntityID];
             entityID = null;
+            console.log("-" + Object.keys(entityDescriptors).length);
+            if (feedRead && Object.keys(entityDescriptors).length == 0) {
+              console.log("Feed processed");              
+              process.exit();
+            }
           });        
         });
       }
@@ -107,19 +120,22 @@ saxStream.on("closetag", function(tagName) {
 });
 
 saxStream.on("text", function(text) {
-  if (entityID && readCertificate) {
-    entityDescriptors[entityID].collected.certificate += text;
+  if (!entityID) {
+    return;
+  }
+  var currentEntityID = new String(entityID);  
+  if (currentEntityID && readCertificate) {
+    entityDescriptors[currentEntityID].collected.certificate += text;
   }
 });
 
 saxStream.on("end", function() {
-  console.log(startDateTime);
   EntityDescriptor.remove({ createdAt: { $exists: true, $lt: startDateTime } },
     function(err) {
       if (err) {
         console.log(err);
       }
-      console.log("Feed read");
+      feedRead = true;
   });
 });
   
