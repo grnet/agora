@@ -115,17 +115,17 @@ if (app.get('env') === 'development') {
       'error',
       err));
   });
-};
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.send(new ErrorMessage('Internal server error.',
-      'internalServerError',
-      'error',
-      err));
-});
+} else {
+  // production error handler
+  // no stacktraces leaked to user
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.send(new ErrorMessage('Internal server error.',
+        'internalServerError',
+        'error',
+        err));
+  });
+}
   
 if (conf.ssl) {
   https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
