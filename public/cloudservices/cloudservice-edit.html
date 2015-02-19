@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
 
-  <div class="col-md-3">
+  <div class="col-md-2">
     <!--Sidebar content-->
 
     Search: <input id="inputSmall" class="form-control input-sm"
@@ -15,14 +15,14 @@
     <br/>
     Sort by:
     <select id="select" class="form-control" ng-model="orderProp">
+      <option value="order">Initial</option>
       <option value="_criterion.name">Alphabetical</option>
       <option value="value">Rating</option>
-      <option value="">Initial</option>
     </select>
 
   </div>
 
-  <div class="col-md-9">
+  <div class="col-md-10">
     <!--Body content-->
 
     <form name="cloudServiceForm" role="form" novalidate>
