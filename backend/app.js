@@ -45,7 +45,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 // app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(bodyParser.json({limit: '100kb'}));
+app.use(bodyParser.json({limit: '1mb'}));
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 var publicDir = path.join(__dirname, '..', 'public');
