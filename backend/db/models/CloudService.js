@@ -118,6 +118,10 @@ var CloudServiceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Country'
   }],
+  ratingsDate: {
+    type: Date,
+    required: false
+  },
   ratings: [{
     _criterion: {
       type: Schema.Types.ObjectId,

@@ -259,7 +259,11 @@ form .form-group .narrow-input {
 }
 
 .cloud-service-long-description {
-    height: 5em;
+    height: 10em;
     margin-top: 12px;
     overflow: auto;
+}
+
+.questionnaire-date {
+  margin-top: 1em;
 }

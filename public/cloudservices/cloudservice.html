@@ -68,6 +68,11 @@
           <div ng-show="cloudServiceDetails.contactEmail">
             {{cloudServiceDetails.contactEmail}}
           </div>                                                
+          <div class="text-muted">
+            <div class="questionnaire-date"> Questionnaire:<br/>
+              {{ cloudServiceDetails.ratingsDate | date: 'yyyy-MM-dd' }}
+            </div>
+          </div>
         </div>
 
       </div>
