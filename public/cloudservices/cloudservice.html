@@ -50,7 +50,7 @@
           </div>
           <div class="cloud-service-long-description"
                ng-show="cloudServiceDetails.longDescription">
-            {{cloudServiceDetails.longDescription}}
+            <span ng-bind-html="longDescriptionTrusted"/>
           </div>
         </div>
 

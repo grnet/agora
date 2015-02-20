@@ -32,7 +32,8 @@
     "xmlbuilder": "~2.4",
     "xml-encryption": "~0.7",
     "sax": "*",
-    "request": "*"
+    "request": "*",
+    "sanitize-html": "*"
   },
   "devDependencies": {
     "js-yaml": "*",

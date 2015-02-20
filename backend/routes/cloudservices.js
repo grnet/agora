@@ -5,6 +5,7 @@ var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
 var ErrorMessage = require('../lib/errormessage');
 var logger = require('winston');
+var sanitizeHtml = require('sanitize-html');
   
 var processingStatusLabels = [
   'draft',
@@ -127,7 +128,7 @@ router.post('/', function (req, res){
   var cloudService = new CloudService({
     name: req.body.name,
     description: req.body.description,
-    longDescription: req.body.longDescription,
+    longDescription: sanitizeHtml(req.body.longDescription),
     logo: req.body.logo,
     contactPerson: req.body.contactPerson,
     telephone: req.body.telephone,

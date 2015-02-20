@@ -157,10 +157,10 @@ agoraAppCloudServicesController.controller('CommentModalInstanceCtrl',
   
 agoraAppCloudServicesController.controller('CloudServiceCtrl',
   ['$scope', '$rootScope', '$routeParams', '$window', '$location',
-  '$anchorScroll',
+  '$anchorScroll', '$sce',
   'CloudServiceDetails', 'Utils',
   function($scope, $rootScope, $routeParams, $window, $location,
-    $anchorScroll, CloudServiceDetails, Utils) {
+    $anchorScroll, $sce, CloudServiceDetails, Utils) {
     $scope.cloudServiceDetails =
       CloudServiceDetails.get({ cloudServiceId: $routeParams.id });    
 
@@ -199,6 +199,8 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         rating.order = index;
         $scope.showDescriptions[rating._criterion.name] = false;
       });
+      $scope.longDescriptionTrusted =
+        $sce.trustAsHtml($scope.cloudServiceDetails.longDescription);
       $scope.master = angular.copy($scope.cloudServiceDetails);
       var isAdmin = Utils.isAdmin($scope);
       var provider = $scope.cloudServiceDetails._cloudServiceProvider;
