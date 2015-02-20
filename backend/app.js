@@ -132,7 +132,7 @@ if (conf.ssl) {
           port: conf.nodejs_port,
           host: conf.nodejs_host,
         }, function(){
-  console.log('Express server listening on port %d in %s mode (https)',
+  logger.log('info', 'Express server listening on port %d in %s mode (https)',
     conf.nodejs_port, app.get('env'));
   });
 } else {
@@ -140,7 +140,7 @@ if (conf.ssl) {
       port: conf.nodejs_port,
       host: conf.nodejs_host,
     }, function(){
-  console.log('Express server listening on port %d in %s mode (http)',
+  logger.log('info', 'Express server listening on port %d in %s mode (http)',
     conf.nodejs_port, app.get('env'));
   });
 }
