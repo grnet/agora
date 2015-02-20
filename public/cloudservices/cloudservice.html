@@ -96,7 +96,7 @@
                       | orderBy:orderProp" class="row">
         
         <div 
-           id="{{getCriterionName(rating._criterion, $last)}}"
+           id="{{rating._criterion.name}}"
            class="rating col-md-4"
            ng-class="{'rating-red': (rating.value == 2),
                      'rating-amber': (rating.value == 1) ,

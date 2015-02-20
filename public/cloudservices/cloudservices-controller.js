@@ -271,12 +271,5 @@ agoraAppCloudServicesController.controller('CloudServiceCtrl',
         }
       }
     };
-
-    $scope.getCriterionName = function(criterion, last) {
-      if (last) {
-          $anchorScroll();
-      }
-      return criterion.name;
-    };    
   }
 ]);
