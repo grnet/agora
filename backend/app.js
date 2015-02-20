@@ -104,6 +104,16 @@ app.use('/api/cloudservices', cloudServices);
 app.use('/api/users', users);
 app.use('/api/countries', countries);
 app.use('/api/criteria', criteria);      
+
+if (conf.ssl) {
+  app.use(function(req, res, next) {
+    if (req.secure) {
+      res.redirect('https:// ' + req.get('host') + req.url);
+    } else {
+      next();
+    }
+  });
+}
   
 // development error handler
 // will print stacktrace
@@ -129,8 +139,8 @@ if (app.get('env') === 'development') {
   
 if (conf.ssl) {
   https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
-  logger.log('info', 'Express server listening on port %d in %s mode (https)',
-    conf.nodejs_port, app.get('env'));
+    logger.log('info', 'Express server listening on port %d in %s mode (https)',
+      conf.nodejs_port, app.get('env'));
   });
 } else {
   http.createServer(app).listen(conf.nodejs_port, function(){
