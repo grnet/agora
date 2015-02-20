@@ -105,16 +105,6 @@ app.use('/api/users', users);
 app.use('/api/countries', countries);
 app.use('/api/criteria', criteria);      
 
-if (conf.ssl) {
-  app.use(function(req, res, next) {
-    if (req.secure) {
-      res.redirect('https:// ' + req.get('host') + req.url);
-    } else {
-      next();
-    }
-  });
-}
-  
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
