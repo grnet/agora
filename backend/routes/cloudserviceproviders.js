@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
   var errors = [];
   var user = req.user;
   return CloudServiceProvider.find()
-    .populate('_country', 'code')
+    .populate('_country', 'code name')
     .exec(function (err, cloudServiceProviders) {
     if (!err) {
       var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
@@ -18,18 +18,23 @@ router.get('/', function (req, res) {
       } else {
         async.filter(cloudServiceProviders,
           function(item, callback) {
-            CloudService.findOne({
-              _cloudServiceProvider: item._id
-            }).exec(function(err, cloudService) {
-              if (!err && cloudService) {
-                callback(true);
-              } else {
-                if (err) {
-                  errors.push(err);
+            if (user && item._user.equals(user._id)) {
+              callback(true);
+            } else {
+              CloudService.findOne({
+                _cloudServiceProvider: item._id,
+                processingStatus: 2
+              }).exec(function(err, cloudService) {
+                if (!err && cloudService) {
+                  callback(true);
+                } else {
+                  if (err) {
+                    errors.push(err);
+                  }
+                  callback(false);
                 }
-                callback(false);
-              }
-            });
+              });
+            }
           },
           function(filtered) {
             if (errors.length > 0) {
@@ -88,6 +93,7 @@ router.put('/:id', function (req, res) {
     function (err, cloudServiceProvider) {
       if (!err) {
         cloudServiceProvider.name = req.body.name;
+        cloudServiceProvider.registeredName = req.body.registeredName;
         cloudServiceProvider.description = req.body.description;
         cloudServiceProvider.logo = req.body.logo;
         cloudServiceProvider._country = req.body._country._id;

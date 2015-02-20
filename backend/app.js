@@ -1,7 +1,6 @@
 var express = require('express');
 var http = require('http');
 var https = require('https');
-var session = require('express-session');
 var path = require('path');
 var winston = require('winston');
 var mongoose = require('mongoose');
@@ -22,7 +21,9 @@ var jwtauth = require('./lib/jwtauth');
 var util = require('util');
 var moment = require('moment');
 var saml_metadata = require('./routes/saml_metadata');
-
+var tls = require('tls');
+var ErrorMessage = require('./lib/errormessage');
+  
 var app = express();
 
 var logger = new (winston.Logger)({
@@ -44,20 +45,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 // app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1mb'}));
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 var publicDir = path.join(__dirname, '..', 'public');
 app.use(express.static(publicDir));
   
 // required for passport
-app.use(session({secret: 'geantcloudmarketplacegeantcloudmarketplace' }));
 app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 
 // setting the jwt secret
-app.set('jwtTokenSecret', 'geantcloudmarketplacegeantcloudmarketplace');
+app.set('jwtTokenSecret', conf.jwt_token_secret);
 
 mongoose.connect('mongodb://' + conf.mongo_server + '/' + conf.mongo_db,
   conf.mongo_options);
@@ -77,7 +76,16 @@ app.get('/api', function (req, res) {
   res.send('Agora API is running');
 });
 
-app.all('/api/cloudservices', jwtauth.authMid); 
+app.all('/api/cloudservices', function(req, res, next) {
+  if (req.method == 'GET') {
+    jwtauth.doAuth(req, function (err) {
+      next();
+    });
+  } else {
+    jwtauth.authMid(req, res, next);
+  }
+});    
+  
 app.all('/api/cloudservices/*', jwtauth.authMid);
 app.use('/api/cloudserviceproviders', function(req, res, next) {
   if (req.method == 'GET') {
@@ -90,46 +98,37 @@ app.use('/api/cloudserviceproviders', function(req, res, next) {
 });
 app.all('/api/cloudserviceproviders/.+/.+', jwtauth.authMid);
 app.all('/api/users', jwtauth.authMid);
-app.all('/api/countries', jwtauth.authMid);
-app.all('/api/countries/*', jwtauth.authMid);    
-app.all('/api/criteria', jwtauth.authMid);
-app.all('/api/criteria/*', jwtauth.authMid);    
     
 app.use('/api/cloudserviceproviders', cloudServiceProviders);
 app.use('/api/cloudservices', cloudServices);
 app.use('/api/users', users);
 app.use('/api/countries', countries);
 app.use('/api/criteria', criteria);      
-  
+
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.send(new ErrorMessage('Internal server error. ' + err,
+      'internalServerError',
+      'error',
+      err));
+  });
+} else {
+  // production error handler
+  // no stacktraces leaked to user
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.send(new ErrorMessage('Internal server error.',
+        'internalServerError',
+        'error',
+        err));
   });
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-app.use(function(err, req, res, next) {
-  logger.error(err.stack);
-  next(err);
-});
   
 if (conf.ssl) {
-  var server = https.createServer(conf.ssl_options, app).listen({
+  https.createServer(conf.ssl_options, app).listen({
           port: conf.nodejs_port,
           host: conf.nodejs_host,
         }, function(){
@@ -137,7 +136,7 @@ if (conf.ssl) {
     conf.nodejs_port, app.get('env'));
   });
 } else {
-  server = http.createServer(app).listen({
+  http.createServer(app).listen({
       port: conf.nodejs_port,
       host: conf.nodejs_host,
     }, function(){

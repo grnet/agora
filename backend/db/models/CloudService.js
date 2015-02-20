@@ -118,6 +118,10 @@ var CloudServiceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Country'
   }],
+  ratingsDate: {
+    type: Date,
+    required: false
+  },
   ratings: [{
     _criterion: {
       type: Schema.Types.ObjectId,
@@ -160,7 +164,7 @@ CloudServiceSchema.path('contactPerson').validate(lenVal(30),
 CloudServiceSchema.path('telephone').validate(lenVal(20),
   'String too long.');
   
-CloudServiceSchema.path('contactEmail').validate(lenVal(20),
+CloudServiceSchema.path('contactEmail').validate(lenVal(40),
   'String too long.');  
   
 CloudServiceSchema.pre('validate', function(next) {

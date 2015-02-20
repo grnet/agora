@@ -7,7 +7,7 @@ function ErrorMessage(message, name, logLevel, err) {
   this.err = err;
 
   if (logLevel !== undefined) {
-    logger.log(logLevel, err);
+    logger.log(logLevel, message, err);
   }    
 };
 

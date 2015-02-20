@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
 
-  <div class="col-md-3">
+  <div class="col-md-2">
     <!--Sidebar content-->
 
     Search: <input id="inputSmall" class="form-control input-sm"
@@ -15,14 +15,14 @@
     <br/>
     Sort by:
     <select id="select" class="form-control" ng-model="orderProp">
+      <option value="order">Initial</option>
       <option value="_criterion.name">Alphabetical</option>
       <option value="value">Rating</option>
-      <option value="">Initial</option>
     </select>
 
   </div>
 
-  <div class="col-md-9">
+  <div class="col-md-10">
     <!--Body content-->
 
     <form name="cloudServiceForm" role="form" novalidate>
@@ -73,8 +73,16 @@
             <label for="longDescription">
               Long description (max 10,000 chars)
             </label>
+            <div class="text-muted">
+              HTML editing is possible with the following tags:
+              'h3', 'h4', 'h5', 'h6', 'blockquote',
+              'p', 'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong',
+              'em', 'strike', 'code', 'hr', 'br', 'div', 'table',
+              'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre'.
+            </div>
             <textarea class="form-control"
                       name="longDescription"
+                      rows="10"
                       ng-required="false"
                       ng-minlength="0"
                       ng-maxlength="10000"
@@ -108,7 +116,7 @@
               Description too long.
             </span>
           </div>
-
+        
           <div class="form-group"
              ng-class="{
                'has-error': cloudServiceForm.contactPerson.$error.maxlength
@@ -152,17 +160,17 @@
                'has-error': cloudServiceForm.contactEmail.$error.maxlength
                }">
             <label for="contactEmail">
-              Contact email (max 20 chars)
+              Contact email (max 40 chars)
             </label>
             <input class="form-control narrow-input"
                       name="contactEmail"
                       ng-required="false"
                       ng-minlength="0"
-                      ng-maxlength="20"
+                      ng-maxlength="40"
                       ng-model="cloudServiceDetails.contactEmail">
             <span class="error"
                   ng-show="cloudServiceForm.contactEmail.$error.maxlength">
-              Telephone too long.
+              E-mail too long.
             </span>
           </div>
 

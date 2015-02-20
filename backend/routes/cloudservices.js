@@ -4,7 +4,9 @@ var Schema = require('mongoose').Schema;
 var CloudService = require('../db/models/CloudService');
 var CloudServiceProvider = require('../db/models/CloudServiceProvider');    
 var ErrorMessage = require('../lib/errormessage');
-
+var logger = require('winston');
+var sanitizeHtml = require('sanitize-html');
+  
 var processingStatusLabels = [
   'draft',
   'submitted',
@@ -48,10 +50,33 @@ router.get('/:id', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-  var isAdmin = req.user.groups.indexOf('admin') != -1;
-  if (isAdmin) {
+  var user = req.user;
+  var isAdmin = false;
+  var isEduGain = false;
+  if (user && user.groups) {
+      if (user.groups.indexOf('admin') != -1) {
+        isAdmin = true;
+      }
+      if (user.groups.indexOf('edugain') != -1) {
+        isEduGain = true;
+      }
+  }
+  if (!user) {
+    CloudService.find({ processingStatus: 2})
+      .select('-ratings')
+      .populate('_cloudServiceProvider countries')
+      .exec(function(err, cloudServices) {
+        if (!err) {
+          res.send(cloudServices);
+        } else {
+          res.status(404).send(
+            new ErrorMessage('Could not read cloud services.',
+              'noReadCloudServices', 'error', err));
+        }
+      });    
+  } else if (isAdmin) {
     CloudService.find()
-      .populate('countries')
+      .populate('_cloudServiceProvider countries')
       .exec(function(err, cloudServices) {
         if (!err) {
           res.send(cloudServices);
@@ -67,17 +92,25 @@ router.get('/', function (req, res) {
       .exec(function(err, cloudServiceProviderIds) {
         if (err) {          
           res.status(404).send(
-            new ErrorMessage('Could not read cloud services.',
+            new ErrorMessage('Could not read cloud service providers.',
               'noReadCloudServiceProviders', 'error', err));
         } else {
-            CloudService.find(
-                {$or: [
-                    { processingStatus: 2 },
-                    { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
-                ]}
-            )
-            .populate('countries')
+          CloudService.find({
+            $or: [
+              { processingStatus: 2 },
+              { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
+            ]})
+            .populate('_cloudServiceProvider countries')
             .exec(function(err, cloudServices) {
+              if (!isEduGain) {
+                cloudServices.forEach(function(csItem) {
+                  cloudServiceProviderIds.forEach(function(cspIdItem) {
+                    if (!csItem._cloudServiceProvider.equals(cspIdItem._id)) {
+                      csItem.ratings = null;
+                    }
+                  });
+                });
+              }
               if (!err) {
                 res.send(cloudServices);
               } else {
@@ -88,14 +121,14 @@ router.get('/', function (req, res) {
             });
         }
       });
-    }
+    } 
 });  
     
 router.post('/', function (req, res){
   var cloudService = new CloudService({
     name: req.body.name,
     description: req.body.description,
-    longDescription: req.body.longDescription,
+    longDescription: sanitizeHtml(req.body.longDescription),
     logo: req.body.logo,
     contactPerson: req.body.contactPerson,
     telephone: req.body.telephone,

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <!--Sidebar content-->
 
       <h4>Search:</h4>
@@ -14,7 +14,7 @@
       </select>
 
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
       <!--Body content-->
 
       <div class="row">
@@ -33,34 +33,53 @@
         <div class="list-group-item"
              ng-repeat="cloudService in cloudServices
                         | filter:query | orderBy:orderProp">
-          <div ng-if="cloudService.logo" class="cloud-service-logo">
-            <img ng-src="{{ cloudService.logo }}"
-                 alt="Logo"
-                 height="36"/>
-          </div>          
-          <h4 class="list-group-item-heading">
-            <a ng-href="#/cloudservices/{{cloudService._id}}">
-              {{cloudService.name}}</a>
-            <span ng-repeat="country in cloudService.countries">
-              <img tooltip-placement="top"
-                   tooltip="{{country.name}}"
-                   ng-src="/images/flags/{{country.code}}.svg"
-                   height="12">
-            </span>              
-          </h4>            
-          <p class="list-group-item-text">{{cloudService.description}}</p>
-          <div class="ratings-dashboard">
-            <span ng-repeat="rating in cloudService.ratings">
-              <a ng-href="#/cloudservices/{{cloudService._id}}#{{criteria[rating._criterion].name}}"
-                 tooltip-placement="top"
-                 tooltip="{{criteria[rating._criterion].label}}"
-                 ng-class="{'circle-red': (rating.value == 2),
-                           'circle-amber': (rating.value == 1) ,
-                           'circle-green': (rating.value == 0)}">
-              </a>
-            </span>
+          <div class="row">
+            <div class="col-md-3">              
+              <div ng-if="cloudService.logo" class="cloud-service-logo">
+                <span ng-if="loggedIn && cloudService.ratings">
+                  <a ng-href="#/cloudservices/{{cloudService._id}}">
+                    <img ng-src="{{ cloudService.logo }}"
+                         alt="Logo"
+                         height="36"/>
+                  </a>
+                </span>
+                <span ng-if="!loggedIn || !cloudService.ratings">
+                  <img ng-src="{{ cloudService.logo }}"
+                       alt="Logo"
+                       height="36"/>
+                </span>                              
+              </div>
+            </div>
+            <div class="col-md-9">
+              <h4 class="list-group-item-heading">
+                <span ng-if="loggedIn && cloudService.ratings">
+                  <a ng-href="#/cloudservices/{{cloudService._id}}">
+                    {{cloudService.name}}</a>
+                </span>
+                <span ng-if="!loggedIn || !cloudService.ratings">
+                  {{ cloudService.name }}
+                </span>
+                <span ng-repeat="country in cloudService.countries">
+                  <img tooltip-placement="top"
+                       tooltip="{{country.name}}"
+                       ng-src="/images/flags/{{country.code}}.svg"
+                       height="12">
+                </span>              
+              </h4>            
+              <p class="list-group-item-text">{{cloudService.description}}</p>
+              <div class="ratings-dashboard">
+                <span ng-repeat="rating in cloudService.ratings">
+                  <a ng-href="#/cloudservices/{{cloudService._id}}#{{criteria[rating._criterion].name}}"
+                     tooltip-placement="top"
+                     tooltip="{{criteria[rating._criterion].label}}"
+                     ng-class="{'circle-red': (rating.value == 2),
+                               'circle-amber': (rating.value == 1) ,
+                               'circle-green': (rating.value == 0)}">
+                  </a>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
       </div>
 
     </div>

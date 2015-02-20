@@ -9,10 +9,18 @@ agoraAppUtilsService.factory('Utils',
     return {
       isAdmin: function(scope) {
         var isAdmin = false;
-        if (scope.user && scope.user.groups.indexOf('admin') != -1) {
+        if (scope.user && scope.user.groups
+            && scope.user.groups.indexOf('admin') != -1) {
           isAdmin = true;
         }
         return isAdmin;
+      },
+      loggedIn: function(scope) {
+        if (scope.user) {
+          return true;
+        } else {
+          return false;
+        }
       }
     };
   });

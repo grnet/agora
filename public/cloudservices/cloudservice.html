@@ -7,10 +7,11 @@
                      ng-model="query">
       <br/>
       Sort by:
+
       <select id="select" class="form-control" ng-model="orderProp">
+        <option value="order">Initial</option>        
         <option value="_criterion.name">Alphabetical</option>
         <option value="value">Rating</option>
-        <option value="">Initial</option>
       </select>
 
     </div>
@@ -47,13 +48,17 @@
           <div ng-show="cloudServiceDetails.description">
             {{cloudServiceDetails.description}}
           </div>
-          <div ng-show="cloudServiceDetails.longDescription">
-            {{cloudServiceDetails.longDescription}}
+          <div class="cloud-service-long-description"
+               ng-show="cloudServiceDetails.longDescription">
+            <span ng-bind-html="longDescriptionTrusted"/>
           </div>
         </div>
 
         <div class="service-contact-details col-md-3">
           <legend>Contact details</legend>
+          <div ng-show="cloudServiceDetails._cloudServiceProvider.registeredName">
+            {{cloudServiceDetails._cloudServiceProvider.registeredName}}
+          </div>          
           <div ng-show="cloudServiceDetails.contactPerson">
             {{cloudServiceDetails.contactPerson}}
           </div>
@@ -63,6 +68,11 @@
           <div ng-show="cloudServiceDetails.contactEmail">
             {{cloudServiceDetails.contactEmail}}
           </div>                                                
+          <div class="text-muted">
+            <div class="ratings-date">Indicators:<br/>
+              {{ cloudServiceDetails.ratingsDate | date: 'yyyy-MM-dd' }}
+            </div>
+          </div>
         </div>
 
       </div>
@@ -86,7 +96,7 @@
                       | orderBy:orderProp" class="row">
         
         <div 
-           id="{{getCriterionName(rating._criterion, $last)}}"
+           id="{{rating._criterion.name}}"
            class="rating col-md-4"
            ng-class="{'rating-red': (rating.value == 2),
                      'rating-amber': (rating.value == 1) ,
@@ -118,7 +128,7 @@
                             'circle-amber': (rating.value == 1) ,
                             'circle-green': (rating.value == 0)}">
               &nbsp;</span>
-            <span ng-show="{{rating.comment}}"
+            <span ng-show="rating.comment"
                   ng-controller="CommentModalCtrl">
               <span popover-placement="top"
                     popover="{{rating.comment}}">

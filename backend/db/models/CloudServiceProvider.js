@@ -7,6 +7,9 @@ var cloudServiceProviderSchema = new Schema({
     required: true,
     unique: true
   },
+  registeredName: {
+    type: String
+  },
   description: {
     type: String,
     required: true

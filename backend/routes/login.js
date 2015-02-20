@@ -6,7 +6,7 @@ var jwt = require('jwt-simple');
 var conf = require('../config');
 var fs = require('fs');
 var ErrorMessage = require('../lib/errormessage');
-var Idp = require('../db/models/Idp');
+var EntityDescriptor = require('../db/models/EntityDescriptor');
     
 router.post('/', function(req, res, next) {
   var passport_strategy = 'local';
@@ -45,10 +45,10 @@ router.post('/', function(req, res, next) {
 
 router.get('/saml', function (req, res, next) {
   if (req.query.idp) {
-    var mquery = Idp.where({"entityId": req.query.idp});
+    var mquery = EntityDescriptor.where({"entityID": req.query.idp});
     mquery.findOne(function(err, idp) {
       if (!err && idp) {
-        conf.passport.saml.entryPoint = idp.entryPoint;
+        conf.passport.saml.entryPoint = idp.location;
       }
       require('../config/passport')(passport, conf);
       passport.authenticate('saml',
@@ -68,7 +68,7 @@ router.post('/saml/callback',
     var loginRedirectFile = fs.readFile(__dirname + '/../views/login_saml.html',
       'utf-8', 
       function(err, data) {
-        
+
         if (err) {
           res.status(500).send(
             new ErrorMessage('Internal server error', 'noreadloginsaml',
@@ -78,7 +78,8 @@ router.post('/saml/callback',
           var expires = moment().add('days', 7).valueOf();
           var token = jwt.encode({
               iss: req.user.id,
-              exp: expires
+              exp: expires,
+              edugain: true
           }, req.app.get('jwtTokenSecret'));
         
           var tokenValue = {

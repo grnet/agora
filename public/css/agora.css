@@ -258,7 +258,12 @@ form .form-group .narrow-input {
     margin-bottom: 12px;
 }
 
-.csp-list-name {
-    margin-left: 12px;
-    margin-right: 12px;
+.cloud-service-long-description {
+    height: 10em;
+    margin-top: 12px;
+    overflow: auto;
+}
+
+.ratings-date {
+  margin-top: 1em;
 }
