@@ -128,7 +128,7 @@
                             'circle-amber': (rating.value == 1) ,
                             'circle-green': (rating.value == 0)}">
               &nbsp;</span>
-            <span ng-show="{{rating.comment}}"
+            <span ng-show="rating.comment"
                   ng-controller="CommentModalCtrl">
               <span popover-placement="top"
                     popover="{{rating.comment}}">
