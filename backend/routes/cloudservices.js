@@ -63,7 +63,7 @@ router.get('/', function (req, res) {
   if (!user) {
     CloudService.find({ processingStatus: 2})
       .select('-ratings')
-      .populate('countries')
+      .populate('_cloudServiceProvider countries')
       .exec(function(err, cloudServices) {
         if (!err) {
           res.send(cloudServices);
@@ -75,7 +75,7 @@ router.get('/', function (req, res) {
       });    
   } else if (isAdmin) {
     CloudService.find()
-      .populate('countries')
+      .populate('_cloudServiceProvider countries')
       .exec(function(err, cloudServices) {
         if (!err) {
           res.send(cloudServices);
@@ -99,7 +99,7 @@ router.get('/', function (req, res) {
               { processingStatus: 2 },
               { _cloudServiceProvider: { $in: cloudServiceProviderIds } }
             ]})
-            .populate('countries')
+            .populate('_cloudServiceProvider countries')
             .exec(function(err, cloudServices) {
               if (!isEduGain) {
                 cloudServices.forEach(function(csItem) {

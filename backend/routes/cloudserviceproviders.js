@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
   var errors = [];
   var user = req.user;
   return CloudServiceProvider.find()
-    .populate('_country', 'code')
+    .populate('_country', 'code name')
     .exec(function (err, cloudServiceProviders) {
     if (!err) {
       var isAdmin = user && user.groups && user.groups.indexOf('admin') != -1;
