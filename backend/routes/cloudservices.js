@@ -105,7 +105,9 @@ router.get('/', function (req, res) {
               if (!isEduGain) {
                 cloudServices.forEach(function(csItem) {
                   cloudServiceProviderIds.forEach(function(cspIdItem) {
-                    if (!csItem._cloudServiceProvider.equals(cspIdItem._id)) {
+                    var cloudServiceProviderId =
+                      csItem._cloudServiceProvider._id;
+                    if (!cloudServiceProviderId.equals(cspIdItem._id)) {
                       csItem.ratings = null;
                     }
                   });
