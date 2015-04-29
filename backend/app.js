@@ -128,12 +128,18 @@ if (app.get('env') === 'development') {
 }
   
 if (conf.ssl) {
-  https.createServer(conf.ssl_options, app).listen(conf.nodejs_port, function(){
+  https.createServer(conf.ssl_options, app).listen({
+          port: conf.nodejs_port,
+          host: conf.nodejs_host,
+        }, function(){
     logger.log('info', 'Express server listening on port %d in %s mode (https)',
       conf.nodejs_port, app.get('env'));
   });
 } else {
-  http.createServer(app).listen(conf.nodejs_port, function(){
+  http.createServer(app).listen({
+      port: conf.nodejs_port,
+      host: conf.nodejs_host,
+    }, function(){
   logger.log('info', 'Express server listening on port %d in %s mode (http)',
     conf.nodejs_port, app.get('env'));
   });
