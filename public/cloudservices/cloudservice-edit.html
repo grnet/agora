@@ -113,10 +113,22 @@
             </agora-upload-image>
             <span class="error"
                   ng-show="cloudServiceForm.logo.$error.maxlength">
-              Description too long.
+              Logo too long.
             </span>
           </div>
-        
+
+          <div class="form-group"
+               <label for="url">
+                 Service URL
+               </label>
+               <input class="form-control narrow-input"
+                      type="url"
+                      name="url"
+                      pattern="https?://.+"                      
+                      ng-required="false"
+                      ng-model="cloudServiceDetails.url">
+          </div>
+
           <div class="form-group"
              ng-class="{
                'has-error': cloudServiceForm.contactPerson.$error.maxlength

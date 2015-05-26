@@ -46,15 +46,21 @@
                 </div>
             </div>
             <div class="col-md-9">
-              <h4 class="list-group-item-heading">
+              <span class="list-group-item-heading">
                 <a
                    ng-href="#/cloudserviceproviders/{{provider._id}}">
-                  {{provider.name}}
+                  <span class="h4">{{provider.name}}</span>
                 </a>
                 <img height="12"
                      ng-src="/images/flags/{{provider._country.code}}.svg"
                      />
-              </h4>
+                <span ng-if="provider.url">
+                  <a href="{{provider.url}}" target="_blank">
+                    <span class="glyphicon glyphicon-new-window"
+                          aria-hidden="true"/>
+                  </a>
+                </span>                
+              </span>
               <p class="list-group-item-text">{{provider.description}}</p>
             </div>
           </div> <!-- row -->

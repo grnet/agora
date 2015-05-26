@@ -33,6 +33,15 @@
         <dd> <img ng-if="cspDetails._country.code"
                   ng-src="/images/flags/{{cspDetails._country.code}}.svg"
                   height="12"> {{ cspDetails._country.name }} </dd>
+        <dt>URL</dt>
+        <dd>{{ cspDetails.url}}
+          <span ng-if="cspDetails.url">
+            <a href="{{cspDetails.url}}" target="_blank">
+              <span class="small glyphicon glyphicon-new-window"
+                    aria-hidden="true"/>
+            </a>
+          </span>            
+        </dd>
       </dl>
     </div>
       

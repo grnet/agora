@@ -84,6 +84,10 @@ var CloudServiceSchema = new Schema({
     type: String,
     required: false
   },
+  url: {
+    type: String,
+    required: false
+  },
   telephone: {
     type: String,
     required: false

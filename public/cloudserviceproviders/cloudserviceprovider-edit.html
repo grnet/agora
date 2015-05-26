@@ -91,6 +91,19 @@
         <i ng-show="loadingUsers"
            class="glyphicon glyphicon-refresh"></i>
       </div>
+
+      <div class="form-group"
+           <label for="url">
+             Provider URL
+           </label>
+           <input class="form-control narrow-input"
+                  type="url"
+                  name="url"
+                  pattern="https?://.+"                      
+                  ng-required="false"
+                  ng-model="cspDetails.url">
+      </div>
+
       
       <div class="row">
         <div class="col-md-4">

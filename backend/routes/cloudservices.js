@@ -132,6 +132,7 @@ router.post('/', function (req, res){
     description: req.body.description,
     longDescription: sanitizeHtml(req.body.longDescription),
     logo: req.body.logo,
+    url: req.body.url,
     contactPerson: req.body.contactPerson,
     telephone: req.body.telephone,
     contactEmail: req.body.contactEmail,
@@ -183,6 +184,7 @@ router.put('/:id', function (req, res){
         cloudService.name = req.body.name;
         cloudService.description = req.body.description;
         cloudService.logo = req.body.logo;
+        cloudService.url = req.body.url;
         cloudService.longDescription = req.body.longDescription;
         cloudService.contactPerson = req.body.contactPerson;
         cloudService.telephone = req.body.telephone;

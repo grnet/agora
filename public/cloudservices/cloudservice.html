@@ -25,14 +25,22 @@
                  alt="Logo"
                  height="36"/>
           </div>                  
-        <h2 class="col-md-8">{{cloudServiceDetails.name}}
-          <span ng-repeat="country in cloudServiceDetails.countries">
+        <span class="col-md-8">
+          <span class="h2">{{cloudServiceDetails.name}}
+            <span ng-repeat="country in cloudServiceDetails.countries">
               <img tooltip-placement="top"
                    tooltip="{{country.name}}"
                    ng-src="/images/flags/{{country.code}}.svg"
                    height="12"> 
+            </span>
+            <span class="h4" ng-if="cloudServiceDetails.url">
+              <a href="{{cloudServiceDetails.url}}" target="_blank">
+                <span class="glyphicon glyphicon-new-window"
+                      aria-hidden="true"/>
+              </a>
+            </span>            
           </span>
-        </h2>
+        </span>
         <div ng-show="canEdit"
                class="col-md-4">
           <h2>

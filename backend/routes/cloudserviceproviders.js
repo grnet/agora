@@ -96,6 +96,7 @@ router.put('/:id', function (req, res) {
         cloudServiceProvider.registeredName = req.body.registeredName;
         cloudServiceProvider.description = req.body.description;
         cloudServiceProvider.logo = req.body.logo;
+        cloudServiceProvider.url = req.body.url;
         cloudServiceProvider._country = req.body._country._id;
         cloudServiceProvider._user = req.body._user._id;
         cloudServiceProvider.save(function(err) {
@@ -124,6 +125,7 @@ router.post('/', function (req, res) {
       name: req.body.name,
       description: req.body.description,
       logo: req.body.logo,
+      url: req.body.url,
       _country: req.body._country._id,
       _user: req.body._user._id
     });
