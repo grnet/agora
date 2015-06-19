@@ -1,11 +1,11 @@
 var fs = require('fs');
 var request = require('request');
 var strict = true;
-var options = {};
+var options = { position: true };
 var util = require('util');
   
 var saxStream = require("sax").createStream(strict, options);
-
+  
 var mongoose = require('mongoose');
 var conf = require('../../config'); 
 
@@ -23,76 +23,88 @@ saxStream.on("error", function (e) {
   this._parser.resume();
 });
 
-var entityID = null;
 var entityDescriptors = {};
-var readCertificate = false;
+var latestDescriptor = null;
 var feedRead = false;
+var numSaved = 0;
+var numErrors = 0;
   
 var startDateTime = Date.now();
   
 saxStream.on("opentag", function (node) {
+
+  var entityID = null;
+  var descriptor = latestDescriptor;
+  var position = this._parser.position;
+  
   if (node.name == 'md:EntityDescriptor') {
     entityID = node.attributes['entityID'];
-    entityDescriptors[entityID] = {
-        collected: null,
-        tags: []
+    descriptor = {
+      collected: null,
+      readingCertificate: false,
+      position: position,
+      previous: latestDescriptor,
+      tags: []
     };
-    entityDescriptors[entityID].collected = new EntityDescriptor({
+    latestDescriptor = descriptor;
+    entityDescriptors[entityID] = descriptor;
+    descriptor.collected = new EntityDescriptor({
       entityID: entityID,
       location: null,
       certificate: ""
     });
-    entityDescriptors[entityID].tags.push(node.name);
-  } else if (entityID && node.name == 'md:SingleSignOnService'
-    && node.attributes['Binding'] ==
+    descriptor.tags.push(node.name);
+  } else {
+    while (descriptor && descriptor.position > position) {
+      descriptor = descriptor.previous;
+    }    
+    if (descriptor && node.name == 'md:SingleSignOnService'
+      && node.attributes['Binding'] ==
       'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect') {
-    entityDescriptors[entityID].collected.location =
-      node.attributes['Location'];
-    entityDescriptors[entityID].tags.push(node.name);    
-  } else if (entityID && node.name == 'ds:X509Certificate') {
-    readCertificate = true;
-    entityDescriptors[entityID].tags.push(node.name);    
+      descriptor.collected.location = node.attributes['Location'];
+      descriptor.tags.push(node.name);    
+    } else if (descriptor && node.name == 'ds:X509Certificate') {
+      descriptor.readingCertificate = true;
+      descriptor.tags.push(node.name);    
+    }
   }
   
 });
 
 saxStream.on("closetag", function(tagName) {
 
-  if (!entityID) {
+  var position = this._parser.position;
+  var descriptor = latestDescriptor;
+  var nextDescriptor = null;
+
+  while (descriptor && descriptor.position > position) {
+    nextDescriptor = descriptor;
+    descriptor = descriptor.previous;
+  }
+
+  if (!descriptor) {
     return;
   }
-
-  var currentEntityID = new String(entityID);
-      
+  
   var collected = null; 
-  var toSave = null;
-  if (currentEntityID && tagName == 'ds:X509Certificate') {
-    collected = entityDescriptors[currentEntityID].collected;
+  if (tagName == 'ds:X509Certificate') {
+    collected = descriptor.collected;
     collected.certificate =
       collected.certificate.replace(/^(\s+).+(\s+)$/, '');
-    readCertificate = false;
+      descriptor.readingCertificate = false;
   }
 
-  var tags = entityDescriptors[currentEntityID].tags;
+  var tags = descriptor.tags;
   var i = tags.indexOf(tagName);
   if (i != -1) {
     tags.splice(i, 1);
     if (tags.length == 0) {
       if (!collected) {
-        collected = entityDescriptors[currentEntityID].collected;
+        collected = descriptor.collected;
       }
-      console.log(collected.entityID);
-      if (!collected.location) {
-        delete entityDescriptors[currentEntityID];
-        entityID = null;
-        if (feedRead && Object.keys(entityDescriptors).length == 0) {
-          console.log("Feed processed");              
-          process.exit();
-        }        
-        return;
-      }
-      EntityDescriptor.findOne({ 'entityID': currentEntityID },
+      EntityDescriptor.findOne({ 'entityID': descriptor.collected.entityID },
         function(err, results) {
+          var toSave = null;
           if (results) {
             results.location = collected.location;
             results.certificate = collected.certificate;
@@ -100,17 +112,22 @@ saxStream.on("closetag", function(tagName) {
           } else {
             toSave = collected;
           }
-          toSave.save(function (err) {
+          toSave.save({writeconcern: {w: 1, j: true} }, function (err) {
             if (err) {
               console.log(err);
               console.log(toSave);
+              numErrors++;
+            } else {
+              numSaved++;
             }
-            console.log("+" + Object.keys(entityDescriptors).length);
-            delete entityDescriptors[currentEntityID];
-            entityID = null;
-            console.log("-" + Object.keys(entityDescriptors).length);
+            if (nextDescriptor) {
+              nextDescriptor.previous = descriptor.previous;
+            }
+            console.log(collected.entityID);
+            delete entityDescriptors[collected.entityID];
             if (feedRead && Object.keys(entityDescriptors).length == 0) {
-              console.log("Feed processed");              
+              console.log("Saved: ", numSaved);
+              console.log("Errors: ", numErrors);              
               process.exit();
             }
           });        
@@ -120,22 +137,35 @@ saxStream.on("closetag", function(tagName) {
 });
 
 saxStream.on("text", function(text) {
-  if (!entityID) {
+
+  var position = this._parser.position;  
+  var descriptor = latestDescriptor;
+
+  while (descriptor && descriptor.position > position) {
+    descriptor = descriptor.previous;
+  }
+
+  if (!descriptor) {
     return;
   }
-  var currentEntityID = new String(entityID);  
-  if (currentEntityID && readCertificate) {
-    entityDescriptors[currentEntityID].collected.certificate += text;
+  
+  if (descriptor.readingCertificate) {
+    descriptor.collected.certificate += text;
   }
 });
 
 saxStream.on("end", function() {
-  EntityDescriptor.remove({ createdAt: { $exists: true, $lt: startDateTime } },
+  EntityDescriptor.remove({ updatedAt: { $exists: true, $lt: startDateTime } },
     function(err) {
       if (err) {
         console.log(err);
       }
       feedRead = true;
+      if (Object.keys(entityDescriptors).length == 0) {
+        console.log("Saved: ", numSaved);
+        console.log("Errors: ", numErrors);                      
+        process.exit();
+      }
   });
 });
   

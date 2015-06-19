@@ -16,12 +16,22 @@ var entityDescriptorSchema = new mongoose.Schema({
     required: true
   },
   createdAt: {
-    type: Date,
-    default: Date.now,
-    required: true
-  }
+    type: Date
+  },
+  createdAt: {
+    type: Date
+  }  
 });
- 
+
+entityDescriptorSchema.pre('save', function(next) {
+  var now = new Date();
+  this.updatedAt = now;
+  if (!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
+  
 module.exports =  mongoose.model('EntityDescriptor', entityDescriptorSchema);
 
   
