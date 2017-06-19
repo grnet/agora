@@ -27,7 +27,8 @@
   <script src="/bower_components/angulartics/dist/angulartics-ga.min.js"></script>
   
   <script src="/app.js"></script>
-  <script src="/components/utils/utils-service.js"></script>  
+  <script src="/components/utils/utils-service.js"></script>
+  <script src="/index-controller.js"></script>  
   <script src="/main/main-controller.js"></script>
   <script src="/error/error-interceptor.js"></script>
   <script src="/navbar/navbar-controller.js"></script>
@@ -78,7 +79,9 @@
   </div>
 </div>
 
-<div class="navbar navbar-default" role="navigation">
+<div class="navbar navbar-default"
+     ng-hide="currentPath === '/'"
+     role="navigation">
   <div class="container">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-geant-nav">
@@ -96,7 +99,6 @@
     </div>
   </div>
 </div>
-
   <div class="container">
 
     <div class="row messages" ng-show="error || message" >
@@ -129,7 +131,7 @@
     </div>
 
     <div id="footer" class="col-lg-12">
-      <p style="text-align: right">&copy; 2014 &mdash; 2015</p>
+      <p style="text-align: right">&copy; 2014 &mdash; 2017</p>
     </div>
     
   </div>

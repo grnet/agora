@@ -5,6 +5,11 @@ body {
     font-size: 14px;
 }
 
+.splash-screen ul {
+    font-size: 21px;
+    font-weight: 200;
+}
+
 #footer {
     border-top: 1px solid #eaeaea;
     margin: 70px 0 20px 0;
